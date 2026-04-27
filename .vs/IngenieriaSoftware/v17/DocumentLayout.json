@@ -1,0 +1,168 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\derek\\source\\repos\\IngenieriaSoftware\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{469866EF-657C-475D-990C-45CB807A21FC}|IngenieriaSoftware\\UI_MB29.csproj|c:\\users\\derek\\source\\repos\\ingenieriasoftware\\ingenieriasoftware\\formlogin_mb29.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{469866EF-657C-475D-990C-45CB807A21FC}|IngenieriaSoftware\\UI_MB29.csproj|solutionrelative:ingenieriasoftware\\formlogin_mb29.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{469866EF-657C-475D-990C-45CB807A21FC}|IngenieriaSoftware\\UI_MB29.csproj|c:\\users\\derek\\source\\repos\\ingenieriasoftware\\ingenieriasoftware\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{469866EF-657C-475D-990C-45CB807A21FC}|IngenieriaSoftware\\UI_MB29.csproj|solutionrelative:ingenieriasoftware\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{469866EF-657C-475D-990C-45CB807A21FC}|IngenieriaSoftware\\UI_MB29.csproj|c:\\users\\derek\\source\\repos\\ingenieriasoftware\\ingenieriasoftware\\formprincipal_mb29.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{469866EF-657C-475D-990C-45CB807A21FC}|IngenieriaSoftware\\UI_MB29.csproj|solutionrelative:ingenieriasoftware\\formprincipal_mb29.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A4C5A3E2-AA25-4F19-8958-BEE6CE2C7BD7}|BLL\\BLL_MB29.csproj|c:\\users\\derek\\source\\repos\\ingenieriasoftware\\bll\\usuariobll_mb29.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A4C5A3E2-AA25-4F19-8958-BEE6CE2C7BD7}|BLL\\BLL_MB29.csproj|solutionrelative:bll\\usuariobll_mb29.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A42D4A04-54BF-4E18-B8EF-26143449F98E}|DAL\\DAL_MB29.csproj|c:\\users\\derek\\source\\repos\\ingenieriasoftware\\dal\\usuariodal_mb29.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A42D4A04-54BF-4E18-B8EF-26143449F98E}|DAL\\DAL_MB29.csproj|solutionrelative:dal\\usuariodal_mb29.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A4C5A3E2-AA25-4F19-8958-BEE6CE2C7BD7}|BLL\\BLL_MB29.csproj|c:\\users\\derek\\source\\repos\\ingenieriasoftware\\bll\\sessionmanager_mb29.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A4C5A3E2-AA25-4F19-8958-BEE6CE2C7BD7}|BLL\\BLL_MB29.csproj|solutionrelative:bll\\sessionmanager_mb29.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{27719F9E-B70E-49BE-9C69-87AA351A970E}|BE\\BE_MB29.csproj|c:\\users\\derek\\source\\repos\\ingenieriasoftware\\be\\iiniciosesion_mb29.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{27719F9E-B70E-49BE-9C69-87AA351A970E}|BE\\BE_MB29.csproj|solutionrelative:be\\iiniciosesion_mb29.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{27719F9E-B70E-49BE-9C69-87AA351A970E}|BE\\BE_MB29.csproj|c:\\users\\derek\\source\\repos\\ingenieriasoftware\\be\\usuariobe_mb29.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{27719F9E-B70E-49BE-9C69-87AA351A970E}|BE\\BE_MB29.csproj|solutionrelative:be\\usuariobe_mb29.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "FormPrincipal_MB29.cs",
+              "DocumentMoniker": "C:\\Users\\derek\\source\\repos\\IngenieriaSoftware\\IngenieriaSoftware\\FormPrincipal_MB29.cs",
+              "RelativeDocumentMoniker": "IngenieriaSoftware\\FormPrincipal_MB29.cs",
+              "ToolTip": "C:\\Users\\derek\\source\\repos\\IngenieriaSoftware\\IngenieriaSoftware\\FormPrincipal_MB29.cs",
+              "RelativeToolTip": "IngenieriaSoftware\\FormPrincipal_MB29.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABgAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-27T00:36:54.119Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\derek\\source\\repos\\IngenieriaSoftware\\IngenieriaSoftware\\Program.cs",
+              "RelativeDocumentMoniker": "IngenieriaSoftware\\Program.cs",
+              "ToolTip": "C:\\Users\\derek\\source\\repos\\IngenieriaSoftware\\IngenieriaSoftware\\Program.cs",
+              "RelativeToolTip": "IngenieriaSoftware\\Program.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-27T00:30:50.581Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "FormLogin_MB29.cs",
+              "DocumentMoniker": "C:\\Users\\derek\\source\\repos\\IngenieriaSoftware\\IngenieriaSoftware\\FormLogin_MB29.cs",
+              "RelativeDocumentMoniker": "IngenieriaSoftware\\FormLogin_MB29.cs",
+              "ToolTip": "C:\\Users\\derek\\source\\repos\\IngenieriaSoftware\\IngenieriaSoftware\\FormLogin_MB29.cs",
+              "RelativeToolTip": "IngenieriaSoftware\\FormLogin_MB29.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAQwDEAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-27T00:21:24.854Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "SessionManager_MB29.cs",
+              "DocumentMoniker": "C:\\Users\\derek\\source\\repos\\IngenieriaSoftware\\BLL\\SessionManager_MB29.cs",
+              "RelativeDocumentMoniker": "BLL\\SessionManager_MB29.cs",
+              "ToolTip": "C:\\Users\\derek\\source\\repos\\IngenieriaSoftware\\BLL\\SessionManager_MB29.cs",
+              "RelativeToolTip": "BLL\\SessionManager_MB29.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAA1wCwAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-27T00:12:17.428Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "IInicioSesion_MB29.cs",
+              "DocumentMoniker": "C:\\Users\\derek\\source\\repos\\IngenieriaSoftware\\BE\\IInicioSesion_MB29.cs",
+              "RelativeDocumentMoniker": "BE\\IInicioSesion_MB29.cs",
+              "ToolTip": "C:\\Users\\derek\\source\\repos\\IngenieriaSoftware\\BE\\IInicioSesion_MB29.cs",
+              "RelativeToolTip": "BE\\IInicioSesion_MB29.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-26T22:21:12.424Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "UsuarioBLL_MB29.cs",
+              "DocumentMoniker": "C:\\Users\\derek\\source\\repos\\IngenieriaSoftware\\BLL\\UsuarioBLL_MB29.cs",
+              "RelativeDocumentMoniker": "BLL\\UsuarioBLL_MB29.cs",
+              "ToolTip": "C:\\Users\\derek\\source\\repos\\IngenieriaSoftware\\BLL\\UsuarioBLL_MB29.cs",
+              "RelativeToolTip": "BLL\\UsuarioBLL_MB29.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAAAgwCIAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-26T21:48:32.856Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "UsuarioDAL_MB29.cs",
+              "DocumentMoniker": "C:\\Users\\derek\\source\\repos\\IngenieriaSoftware\\DAL\\UsuarioDAL_MB29.cs",
+              "RelativeDocumentMoniker": "DAL\\UsuarioDAL_MB29.cs",
+              "ToolTip": "C:\\Users\\derek\\source\\repos\\IngenieriaSoftware\\DAL\\UsuarioDAL_MB29.cs",
+              "RelativeToolTip": "DAL\\UsuarioDAL_MB29.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAD0AAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-26T21:48:09.88Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "UsuarioBE_MB29.cs",
+              "DocumentMoniker": "C:\\Users\\derek\\source\\repos\\IngenieriaSoftware\\BE\\UsuarioBE_MB29.cs",
+              "RelativeDocumentMoniker": "BE\\UsuarioBE_MB29.cs",
+              "ToolTip": "C:\\Users\\derek\\source\\repos\\IngenieriaSoftware\\BE\\UsuarioBE_MB29.cs",
+              "RelativeToolTip": "BE\\UsuarioBE_MB29.cs",
+              "ViewState": "AgIAAFYAAAAAAAAAAAAswG0AAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-26T22:06:22.597Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
