@@ -42,7 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bitacora_MB29.cs" />
+    <Compile Include="BitacoraDAL_MB29.cs" />
     <Compile Include="ConexionDB_MB29.cs" />
     <Compile Include="UsuarioDAL_MB29.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

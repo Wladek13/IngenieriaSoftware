@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BE_MB29;
+using BLL;
 using DAL_MB29;
 
 namespace BLL_MB29
@@ -34,7 +35,20 @@ namespace BLL_MB29
 
         public UsuarioBE_MB29 Login_MB29(string usuario, string contra)
         {
-            return _usuarios.FirstOrDefault(u => u.IniciarSesion_MB29(usuario, contra));
+           var uss= _usuarios.FirstOrDefault(u => u.IniciarSesion_MB29(usuario, contra));
+            if (uss != null)
+            {
+                SessionManager_MB29.Instancia.IniciarSesion(uss);
+
+                BitacoraBLL_MB29.instancia.registrar(
+                    "Login OK",
+                    "Seguridad",
+                    $"Usuario {usuario} inició sesión",
+                    criticidad: 1
+                );
+            }
+
+            return uss;
         }
 
         public void Guardar_MB29(UsuarioBE_MB29 usuario)
@@ -45,6 +59,14 @@ namespace BLL_MB29
             }
             _repo.GuardarUsuario_MB29(usuario);
             _usuarios.Add(usuario);
+
+            //accion critica por esto nivel 5
+            BitacoraBLL_MB29.instancia.registrar(
+               "Alta Usuario",
+             "Usuarios",
+            $"Se creó el usuario {usuario.Usuario}",
+            criticidad: 5
+            );
         }
 
         public void Modificar_MB29(UsuarioBE_MB29 usuario)
@@ -56,6 +78,13 @@ namespace BLL_MB29
             _repo.ModificarUsuario_MB29(usuario);
             var index = _usuarios.FindIndex(u => u.IdPersona == usuario.IdPersona);
             if (index >= 0) _usuarios[index] = usuario;
+
+            BitacoraBLL_MB29.instancia.registrar(
+                 "Modificar Usuario",
+                  "Usuarios",
+              $"Se modificó el usuario {usuario.Usuario}",
+               criticidad: 4
+             );
         }
 
         public void Eliminar_MB29(int idPersona)
@@ -65,6 +94,15 @@ namespace BLL_MB29
 
             _repo.EliminarUsuario_MB29(usuario);
             _usuarios.Remove(usuario);
+
+            //accion critica por esto nivel 5
+            BitacoraBLL_MB29.instancia.registrar(
+          "Eliminar Usuario",
+         "Usuarios",
+         $"Se eliminó el usuario {usuario.Usuario}",
+          criticidad: 5
+
+             );
 
         }
 

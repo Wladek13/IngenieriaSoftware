@@ -41,6 +41,15 @@ namespace BLL
 
         public void CerrarSesion()
         {
+            if (UsuarioActual != null)
+            {
+                BitacoraBLL_MB29.instancia.registrar(
+                    "Logout",
+                    "Seguridad",
+                    $"Usuario {UsuarioActual.Usuario} cerró sesión",
+                    criticidad: 1
+                );
+            }
             UsuarioActual = null;
         }
     }
