@@ -3,6 +3,14 @@
   "WorkspaceRootPath": "E:\\proyecttt\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{A42D4A04-54BF-4E18-B8EF-26143449F98E}|DAL\\DAL_MB29.csproj|e:\\proyecttt\\dal\\bitacora_mb29.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A42D4A04-54BF-4E18-B8EF-26143449F98E}|DAL\\DAL_MB29.csproj|solutionrelative:dal\\bitacora_mb29.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A4C5A3E2-AA25-4F19-8958-BEE6CE2C7BD7}|BLL\\BLL_MB29.csproj|E:\\proyecttt\\bll\\usuariobll_mb29.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A4C5A3E2-AA25-4F19-8958-BEE6CE2C7BD7}|BLL\\BLL_MB29.csproj|solutionrelative:bll\\usuariobll_mb29.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{D107F4C8-89CC-BEA8-D3D7-CA6B7733353D}|Elementos de la soluci\u00F3n{D107F4C8-89CC-BEA8-D3D7-CA6B7733353D}|E:\\proyecttt\\.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}",
       "RelativeMoniker": "D:0:0:{D107F4C8-89CC-BEA8-D3D7-CA6B7733353D}|Elementos de la soluci\u00F3n{D107F4C8-89CC-BEA8-D3D7-CA6B7733353D}|solutionrelative:.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}"
     },
@@ -21,10 +29,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{469866EF-657C-475D-990C-45CB807A21FC}|IngenieriaSoftware\\UI_MB29.csproj|E:\\proyecttt\\ingenieriasoftware\\formprincipal_mb29.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{469866EF-657C-475D-990C-45CB807A21FC}|IngenieriaSoftware\\UI_MB29.csproj|solutionrelative:ingenieriasoftware\\formprincipal_mb29.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A4C5A3E2-AA25-4F19-8958-BEE6CE2C7BD7}|BLL\\BLL_MB29.csproj|E:\\proyecttt\\bll\\usuariobll_mb29.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A4C5A3E2-AA25-4F19-8958-BEE6CE2C7BD7}|BLL\\BLL_MB29.csproj|solutionrelative:bll\\usuariobll_mb29.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A4C5A3E2-AA25-4F19-8958-BEE6CE2C7BD7}|BLL\\BLL_MB29.csproj|E:\\proyecttt\\bll\\sessionmanager_mb29.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -46,15 +50,36 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
             },
             {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "Bitacora_MB29.cs",
+              "DocumentMoniker": "E:\\proyecttt\\DAL\\Bitacora_MB29.cs",
+              "RelativeDocumentMoniker": "DAL\\Bitacora_MB29.cs",
+              "ToolTip": "E:\\proyecttt\\DAL\\Bitacora_MB29.cs",
+              "RelativeToolTip": "DAL\\Bitacora_MB29.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-28T19:19:00.615Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": ".gitignore",
               "DocumentMoniker": "E:\\proyecttt\\.gitignore",
               "RelativeDocumentMoniker": ".gitignore",
@@ -66,12 +91,8 @@
               "EditorCaption": ""
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
-            },
-            {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "FormLogin_MB29.cs",
               "DocumentMoniker": "E:\\proyecttt\\IngenieriaSoftware\\FormLogin_MB29.cs",
               "RelativeDocumentMoniker": "IngenieriaSoftware\\FormLogin_MB29.cs",
@@ -84,7 +105,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "SessionManager_MB29.cs",
               "DocumentMoniker": "E:\\proyecttt\\BLL\\SessionManager_MB29.cs",
               "RelativeDocumentMoniker": "BLL\\SessionManager_MB29.cs",
@@ -96,7 +117,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "IInicioSesion_MB29.cs",
               "DocumentMoniker": "E:\\proyecttt\\BE\\IInicioSesion_MB29.cs",
               "RelativeDocumentMoniker": "BE\\IInicioSesion_MB29.cs",
@@ -108,7 +129,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 1,
               "Title": "UsuarioBLL_MB29.cs",
               "DocumentMoniker": "E:\\proyecttt\\BLL\\UsuarioBLL_MB29.cs",
               "RelativeDocumentMoniker": "BLL\\UsuarioBLL_MB29.cs",
@@ -116,11 +137,12 @@
               "RelativeToolTip": "BLL\\UsuarioBLL_MB29.cs",
               "ViewState": "AgIAABYAAAAAAAAAAAAgwCIAAAAoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-26T21:48:32.856Z"
+              "WhenOpened": "2026-04-26T21:48:32.856Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "UsuarioDAL_MB29.cs",
               "DocumentMoniker": "E:\\proyecttt\\DAL\\UsuarioDAL_MB29.cs",
               "RelativeDocumentMoniker": "DAL\\UsuarioDAL_MB29.cs",
@@ -133,7 +155,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "UsuarioBE_MB29.cs",
               "DocumentMoniker": "E:\\proyecttt\\BE\\UsuarioBE_MB29.cs",
               "RelativeDocumentMoniker": "BE\\UsuarioBE_MB29.cs",
@@ -145,7 +167,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
               "Title": "FormPrincipal_MB29.cs",
               "DocumentMoniker": "E:\\proyecttt\\IngenieriaSoftware\\FormPrincipal_MB29.cs",
               "RelativeDocumentMoniker": "IngenieriaSoftware\\FormPrincipal_MB29.cs",
@@ -157,7 +179,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "Program.cs",
               "DocumentMoniker": "E:\\proyecttt\\IngenieriaSoftware\\Program.cs",
               "RelativeDocumentMoniker": "IngenieriaSoftware\\Program.cs",

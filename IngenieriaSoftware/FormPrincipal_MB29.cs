@@ -35,5 +35,40 @@ namespace IngenieriaSoftware
             _login.Show();   // vuelve al login oculto
             this.Close();    // cierra el menú
         }
+
+        private void crearUsuarioToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormRegistrarse_MB29 freg = new FormRegistrarse_MB29();
+            freg.Show();
+        }
+
+        private void cerrarSesionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void gestionDeUsuariosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormGESTIONUSER_MB29 FGESTUS= new FormGESTIONUSER_MB29();
+            FGESTUS.Show();
+        }
+
+        private void bitacoraDeEventosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormBitacora_MB29 FBITA = new FormBitacora_MB29();
+            FBITA.Show();
+        }
+
+        private void cerrarSesionToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            _login.Show();   // vuelve al login oculto
+            this.Close();    // cierra el menú
+        }
+
+        private void cerrarSesionToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            _login.Show();   // vuelve al login oculto
+            this.Close();    // cierra el menú
+        }
     }
 }
