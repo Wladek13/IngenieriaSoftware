@@ -26,14 +26,39 @@ namespace UI_MB29
 
         private void BtnLogin_Click(object sender, EventArgs e)
         {
-            UsuarioAutenticado = UsuarioBLL_MB29.Instancia.Login_MB29(UserTxt.Text.Trim(), ContraTxt.Text.Trim());
+            string usuario = UserTxt.Text.Trim();
+            string contra = ContraTxt.Text.Trim();
+
+            UsuarioAutenticado = UsuarioBLL_MB29.Instancia.Login_MB29(usuario, contra);
 
             if (UsuarioAutenticado == null)
             {
-                MessageBox.Show("Usuario o contraseña incorrectos");
+                var user = UsuarioBLL_MB29.Instancia.ObtenerUsuarioPorNombre(usuario);
+
+                if(user == null)
+                {
+                    MessageBox.Show("Usuario o contraseña incorrectos");
+                }
+                else
+                {
+                    if (UsuarioBLL_MB29.Instancia.EstaBloqueado_MB29(user))
+                    {
+                        MessageBox.Show($"Usuario bloqueado. Contacte al administrador.");
+                    }
+                    else if(UsuarioBLL_MB29.Instancia.EstaDeshabilitado_MB29(user))
+                    {
+                        MessageBox.Show($"Usuario desactivado por el administrador. Contacte al administrador.");
+                    }
+                    else
+                    {
+                        int intentosRestantes = 3 - user.IntentosErrados;
+                        MessageBox.Show($"Usuario o contraseña incorrectos. Intentos restantes: {intentosRestantes}");
+                    }
+                }
                 UserTxt.Clear();
                 ContraTxt.Clear();
                 UserTxt.Focus();
+                return;
             }
 
             bool loguearOK = SessionManager_MB29.Instancia.IniciarSesion(UsuarioAutenticado);

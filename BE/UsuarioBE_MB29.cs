@@ -76,6 +76,26 @@ namespace BE_MB29
             get { return _prioridad; }
             set { _prioridad = value; }
         }
+        private int _intentosErrados;
+        public int IntentosErrados
+        {
+            get { return _intentosErrados; }
+            set { _intentosErrados = value; }
+        }
+
+        private bool _bloqueado;
+        public bool Bloqueado
+        {
+            get { return _bloqueado; }
+            set { _bloqueado = value; }
+        }
+
+        private string _estado;
+        public string Estado
+        {
+            get { return _estado; }
+            set { _estado = value; }
+        }
 
         public UsuarioBE_MB29(int id, string usuario, string contra, bool esHash, string nombre, string apellido, double dni, int prioridad, string email, string telefono)
         {
@@ -95,6 +115,8 @@ namespace BE_MB29
             Prioridad = prioridad;
             Email = email;
             Telefono = telefono;
+            IntentosErrados = 0;
+            Bloqueado = false;
         }
 
         public UsuarioBE_MB29(string usuario, string contra)

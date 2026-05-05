@@ -22,29 +22,16 @@ namespace IngenieriaSoftware
 
         private FormLogin_MB29 _login;
 
-        public FormPrincipal_MB29(FormLogin_MB29 login)
+        /*public FormPrincipal_MB29(FormLogin_MB29 login)
         {
             InitializeComponent();
             _login = login;
-        }
-
-        private void BtnLogout_Click(object sender, EventArgs e)
-        {
-            SessionManager_MB29.Instancia.CerrarSesion();
-
-            _login.Show();   // vuelve al login oculto
-            this.Close();    // cierra el menú
-        }
+        }*/
 
         private void crearUsuarioToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FormRegistrarse_MB29 freg = new FormRegistrarse_MB29();
             freg.Show();
-        }
-
-        private void cerrarSesionToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void gestionDeUsuariosToolStripMenuItem_Click(object sender, EventArgs e)
@@ -61,12 +48,7 @@ namespace IngenieriaSoftware
 
         private void cerrarSesionToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            _login.Show();   // vuelve al login oculto
-            this.Close();    // cierra el menú
-        }
-
-        private void cerrarSesionToolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
+            SessionManager_MB29.Instancia.CerrarSesion();
             _login.Show();   // vuelve al login oculto
             this.Close();    // cierra el menú
         }

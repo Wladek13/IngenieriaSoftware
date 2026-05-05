@@ -35,8 +35,17 @@ namespace DAL_MB29
                         string nombre = reader["Nombre"].ToString();
                         string apellido = reader["Apellido"].ToString();
                         string email = reader["Email"].ToString();
+                        int intentoserrados = Convert.ToInt32(reader["IntentosErrados"].ToString());
+                        bool bloqueado = Convert.ToBoolean(reader["EstaBloqueado"].ToString());
+                        string estado = reader["Estado"].ToString();
 
-                        usuarios.Add(new UsuarioBE_MB29(id, usuario, passwordHash, true, nombre, apellido, dni, prioridad, email, telefono));
+                        UsuarioBE_MB29 user = new UsuarioBE_MB29(id, usuario, passwordHash, true, nombre, apellido, dni, prioridad, email, telefono);
+
+                        user.IntentosErrados = intentoserrados;
+                        user.Bloqueado = bloqueado;
+                        user.Estado = estado;
+
+                        usuarios.Add(user);
                     }
                 }
             }
@@ -65,7 +74,9 @@ namespace DAL_MB29
                 comando.Parameters.AddWithValue("@Apellido", usuario.Apellido);
                 comando.Parameters.AddWithValue("@Telefono", usuario.Telefono);
                 comando.Parameters.AddWithValue("@Email", usuario.Email);
-
+                comando.Parameters.AddWithValue("@Bloqueado", false);
+                comando.Parameters.AddWithValue("@IntentosErrados", 0);
+                comando.Parameters.AddWithValue("@Estado", "Habilitado");
 
                 int nuevoId = Convert.ToInt32(comando.ExecuteScalar());
                 usuario.IdPersona = nuevoId;
@@ -79,39 +90,55 @@ namespace DAL_MB29
 
             SqlConnection conexion = conectar.Conectar_MB29();
 
-            string query = @"UPDATE Persona SET DNI = @DNI, Usuario = @Usuario, PasswordHash = @PasswordHash, Nombre = @Nombre, Apellido = @Apellido, Telefono = @Telefono, Email = @Email
+            string query = @"UPDATE Persona SET Email = @Email, Prioridad = @Prioridad
                              WHERE IdPersona = @IdPersona";
 
             using (SqlCommand comando = new SqlCommand(query, conexion))
             {
                 comando.Parameters.AddWithValue("@IdPersona", usuario.IdPersona);
-                comando.Parameters.AddWithValue("@DNI", usuario.DNI);
-                comando.Parameters.AddWithValue("@Usuario", usuario.Usuario);
-                comando.Parameters.AddWithValue("@PasswordHash", usuario.PassHash);
-                comando.Parameters.AddWithValue("@Nombre", usuario.Nombre);
-                comando.Parameters.AddWithValue("@Apellido", usuario.Apellido);
-                comando.Parameters.AddWithValue("@Telefono", usuario.Telefono);
                 comando.Parameters.AddWithValue("@Email", usuario.Email);
+                comando.Parameters.AddWithValue("@Prioridad", usuario.Prioridad);
 
                 comando.ExecuteNonQuery();
             }
             conectar.Desconectar_MB29();
         }
 
-        public void EliminarUsuario_MB29(UsuarioBE_MB29 usuario)
+        public void DeshabilitarUsuario_MB29(UsuarioBE_MB29 usuario)
         {
             var conectar = new ConexionDB_MB29();
             SqlConnection conexion = conectar.Conectar_MB29();
 
-            string query = @"DELETE FROM Persona WHERE IdPersona = @IdPersona";
+            string query = @"UPDATE Persona SET Estado = @Estado 
+                             WHERE IdPersona = @IdPersona";
+
             using (SqlCommand comando = new SqlCommand(query, conexion))
             {
                 comando.Parameters.AddWithValue("@IdPersona", usuario.IdPersona);
+                comando.Parameters.AddWithValue("@Estado", usuario.Estado);
 
                 comando.ExecuteNonQuery();
             }
             conectar.Desconectar_MB29();
+        }
 
+        public void DesbloquearUsuario_MB29(UsuarioBE_MB29 usuario)
+        {
+            var conectar = new ConexionDB_MB29();
+            SqlConnection conexion = conectar.Conectar_MB29();
+
+            string query = @"UPDATE Persona SET Bloqueado = @Bloqueado, IntentosErrados = @IntentosErrados 
+                             WHERE IdPersona = @IdPersona";
+
+            using (SqlCommand comando = new SqlCommand(query, conexion))
+            {
+                comando.Parameters.AddWithValue("@IdPersona", usuario.IdPersona);
+                comando.Parameters.AddWithValue("@Bloqueado", usuario.Bloqueado);
+                comando.Parameters.AddWithValue("@IntentosErrados", usuario.IntentosErrados);
+
+                comando.ExecuteNonQuery();
+            }
+            conectar.Desconectar_MB29();
         }
     }
 }
