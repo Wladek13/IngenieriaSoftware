@@ -58,7 +58,7 @@ namespace IngenieriaSoftware
 
             DataGridViewRow fila = dataGridView1.SelectedRows[0];
             var usuario = fila.Cells["Usuario"].Value.ToString();
-            var user = UsuarioBLL_MB29.Instancia.ObtenerUsuarioPorNombre(usuario);
+            var user = UsuarioBLL_MB29.Instancia.ObtenerUsuarioPorNombre_MB29(usuario);
 
             NombreTxt.Text = user.Nombre;
             ApellidoTxt.Text = user.Apellido;
@@ -88,13 +88,13 @@ namespace IngenieriaSoftware
 
             if (!string.IsNullOrWhiteSpace(NombreTxt.Text))
                 resultado = resultado.Where(b => {
-                    var user = UsuarioBLL_MB29.Instancia.ObtenerUsuarioPorNombre(b.usuario);
+                    var user = UsuarioBLL_MB29.Instancia.ObtenerUsuarioPorNombre_MB29(b.usuario);
                     return user != null && user.Nombre.ToLower().Contains(NombreTxt.Text.ToLower());
                 }).ToList();
 
             if (!string.IsNullOrWhiteSpace(ApellidoTxt.Text))
                 resultado = resultado.Where(b => {
-                    var user = UsuarioBLL_MB29.Instancia.ObtenerUsuarioPorNombre(b.usuario);
+                    var user = UsuarioBLL_MB29.Instancia.ObtenerUsuarioPorNombre_MB29(b.usuario);
                     return user != null && user.Apellido.ToLower().Contains(ApellidoTxt.Text.ToLower());
                 }).ToList();
 

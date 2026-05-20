@@ -53,7 +53,7 @@ namespace UI_MB29
             string usuario = UserTxt.Text.Trim();
             string contra = ContraTxt.Text.Trim();
 
-            var user = UsuarioBLL_MB29.Instancia.ObtenerUsuarioPorNombre(usuario);
+            var user = UsuarioBLL_MB29.Instancia.ObtenerUsuarioPorNombre_MB29(usuario);
 
             if (UsuarioBLL_MB29.Instancia.EstaBloqueado_MB29(user))
             {

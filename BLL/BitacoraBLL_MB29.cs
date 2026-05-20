@@ -41,7 +41,7 @@ namespace BLL
                 descripcion,
                 criticidad);
 
-            _dal.Guardar(bitacora);
+            _dal.Guardar_MB29(bitacora);
         }
 
         public int ObtenerIntentosFallidos_MB29(string usuario)

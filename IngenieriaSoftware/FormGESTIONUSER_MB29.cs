@@ -231,7 +231,7 @@ namespace IngenieriaSoftware
 
         private void FiltrarUsuarios()
         {
-            var usuarios = UsuarioBLL_MB29.Instancia.ObtenerUsuarios();
+            var usuarios = UsuarioBLL_MB29.Instancia.ObtenerUsuarios_MB29();
 
             if (BloqueadosRB.Checked)
                 usuarios = usuarios.Where(u => u.Bloqueado).ToList();
@@ -259,7 +259,7 @@ namespace IngenieriaSoftware
         private void CargarDGV()
         {
             DGVUsuarios.DataSource = null;
-            List<UsuarioBE_MB29> usuarios = UsuarioBLL_MB29.Instancia.ObtenerUsuarios();
+            List<UsuarioBE_MB29> usuarios = UsuarioBLL_MB29.Instancia.ObtenerUsuarios_MB29();
             DGVUsuarios.DataSource = usuarios; // genera columnas automáticamente
 
             if (DGVUsuarios.Columns["PassHash"] != null)

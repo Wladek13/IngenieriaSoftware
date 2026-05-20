@@ -14,7 +14,7 @@ namespace DAL
     {
        
         
-            public void Guardar(BitacoraBE_MB29 bitacora)
+            public void Guardar_MB29(BitacoraBE_MB29 bitacora)
             {
                 var conectar = new ConexionDB_MB29();
                 var conexion = conectar.Conectar_MB29();

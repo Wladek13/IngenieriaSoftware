@@ -96,7 +96,7 @@ namespace BLL_MB29
                 return user;
         }
 
-        public UsuarioBE_MB29 ObtenerUsuarioPorNombre(string usuario)
+        public UsuarioBE_MB29 ObtenerUsuarioPorNombre_MB29(string usuario)
         {
             return _usuarios.FirstOrDefault(u => string.Equals(u.Usuario, usuario, StringComparison.OrdinalIgnoreCase));
         }
@@ -247,7 +247,7 @@ namespace BLL_MB29
             );
         }
 
-        public List<UsuarioBE_MB29> ObtenerUsuarios()
+        public List<UsuarioBE_MB29> ObtenerUsuarios_MB29()
         {
             return _usuarios;
         }

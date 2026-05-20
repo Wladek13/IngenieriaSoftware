@@ -47,7 +47,7 @@ namespace IngenieriaSoftware
             }
 
             //Buscar el usuario por nombre
-            var usuario = UsuarioBLL_MB29.Instancia.ObtenerUsuarioPorNombre(txtNombre.Text);
+            var usuario = UsuarioBLL_MB29.Instancia.ObtenerUsuarioPorNombre_MB29(txtNombre.Text);
             if (usuario == null)
             {
                 MessageBox.Show("Usuario no encontrado.");
