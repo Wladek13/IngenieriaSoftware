@@ -32,8 +32,7 @@
             this.ContraTxt = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.InicioSesionBtn = new System.Windows.Forms.Button();
-            this.RecuperarContraBtn = new System.Windows.Forms.Button();
+            this.BtnLogin = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // UserTxt
@@ -47,6 +46,7 @@
             // 
             this.ContraTxt.Location = new System.Drawing.Point(80, 53);
             this.ContraTxt.Name = "ContraTxt";
+            this.ContraTxt.PasswordChar = '*';
             this.ContraTxt.Size = new System.Drawing.Size(242, 20);
             this.ContraTxt.TabIndex = 1;
             // 
@@ -68,26 +68,17 @@
             this.label2.TabIndex = 3;
             this.label2.Text = "Contraseña";
             // 
-            // InicioSesionBtn
+            // BtnLogin
             // 
-            this.InicioSesionBtn.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.InicioSesionBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.InicioSesionBtn.Location = new System.Drawing.Point(22, 106);
-            this.InicioSesionBtn.Name = "InicioSesionBtn";
-            this.InicioSesionBtn.Size = new System.Drawing.Size(136, 60);
-            this.InicioSesionBtn.TabIndex = 4;
-            this.InicioSesionBtn.Text = "Iniciar Sesión";
-            this.InicioSesionBtn.UseVisualStyleBackColor = false;
-            // 
-            // RecuperarContraBtn
-            // 
-            this.RecuperarContraBtn.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.RecuperarContraBtn.Location = new System.Drawing.Point(196, 117);
-            this.RecuperarContraBtn.Name = "RecuperarContraBtn";
-            this.RecuperarContraBtn.Size = new System.Drawing.Size(126, 41);
-            this.RecuperarContraBtn.TabIndex = 5;
-            this.RecuperarContraBtn.Text = "¿Olvidaste tu contraseña?";
-            this.RecuperarContraBtn.UseVisualStyleBackColor = false;
+            this.BtnLogin.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.BtnLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnLogin.Location = new System.Drawing.Point(91, 98);
+            this.BtnLogin.Name = "BtnLogin";
+            this.BtnLogin.Size = new System.Drawing.Size(156, 75);
+            this.BtnLogin.TabIndex = 4;
+            this.BtnLogin.Text = "Iniciar Sesión";
+            this.BtnLogin.UseVisualStyleBackColor = false;
+            this.BtnLogin.Click += new System.EventHandler(this.BtnLogin_Click_1);
             // 
             // FormLogin_MB29
             // 
@@ -95,8 +86,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(342, 185);
-            this.Controls.Add(this.RecuperarContraBtn);
-            this.Controls.Add(this.InicioSesionBtn);
+            this.Controls.Add(this.BtnLogin);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.ContraTxt);
@@ -114,8 +104,7 @@
         private System.Windows.Forms.TextBox ContraTxt;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button InicioSesionBtn;
-        private System.Windows.Forms.Button RecuperarContraBtn;
+        private System.Windows.Forms.Button BtnLogin;
     }
 }
 

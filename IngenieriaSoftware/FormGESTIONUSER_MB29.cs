@@ -1,14 +1,21 @@
-﻿using System;
+﻿using BE;
+using BE_MB29;
+using BLL;
+using BLL_MB29;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using BLL_MB29;
-using BE_MB29;
+using System.Xml.Linq;
+
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 
 namespace IngenieriaSoftware
 {
@@ -153,7 +160,7 @@ namespace IngenieriaSoftware
                         var (usuarioGen, contraGen) = UsuarioBLL_MB29.AutogenerarCredenciales_MB29(nombre, apellido, dni);
 
                         //Asignar prioridad segun combo box
-                        int prioridad = RolCB.SelectedItem.ToString() == "Administrador" ? 1 : 2;
+                        int idrol = Convert.ToInt32(RolCB.SelectedValue);
 
                         //Crear usuario y guardarlo
                         var nuevoUsuario = new UsuarioBE_MB29(
@@ -164,9 +171,10 @@ namespace IngenieriaSoftware
                             nombre: nombre,
                             apellido: apellido,
                             dni: dni,
-                            prioridad: prioridad,
+                            idrol: idrol,
                             email: email,
-                            telefono: ""
+                            telefono: "",
+                            false
                         );
                         nuevoUsuario.Estado = "Habilitado";
 
@@ -188,7 +196,7 @@ namespace IngenieriaSoftware
                         break;
                     }
 
-                case 3:
+                case 3: //Modificar usuario
                     {
                         var seleccionado = (UsuarioBE_MB29)DGVUsuarios.CurrentRow.DataBoundItem;
                         if (!string.IsNullOrEmpty(EmailTxt.Text))
@@ -197,15 +205,17 @@ namespace IngenieriaSoftware
                         }
                         if(RolCB.SelectedItem != null)
                         {
-                            seleccionado.Prioridad = RolCB.SelectedItem.ToString() == "Administrador" ? 1 : 2;
+                            int idrol = Convert.ToInt32(RolCB.SelectedValue);
+                            seleccionado.IdRol = idrol;
                         }
+                        
                         UsuarioBLL_MB29.Instancia.Modificar_MB29(seleccionado);
                         MessageBox.Show($"El usuario {seleccionado.Nombre} fue modificado correctamente.");
                         CargarDGV();
                         break;
                     }
 
-                case 4:
+                case 4: //Desbloquear usuario
                     {
                         if(DGVUsuarios.CurrentRow != null)
                         {
@@ -219,6 +229,20 @@ namespace IngenieriaSoftware
             }
         }
 
+        private void FiltrarUsuarios()
+        {
+            var usuarios = UsuarioBLL_MB29.Instancia.ObtenerUsuarios();
+
+            if (BloqueadosRB.Checked)
+                usuarios = usuarios.Where(u => u.Bloqueado).ToList();
+            else if (ActivosRB.Checked)
+                usuarios = usuarios.Where(u => !u.Bloqueado).ToList();
+            else if (RBTodos.Checked)
+                usuarios = usuarios.ToList();
+
+                DGVUsuarios.DataSource = usuarios;
+        }
+
         private void DGVUsuarios_SelectionChanged(object sender, EventArgs e)
         {
             if (DGVUsuarios.SelectedRows.Count == 0) return;
@@ -229,14 +253,60 @@ namespace IngenieriaSoftware
             ApellidoTxt.Text = fila.Cells["Apellido"].Value.ToString();
             DNITxt.Text = fila.Cells["DNI"].Value.ToString();
             EmailTxt.Text = fila.Cells["Email"].Value.ToString();
-            RolCB.SelectedItem = fila.Cells["Prioridad"].Value.ToString() == "1" ? "Administrador" : "Usuario";
+            RolCB.SelectedValue = Convert.ToInt32(fila.Cells["IdRol"].Value);
         }
 
         private void CargarDGV()
         {
             DGVUsuarios.DataSource = null;
             List<UsuarioBE_MB29> usuarios = UsuarioBLL_MB29.Instancia.ObtenerUsuarios();
-            DGVUsuarios.DataSource = usuarios;
+            DGVUsuarios.DataSource = usuarios; // genera columnas automáticamente
+
+            if (DGVUsuarios.Columns["PassHash"] != null)
+                DGVUsuarios.Columns["PassHash"].Visible = false;
+            if (DGVUsuarios.Columns["Contra"] != null)
+                DGVUsuarios.Columns["Contra"].Visible = false;
+            if (DGVUsuarios.Columns["IntentosErrados"] != null)
+                DGVUsuarios.Columns["IntentosErrados"].Visible = false;
+        }
+
+        private void FormGESTIONUSER_MB29_Load(object sender, EventArgs e)
+        {
+            var roles = new List<Rol_MB29>
+            {
+                new Rol_MB29 { IdRol = 1, NombreRol = "Administrador" },
+                new Rol_MB29 { IdRol = 2, NombreRol = "Usuario" }
+            };
+
+            RolCB.DataSource = roles;
+            RolCB.DisplayMember = "NombreRol";
+            RolCB.ValueMember = "IdRol";
+
+            if (DGVUsuarios.Columns.Contains("Bloqueado"))
+                DGVUsuarios.Columns.Remove("Bloqueado");
+
+            var colBloqueado = new DataGridViewCheckBoxColumn();
+            colBloqueado.Name = "Bloqueado";
+            colBloqueado.HeaderText = "Bloqueado";
+            colBloqueado.DataPropertyName = "Bloqueado";
+            colBloqueado.ReadOnly = true;
+
+            DGVUsuarios.Columns.Add(colBloqueado);
+        }
+
+        private void BloqueadosRB_CheckedChanged(object sender, EventArgs e)
+        {
+            FiltrarUsuarios();
+        }
+
+        private void ActivosRB_CheckedChanged(object sender, EventArgs e)
+        {
+            FiltrarUsuarios();
+        }
+
+        private void RBTodos_CheckedChanged(object sender, EventArgs e)
+        {
+            FiltrarUsuarios();
         }
     }
 }

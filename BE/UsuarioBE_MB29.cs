@@ -70,11 +70,11 @@ namespace BE_MB29
             get { return contra; }
             set { contra = value; }
         }
-        private int _prioridad;
-        public int Prioridad
+        private int _idrol;
+        public int IdRol
         {
-            get { return _prioridad; }
-            set { _prioridad = value; }
+            get { return _idrol; }
+            set { _idrol = value; }
         }
         private int _intentosErrados;
         public int IntentosErrados
@@ -97,7 +97,7 @@ namespace BE_MB29
             set { _estado = value; }
         }
 
-        public UsuarioBE_MB29(int id, string usuario, string contra, bool esHash, string nombre, string apellido, double dni, int prioridad, string email, string telefono)
+        public UsuarioBE_MB29(int id, string usuario, string contra, bool esHash, string nombre, string apellido, double dni, int idrol, string email, string telefono, bool bloqueado)
         {
             IdPersona = id;
             Usuario = usuario;
@@ -112,11 +112,11 @@ namespace BE_MB29
             Nombre = nombre;
             Apellido = apellido;
             DNI = dni;
-            Prioridad = prioridad;
+            IdRol = idrol;
             Email = email;
             Telefono = telefono;
             IntentosErrados = 0;
-            Bloqueado = false;
+            Bloqueado = bloqueado;
         }
 
         public UsuarioBE_MB29(string usuario, string contra)

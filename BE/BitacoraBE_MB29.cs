@@ -46,14 +46,32 @@ namespace BE
             get { return _descripcion; }
             set { _descripcion = value; }
         }
-
-
         //evaluamos del 1 al 5 , 5 acciones criticas, 1 acciones menores
         private int _criticidad;
         public int Criticidad
         {
             get { return _criticidad; }
             set { _criticidad = value; }
+        }
+        public BitacoraBE_MB29(string _usuario, string _accion, string _modulo, DateTime _fecha, string _descripcion, int _criticidad)
+        {
+            usuario = _usuario;
+            accion = _accion;
+            modulo = _modulo;
+            fecha = _fecha;
+            Descripcion = _descripcion;
+            Criticidad = _criticidad;
+        }
+
+        public BitacoraBE_MB29(int _id, string _usuario, string _accion, string _modulo, DateTime _fecha, string _descripcion, int _criticidad)
+        {
+            id = _id;
+            usuario = _usuario;
+            accion = _accion;
+            modulo = _modulo;
+            fecha = _fecha;
+            Descripcion = _descripcion;
+            Criticidad = _criticidad;
         }
     }
 }

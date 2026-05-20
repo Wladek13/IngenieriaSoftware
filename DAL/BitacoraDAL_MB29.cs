@@ -1,4 +1,5 @@
 ﻿using BE;
+using BE_MB29;
 using DAL_MB29;
 using System;
 using System.Collections.Generic;
@@ -34,6 +35,64 @@ namespace DAL
 
                 conectar.Desconectar_MB29();
             }
-        
+
+        public List<BitacoraBE_MB29> CargarBitacora_MB29()
+        {
+            List<BitacoraBE_MB29> bitacora = new List<BitacoraBE_MB29>();
+
+            var conectar = new ConexionDB_MB29();
+            var conexion = conectar.Conectar_MB29();
+
+            string query = "SELECT Id, Usuario, Accion, Modulo, Fecha, Descripcion, Criticidad FROM Bitacora";
+
+            using (SqlCommand comando = new SqlCommand(query, conexion))
+            {
+                using (SqlDataReader reader = comando.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        int id = Convert.ToInt32(reader["Id"].ToString());
+                        string usuario = reader["Usuario"].ToString();
+                        string accion = reader["Accion"].ToString();
+                        string modulo = reader["Modulo"].ToString();
+                        DateTime fecha = Convert.ToDateTime(reader["Fecha"].ToString());
+                        string descripcion = reader["Descripcion"].ToString();
+                        int criticidad = Convert.ToInt32(reader["Criticidad"].ToString());
+
+                        BitacoraBE_MB29 bitac = new BitacoraBE_MB29(id, usuario, accion, modulo, fecha, descripcion, criticidad);
+
+                        bitacora.Add(bitac);
+                    }
+                }
+            }
+            conectar.Desconectar_MB29();
+
+            return bitacora;
+        }
+
+        public int ObtenerIntentosFallidos_MB29(string usuario)
+        {
+            var conectar = new ConexionDB_MB29();
+            var conexion = conectar.Conectar_MB29();
+
+            string query = @"
+        SELECT COUNT(*) FROM Bitacora
+        WHERE Usuario = @usuario
+          AND Accion  = 'Login Fallido'
+          AND Fecha   > ISNULL(
+              (SELECT MAX(Fecha) FROM Bitacora
+               WHERE Usuario = @usuario
+                 AND Accion IN ('Login OK', 'Desbloqueo')),
+              '1900-01-01')";
+
+            using (SqlCommand cmd = new SqlCommand(query, conexion))
+            {
+                cmd.Parameters.AddWithValue("@usuario", usuario);
+                int resultado = (int)cmd.ExecuteScalar();
+                conectar.Desconectar_MB29();
+                return resultado;
+            }
+        }
+
     }
 }

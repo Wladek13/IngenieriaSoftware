@@ -43,7 +43,8 @@ namespace BLL
         {
             if (UsuarioActual != null)
             {
-                BitacoraBLL_MB29.instancia.registrar(
+                BitacoraBLL_MB29.instancia.Registrar_MB29(
+                    Instancia.UsuarioActual.Usuario,
                     "Logout",
                     "Seguridad",
                     $"Usuario {UsuarioActual.Usuario} cerró sesión",

@@ -26,16 +26,51 @@ namespace UI_MB29
 
         private void BtnLogin_Click(object sender, EventArgs e)
         {
+            
+        }
+
+        private void RegistrarBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void RecuperarBtn_Click(object sender, EventArgs e)
+        {
+            FormCambiarContaseña_MB29 Frec = new FormCambiarContaseña_MB29();
+            Frec.Show();
+        }
+
+        private void BtnLogin_Click_1(object sender, EventArgs e)
+        {
+            bool loguearOK = SessionManager_MB29.Instancia.IniciarSesion(UsuarioAutenticado);
+
+            if (!loguearOK)
+            {
+                MessageBox.Show($"Ya hay un usuario logueado");
+                return;
+            }
+
             string usuario = UserTxt.Text.Trim();
             string contra = ContraTxt.Text.Trim();
+
+            var user = UsuarioBLL_MB29.Instancia.ObtenerUsuarioPorNombre(usuario);
+
+            if (UsuarioBLL_MB29.Instancia.EstaBloqueado_MB29(user))
+            {
+                MessageBox.Show($"Usuario bloqueado. Contacte al administrador.");
+                return;
+            }
+            else if (UsuarioBLL_MB29.Instancia.EstaDeshabilitado_MB29(user))
+            {
+                MessageBox.Show($"Usuario deshabilitado por el administrador. Contacte al administrador.");
+                return;
+            }
 
             UsuarioAutenticado = UsuarioBLL_MB29.Instancia.Login_MB29(usuario, contra);
 
             if (UsuarioAutenticado == null)
             {
-                var user = UsuarioBLL_MB29.Instancia.ObtenerUsuarioPorNombre(usuario);
-
-                if(user == null)
+                if (user == null)
                 {
                     MessageBox.Show("Usuario o contraseña incorrectos");
                 }
@@ -45,9 +80,9 @@ namespace UI_MB29
                     {
                         MessageBox.Show($"Usuario bloqueado. Contacte al administrador.");
                     }
-                    else if(UsuarioBLL_MB29.Instancia.EstaDeshabilitado_MB29(user))
+                    else if (UsuarioBLL_MB29.Instancia.EstaDeshabilitado_MB29(user))
                     {
-                        MessageBox.Show($"Usuario desactivado por el administrador. Contacte al administrador.");
+                        MessageBox.Show($"Usuario deshabilitado por el administrador. Contacte al administrador.");
                     }
                     else
                     {
@@ -59,15 +94,7 @@ namespace UI_MB29
                 ContraTxt.Clear();
                 UserTxt.Focus();
                 return;
-            }
-
-            bool loguearOK = SessionManager_MB29.Instancia.IniciarSesion(UsuarioAutenticado);
-
-            if (!loguearOK)
-            {
-                MessageBox.Show("Ya hay un usuario logueado");
-                return;
-            }
+            }         
 
             MessageBox.Show($"Bienvenido de nuevo {UsuarioAutenticado.Usuario}!");
 
@@ -75,17 +102,5 @@ namespace UI_MB29
             FP.Show();
             this.Hide();
         }
-
-        private void RegistrarBtn_Click(object sender, EventArgs e)
-        {
-            FormRegistrarse_MB29 Freg = new FormRegistrarse_MB29();
-            Freg.Show();
-        }
-
-        private void RecuperarBtn_Click(object sender, EventArgs e)
-        {
-            FormRecuperar_MB29 Frec = new FormRecuperar_MB29();
-            Frec.Show();
-        }
-     }
+    }
 }

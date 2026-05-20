@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using BE_MB29;
 using BLL;
 using DAL_MB29;
@@ -40,7 +38,8 @@ namespace BLL_MB29
            var user = _usuarios.FirstOrDefault(u => u.IniciarSesion_MB29(usuario, contra));
             if (user == null)
             {
-                BitacoraBLL_MB29.instancia.registrar(
+                BitacoraBLL_MB29.instancia.Registrar_MB29(
+                    usuario,
                    "Login Fallido",
                    "Seguridad",
                    $"{usuario} intentó iniciar sesión (usuario no encontrado)",
@@ -50,7 +49,8 @@ namespace BLL_MB29
             }
             if (EstaBloqueado_MB29(user))
             {
-                BitacoraBLL_MB29.instancia.registrar(
+                BitacoraBLL_MB29.instancia.Registrar_MB29(
+                    usuario,
                    "Login Bloqueado",
                    "Seguridad",
                    $"Se intento iniciar sesion con el usuario {usuario} pero está bloqueado.",
@@ -72,7 +72,8 @@ namespace BLL_MB29
 
                 SessionManager_MB29.Instancia.IniciarSesion(user);
 
-                BitacoraBLL_MB29.instancia.registrar(
+                BitacoraBLL_MB29.instancia.Registrar_MB29(
+                    SessionManager_MB29.Instancia.UsuarioActual.Usuario,
                     "Login OK",
                     "Seguridad",
                     $"Usuario {user.Usuario} inició sesión",
@@ -81,7 +82,7 @@ namespace BLL_MB29
             }
             else
             {
-                // Credenciales incorrectas
+                //Credenciales incorrectas
                 user.IntentosErrados++;
                 if (user.IntentosErrados >= Intentos_MAX)
                 {
@@ -104,31 +105,37 @@ namespace BLL_MB29
         {
             if (usuario == null) return false;
             if (usuario.Bloqueado) return true;
-            if(usuario.IntentosErrados >= Intentos_MAX)
+
+            int intentos = BitacoraBLL_MB29.instancia.ObtenerIntentosFallidos_MB29(usuario.Usuario);
+
+            if (intentos >= Intentos_MAX)
             {
                 usuario.Bloqueado = true;
                 _repo.ModificarUsuario_MB29(usuario);
                 Recargar_MB29();
-
-                BitacoraBLL_MB29.instancia.registrar(
-                    "Login Fallido",
+                BitacoraBLL_MB29.instancia.Registrar_MB29(
+                    usuario.Usuario,
+                    "Login Bloqueado",
                     "Seguridad",
-                    $"El usuario {usuario.Usuario} ingresó credenciales incorrectas y se bloqueó su usuario",
-                    criticidad: 2
+                    $"El usuario {usuario.Usuario} superó los intentos máximos y fue bloqueado",
+                    criticidad: 3
                 );
                 return true;
             }
-
             return false;
         }
 
         public bool EstaDeshabilitado_MB29(UsuarioBE_MB29 usuario)
         {
-            if (usuario.Estado == "Deshabilitado") return true;
-            else
-            {
-                return false;
-            }
+             if(usuario != null)
+             {
+                if (usuario.Estado == "Deshabilitado") return true;
+                else
+                {
+                    return false;
+                }
+             }
+            else { return false; }
         }
 
         public bool EstaBloqueado_MB29(string user)
@@ -161,7 +168,8 @@ namespace BLL_MB29
             _usuarios.Add(usuario);
 
             //accion critica por esto nivel 5
-            BitacoraBLL_MB29.instancia.registrar(
+            BitacoraBLL_MB29.instancia.Registrar_MB29(
+                SessionManager_MB29.Instancia.UsuarioActual.Usuario,
                 "Alta Usuario",
                 "Usuarios",
                 $"Se creó el usuario {usuario.Usuario}",
@@ -182,12 +190,21 @@ namespace BLL_MB29
             _repo.DesbloquearUsuario_MB29(usuario);
             Recargar_MB29();
 
-            BitacoraBLL_MB29.instancia.registrar(
+            BitacoraBLL_MB29.instancia.Registrar_MB29(
+                SessionManager_MB29.Instancia.UsuarioActual.Usuario,
                  "Desbloquear Usuario",
                   "Usuarios",
               $"Se desbloqueó el usuario {usuario.Usuario}",
                criticidad: 4
              );
+
+            BitacoraBLL_MB29.instancia.Registrar_MB29(
+                    usuario.Usuario,
+                    "Desbloqueo",
+                    "Seguridad",
+                    $"{usuario.Usuario}",
+                    criticidad: 1
+                );
         }
 
         public void Modificar_MB29(UsuarioBE_MB29 usuario)
@@ -199,7 +216,8 @@ namespace BLL_MB29
             _repo.ModificarUsuario_MB29(usuario);
             Recargar_MB29();
 
-            BitacoraBLL_MB29.instancia.registrar(
+            BitacoraBLL_MB29.instancia.Registrar_MB29(
+                SessionManager_MB29.Instancia.UsuarioActual.Usuario,
                  "Modificar Usuario",
                   "Usuarios",
               $"Se modificó el usuario {usuario.Usuario}",
@@ -220,11 +238,12 @@ namespace BLL_MB29
             Recargar_MB29();
 
             //accion critica por esto nivel 5
-            BitacoraBLL_MB29.instancia.registrar(
-            "Deshabilitar Usuario",
-            "Usuarios",
-            $"Se deshabilitó el usuario {usuario.Usuario}",
-            criticidad: 5
+            BitacoraBLL_MB29.instancia.Registrar_MB29(
+                SessionManager_MB29.Instancia.UsuarioActual.Usuario,
+                "Deshabilitar Usuario",
+                "Usuarios",
+                $"Se deshabilitó el usuario {usuario.Usuario}",
+                criticidad: 5
             );
         }
 
@@ -236,6 +255,19 @@ namespace BLL_MB29
         public void Recargar_MB29()
         {
             _usuarios = _repo.CargarUsuarios_MB29();
+        }
+
+        public void CambiarContraseña_MB29(UsuarioBE_MB29 usuario)
+        {
+            _repo.CambiarContraseña_MB29(usuario);
+
+            BitacoraBLL_MB29.instancia.Registrar_MB29(
+                usuario.Usuario,
+                "Cambiar Contraseña",
+                "Seguridad",
+                $"El usuario {usuario.Usuario} cambió su contraseña",
+                criticidad: 1
+            );
         }
     }
 }

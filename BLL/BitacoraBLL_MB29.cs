@@ -1,4 +1,6 @@
-﻿using DAL;
+﻿using BE;
+using BE_MB29;
+using DAL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,24 +24,29 @@ namespace BLL
         }
 
         private BitacoraDAL_MB29 _dal = new BitacoraDAL_MB29();
+        private List<BitacoraBE_MB29> _bitacora = new List<BitacoraBE_MB29>();
 
-        public void registrar(string accion, string modulo, string descripcion, int criticidad)
+        public List<BitacoraBE_MB29> CargarBitacora_MB29()
         {
-            //no va a guardar nada en bitacora sin usuario logueado
-            if (!SessionManager_MB29.Instancia.HaySesion())
-                throw new Exception("No se puede registrar en la bitácora sin un usuario logueado.");
+            _bitacora = _dal.CargarBitacora_MB29();
+            return _bitacora;
+        }
 
-            string usuario = SessionManager_MB29.Instancia.UsuarioActual.Usuario;
-            var bitacora = new BE.BitacoraBE_MB29
-            {
-                usuario = usuario,
-                accion = accion,
-                modulo = modulo,
-                fecha = DateTime.Now,
-                Descripcion = descripcion,
-                Criticidad = criticidad
-            };
+        public void Registrar_MB29(string usuario, string accion, string modulo, string descripcion, int criticidad)
+        {           
+            BitacoraBE_MB29 bitacora = new BitacoraBE_MB29(usuario,
+                accion,
+                modulo,
+                DateTime.Now,
+                descripcion,
+                criticidad);
+
             _dal.Guardar(bitacora);
+        }
+
+        public int ObtenerIntentosFallidos_MB29(string usuario)
+        {
+            return _dal.ObtenerIntentosFallidos_MB29(usuario);
         }
     }
 }

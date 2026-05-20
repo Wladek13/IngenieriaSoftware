@@ -47,6 +47,7 @@
             this.BloqueadosRB = new System.Windows.Forms.RadioButton();
             this.BtnSalir = new System.Windows.Forms.Button();
             this.BtnDesbloquear = new System.Windows.Forms.Button();
+            this.RBTodos = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.DGVUsuarios)).BeginInit();
             this.SuspendLayout();
             // 
@@ -222,12 +223,13 @@
             this.ActivosRB.TabStop = true;
             this.ActivosRB.Text = "Activos";
             this.ActivosRB.UseVisualStyleBackColor = true;
+            this.ActivosRB.CheckedChanged += new System.EventHandler(this.ActivosRB_CheckedChanged);
             // 
             // BloqueadosRB
             // 
             this.BloqueadosRB.AutoSize = true;
             this.BloqueadosRB.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BloqueadosRB.Location = new System.Drawing.Point(545, 341);
+            this.BloqueadosRB.Location = new System.Drawing.Point(545, 334);
             this.BloqueadosRB.Margin = new System.Windows.Forms.Padding(2);
             this.BloqueadosRB.Name = "BloqueadosRB";
             this.BloqueadosRB.Size = new System.Drawing.Size(134, 29);
@@ -235,6 +237,7 @@
             this.BloqueadosRB.TabStop = true;
             this.BloqueadosRB.Text = "Bloqueados";
             this.BloqueadosRB.UseVisualStyleBackColor = true;
+            this.BloqueadosRB.CheckedChanged += new System.EventHandler(this.BloqueadosRB_CheckedChanged);
             // 
             // BtnSalir
             // 
@@ -262,12 +265,28 @@
             this.BtnDesbloquear.UseVisualStyleBackColor = false;
             this.BtnDesbloquear.Click += new System.EventHandler(this.BtnDesbloquear_Click);
             // 
+            // RBTodos
+            // 
+            this.RBTodos.AutoSize = true;
+            this.RBTodos.Checked = true;
+            this.RBTodos.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RBTodos.Location = new System.Drawing.Point(545, 367);
+            this.RBTodos.Margin = new System.Windows.Forms.Padding(2);
+            this.RBTodos.Name = "RBTodos";
+            this.RBTodos.Size = new System.Drawing.Size(86, 29);
+            this.RBTodos.TabIndex = 24;
+            this.RBTodos.TabStop = true;
+            this.RBTodos.Text = "Todos";
+            this.RBTodos.UseVisualStyleBackColor = true;
+            this.RBTodos.CheckedChanged += new System.EventHandler(this.RBTodos_CheckedChanged);
+            // 
             // FormGESTIONUSER_MB29
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(964, 569);
+            this.Controls.Add(this.RBTodos);
             this.Controls.Add(this.BtnDesbloquear);
             this.Controls.Add(this.BtnSalir);
             this.Controls.Add(this.BloqueadosRB);
@@ -290,6 +309,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "FormGESTIONUSER_MB29";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.FormGESTIONUSER_MB29_Load);
             ((System.ComponentModel.ISupportInitialize)(this.DGVUsuarios)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -316,5 +336,6 @@
         private System.Windows.Forms.RadioButton BloqueadosRB;
         private System.Windows.Forms.Button BtnSalir;
         private System.Windows.Forms.Button BtnDesbloquear;
+        private System.Windows.Forms.RadioButton RBTodos;
     }
 }
