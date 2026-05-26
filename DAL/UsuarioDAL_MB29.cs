@@ -17,34 +17,30 @@ namespace DAL_MB29
             var conectar = new ConexionDB_MB29();
             var conexion = conectar.Conectar_MB29();
 
-            string query = "SELECT IdPersona, DNI, Prioridad, Usuario, PasswordHash, Nombre, Apellido, Telefono, Email FROM Persona";
+            string query = "SELECT IdPersona, DNI, IdRol, Usuario, PasswordHash, Nombre, Apellido, Telefono, Email, Estado, Bloqueado, PrimerLogin FROM Persona";
             
             using (SqlCommand comando = new SqlCommand(query, conexion))
             {
                 using (SqlDataReader reader = comando.ExecuteReader())
                 {
-
                     while (reader.Read())
                     {
                         int id = Convert.ToInt32(reader["IdPersona"].ToString());
                         double dni = Convert.ToDouble(reader["DNI"].ToString());
-                        int prioridad = Convert.ToInt32(reader["Prioridad"].ToString());
+                        int idrol = Convert.ToInt32(reader["IdRol"].ToString());
                         string usuario = reader["Usuario"].ToString();
                         string passwordHash = reader["PasswordHash"].ToString();
                         string telefono = reader["Telefono"].ToString();
                         string nombre = reader["Nombre"].ToString();
                         string apellido = reader["Apellido"].ToString();
                         string email = reader["Email"].ToString();
-                        int intentoserrados = Convert.ToInt32(reader["IntentosErrados"].ToString());
-                        bool bloqueado = Convert.ToBoolean(reader["EstaBloqueado"].ToString());
                         string estado = reader["Estado"].ToString();
+                        bool bloqueado = Convert.ToBoolean(reader["Bloqueado"]);
+                        bool primerLogin = Convert.ToBoolean(reader["PrimerLogin"]);
 
-                        UsuarioBE_MB29 user = new UsuarioBE_MB29(id, usuario, passwordHash, true, nombre, apellido, dni, prioridad, email, telefono);
-
-                        user.IntentosErrados = intentoserrados;
-                        user.Bloqueado = bloqueado;
+                        UsuarioBE_MB29 user = new UsuarioBE_MB29(id, usuario, passwordHash, true, nombre, apellido, dni, idrol, email, telefono, bloqueado);
                         user.Estado = estado;
-
+                        user.PrimerLogin = primerLogin;
                         usuarios.Add(user);
                     }
                 }
@@ -60,14 +56,14 @@ namespace DAL_MB29
 
             SqlConnection conexion = conectar.Conectar_MB29();
 
-            string query = @"INSERT INTO Persona (DNI, Prioridad, Usuario, Nombre, Apellido, Telefono, Email, PasswordHash)
-                            VALUES (@DNI, @Prioridad, @Usuario, @Nombre, @Apellido, @Telefono, @Email, @PasswordHash);
+            string query = @"INSERT INTO Persona (DNI, IdRol, Usuario, Nombre, Apellido, Telefono, Email, PasswordHash, Bloqueado, Estado, primerlogin)
+                            VALUES (@DNI, @IdRol, @Usuario, @Nombre, @Apellido, @Telefono, @Email, @PasswordHash, @Bloqueado, @Estado, 1);
                             SELECT CAST(SCOPE_IDENTITY() AS INT);";
 
             using (SqlCommand comando = new SqlCommand(query, conexion))
             {
                 comando.Parameters.AddWithValue("@DNI", usuario.DNI);
-                comando.Parameters.AddWithValue("@Prioridad", usuario.Prioridad);
+                comando.Parameters.AddWithValue("@IdRol", usuario.IdRol);
                 comando.Parameters.AddWithValue("@Usuario", usuario.Usuario);
                 comando.Parameters.AddWithValue("@PasswordHash", usuario.PassHash);
                 comando.Parameters.AddWithValue("@Nombre", usuario.Nombre);
@@ -75,7 +71,6 @@ namespace DAL_MB29
                 comando.Parameters.AddWithValue("@Telefono", usuario.Telefono);
                 comando.Parameters.AddWithValue("@Email", usuario.Email);
                 comando.Parameters.AddWithValue("@Bloqueado", false);
-                comando.Parameters.AddWithValue("@IntentosErrados", 0);
                 comando.Parameters.AddWithValue("@Estado", "Habilitado");
 
                 int nuevoId = Convert.ToInt32(comando.ExecuteScalar());
@@ -90,14 +85,15 @@ namespace DAL_MB29
 
             SqlConnection conexion = conectar.Conectar_MB29();
 
-            string query = @"UPDATE Persona SET Email = @Email, Prioridad = @Prioridad
+            string query = @"UPDATE Persona SET Email = @Email, IdRol = @IdRol, Bloqueado = @Bloqueado
                              WHERE IdPersona = @IdPersona";
 
             using (SqlCommand comando = new SqlCommand(query, conexion))
             {
                 comando.Parameters.AddWithValue("@IdPersona", usuario.IdPersona);
                 comando.Parameters.AddWithValue("@Email", usuario.Email);
-                comando.Parameters.AddWithValue("@Prioridad", usuario.Prioridad);
+                comando.Parameters.AddWithValue("@IdRol", usuario.IdRol);
+                comando.Parameters.AddWithValue("@Bloqueado", usuario.Bloqueado);
 
                 comando.ExecuteNonQuery();
             }
@@ -127,17 +123,53 @@ namespace DAL_MB29
             var conectar = new ConexionDB_MB29();
             SqlConnection conexion = conectar.Conectar_MB29();
 
-            string query = @"UPDATE Persona SET Bloqueado = @Bloqueado, IntentosErrados = @IntentosErrados 
+            string query = @"UPDATE Persona SET Bloqueado = @Bloqueado, primerlogin= @PrimerLogin
                              WHERE IdPersona = @IdPersona";
 
             using (SqlCommand comando = new SqlCommand(query, conexion))
             {
                 comando.Parameters.AddWithValue("@IdPersona", usuario.IdPersona);
                 comando.Parameters.AddWithValue("@Bloqueado", usuario.Bloqueado);
-                comando.Parameters.AddWithValue("@IntentosErrados", usuario.IntentosErrados);
+                comando.Parameters.AddWithValue("@PrimerLogin", usuario.PrimerLogin);
 
                 comando.ExecuteNonQuery();
             }
+            conectar.Desconectar_MB29();
+        }
+
+        public void CambiarContraseña_MB29(UsuarioBE_MB29 usuario)
+        {
+            var conectar = new ConexionDB_MB29();
+
+            SqlConnection conexion = conectar.Conectar_MB29();
+
+            string query = @"UPDATE Persona SET PasswordHash = @PasswordHash
+                             WHERE IdPersona = @IdPersona";
+
+            using (SqlCommand comando = new SqlCommand(query, conexion))
+            {
+                comando.Parameters.AddWithValue("@IdPersona", usuario.IdPersona);
+                comando.Parameters.AddWithValue("@PasswordHash", usuario.PassHash);
+
+                comando.ExecuteNonQuery();
+            }
+            conectar.Desconectar_MB29();
+        }
+
+
+        public void MarcarPrimerLoginUsado_MB29(UsuarioBE_MB29 usuario)
+        {
+            var conectar = new ConexionDB_MB29();
+            var conexion = conectar.Conectar_MB29();
+
+            string query = "UPDATE Persona SET PrimerLogin = 0 WHERE IdPersona = @IdPersona";
+
+            using (SqlCommand comando = new SqlCommand(query, conexion))
+            {
+                comando.Parameters.AddWithValue("@IdPersona", usuario.IdPersona);
+                comando.ExecuteNonQuery();
+            }
+
             conectar.Desconectar_MB29();
         }
     }

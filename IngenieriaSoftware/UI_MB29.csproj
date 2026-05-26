@@ -34,6 +34,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BouncyCastle.Cryptography, Version=2.0.0.0, Culture=neutral, PublicKeyToken=072edcf4a5328938, processorArchitecture=MSIL">
+      <HintPath>..\packages\BouncyCastle.Cryptography.2.6.2\lib\net461\BouncyCastle.Cryptography.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.5, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.13.5\lib\net461\itextsharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -71,17 +77,11 @@
     <Compile Include="FormPrincipal_MB29.Designer.cs">
       <DependentUpon>FormPrincipal_MB29.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormRecuperar_MB29.cs">
+    <Compile Include="FormCambiarContaseña_MB29.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormRecuperar_MB29.Designer.cs">
-      <DependentUpon>FormRecuperar_MB29.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FormRegistrarse_MB29.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormRegistrarse_MB29.Designer.cs">
-      <DependentUpon>FormRegistrarse_MB29.cs</DependentUpon>
+    <Compile Include="FormCambiarContaseña_MB29.Designer.cs">
+      <DependentUpon>FormCambiarContaseña_MB29.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -97,6 +97,9 @@
     <EmbeddedResource Include="FormPrincipal_MB29.resx">
       <DependentUpon>FormPrincipal_MB29.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormCambiarContaseña_MB29.resx">
+      <DependentUpon>FormCambiarContaseña_MB29.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -107,6 +110,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -121,13 +125,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BE\BE_MB29.csproj">
-      <Project>{27719f9e-b70e-49be-9c69-87aa351a970e}</Project>
-      <Name>BE_MB29</Name>
-    </ProjectReference>
     <ProjectReference Include="..\BLL\BLL_MB29.csproj">
       <Project>{a4c5a3e2-aa25-4f19-8958-bee6ce2c7bd7}</Project>
       <Name>BLL_MB29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Servicio_MB29\Servicio_MB29.csproj">
+      <Project>{1cd5e8fd-a4cc-4b11-a0fa-12383a006e92}</Project>
+      <Name>Servicio_MB29</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

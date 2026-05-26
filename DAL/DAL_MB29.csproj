@@ -48,9 +48,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BE\BE_MB29.csproj">
-      <Project>{27719f9e-b70e-49be-9c69-87aa351a970e}</Project>
-      <Name>BE_MB29</Name>
+    <ProjectReference Include="..\Servicio_MB29\Servicio_MB29.csproj">
+      <Project>{1cd5e8fd-a4cc-4b11-a0fa-12383a006e92}</Project>
+      <Name>Servicio_MB29</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

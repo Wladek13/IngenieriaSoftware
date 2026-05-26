@@ -42,10 +42,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BitacoraBE_MB29.cs" />
-    <Compile Include="Encriptador_MB29.cs" />
-    <Compile Include="IInicioSesion_MB29.cs" />
-    <Compile Include="UsuarioBE_MB29.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
