@@ -1,5 +1,4 @@
-﻿using BE;
-using BE_MB29;
+﻿using Servicio_MB29;
 using DAL;
 using System;
 using System.Collections.Generic;
@@ -7,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BLL
+namespace Servicio_MB29
 {
    public class BitacoraBLL_MB29
     {

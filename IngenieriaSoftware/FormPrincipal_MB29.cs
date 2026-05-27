@@ -1,5 +1,5 @@
-﻿using BE_MB29;
-using BLL;
+﻿using BLL_MB29;
+using Servicio_MB29;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -39,17 +39,6 @@ namespace IngenieriaSoftware
             }
         }
 
-        /*public FormPrincipal_MB29(FormLogin_MB29 login)
-        {
-            InitializeComponent();
-            _login = login;
-        }*/
-
-        private void crearUsuarioToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void gestionDeUsuariosToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FormGESTIONUSER_MB29 FGESTUS= new FormGESTIONUSER_MB29();
@@ -64,7 +53,8 @@ namespace IngenieriaSoftware
 
         private void cerrarSesionToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            SessionManager_MB29.Instancia.CerrarSesion();
+            UsuarioBE_MB29 usuario = SessionManager_MB29.Instancia.UsuarioActual;
+            UsuarioBLL_MB29.Instancia.CerrarSesion_MB29(usuario);            
             FormLogin_MB29 _login = new FormLogin_MB29();
             _login.Show();
             this.Close();    // cierra el menú
@@ -80,6 +70,7 @@ namespace IngenieriaSoftware
         {
             FormCambiarContaseña_MB29 CamCon = new FormCambiarContaseña_MB29();
             CamCon.Show();
+            this.Close();
         }
     }
 }

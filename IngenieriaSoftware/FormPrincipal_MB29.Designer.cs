@@ -75,27 +75,27 @@
             // gestionDeUsuariosToolStripMenuItem
             // 
             this.gestionDeUsuariosToolStripMenuItem.Name = "gestionDeUsuariosToolStripMenuItem";
-            this.gestionDeUsuariosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.gestionDeUsuariosToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
             this.gestionDeUsuariosToolStripMenuItem.Text = "Gestion de usuarios";
             this.gestionDeUsuariosToolStripMenuItem.Click += new System.EventHandler(this.gestionDeUsuariosToolStripMenuItem_Click);
             // 
             // gestionDePerfilesToolStripMenuItem
             // 
             this.gestionDePerfilesToolStripMenuItem.Name = "gestionDePerfilesToolStripMenuItem";
-            this.gestionDePerfilesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.gestionDePerfilesToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
             this.gestionDePerfilesToolStripMenuItem.Text = "Gestion de perfiles";
             // 
             // bitacoraDeEventosToolStripMenuItem
             // 
             this.bitacoraDeEventosToolStripMenuItem.Name = "bitacoraDeEventosToolStripMenuItem";
-            this.bitacoraDeEventosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.bitacoraDeEventosToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
             this.bitacoraDeEventosToolStripMenuItem.Text = "Bitacora de eventos";
             this.bitacoraDeEventosToolStripMenuItem.Click += new System.EventHandler(this.bitacoraDeEventosToolStripMenuItem_Click);
             // 
             // cerrarSesionToolStripMenuItem
             // 
             this.cerrarSesionToolStripMenuItem.Name = "cerrarSesionToolStripMenuItem";
-            this.cerrarSesionToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.cerrarSesionToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
             this.cerrarSesionToolStripMenuItem.Text = "Cerrar sesion";
             this.cerrarSesionToolStripMenuItem.Click += new System.EventHandler(this.cerrarSesionToolStripMenuItem1_Click);
             // 

@@ -1,5 +1,4 @@
-﻿using BE_MB29;
-using BLL;
+﻿using Servicio_MB29;
 using BLL_MB29;
 using IngenieriaSoftware;
 using System;
@@ -23,16 +22,6 @@ namespace UI_MB29
         }
 
         public UsuarioBE_MB29 UsuarioAutenticado { get; private set; }
-
-        private void BtnLogin_Click(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void RegistrarBtn_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void RecuperarBtn_Click(object sender, EventArgs e)
         {
@@ -86,7 +75,7 @@ namespace UI_MB29
                     }
                     else
                     {
-                        int intentosRestantes = 3 - user.IntentosErrados;
+                        int intentosRestantes = 4 - BitacoraBLL_MB29.instancia.ObtenerIntentosFallidos_MB29(usuario);
                         MessageBox.Show($"Usuario o contraseña incorrectos. Intentos restantes: {intentosRestantes}");
                     }
                 }
@@ -94,13 +83,27 @@ namespace UI_MB29
                 ContraTxt.Clear();
                 UserTxt.Focus();
                 return;
-            }         
+            }
 
-            MessageBox.Show($"Bienvenido de nuevo {UsuarioAutenticado.Usuario}!");
+            if (UsuarioAutenticado.PrimerLogin)
+            {
+                MessageBox.Show("Bienvenido. Como es tu primer ingreso, debés cambiar tu contraseña.");
+                FormCambiarContaseña_MB29 fcc = new FormCambiarContaseña_MB29();
+                fcc.Show();
+                this.Hide();
+            }
+            else
+            {
+                MessageBox.Show($"Bienvenido de nuevo {UsuarioAutenticado.Usuario}!");
+                FormPrincipal_MB29 FP = new FormPrincipal_MB29();
+                FP.Show();
+                this.Hide();
+            }
+        }
 
-            FormPrincipal_MB29 FP = new FormPrincipal_MB29();
-            FP.Show();
-            this.Hide();
+        private void btnSalir_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

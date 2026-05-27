@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using BE_MB29;
-using BLL;
+using Servicio_MB29;
 using DAL_MB29;
 
 namespace BLL_MB29
@@ -92,8 +91,7 @@ namespace BLL_MB29
                 _repo.ModificarUsuario_MB29(user);
                 Recargar_MB29();
             }
-
-                return user;
+            return user;
         }
 
         public UsuarioBE_MB29 ObtenerUsuarioPorNombre_MB29(string usuario)
@@ -165,6 +163,7 @@ namespace BLL_MB29
                 usuario.PassHash = Encriptador_MB29.EncriptarPassword_MB29(usuario.PassHash);
             }
             _repo.GuardarUsuario_MB29(usuario);
+            usuario.PrimerLogin = true;
             _usuarios.Add(usuario);
 
             //accion critica por esto nivel 5
@@ -266,6 +265,26 @@ namespace BLL_MB29
                 "Cambiar Contraseña",
                 "Seguridad",
                 $"El usuario {usuario.Usuario} cambió su contraseña",
+                criticidad: 1
+            );
+        }
+
+        public void MarcarPrimerLoginUsado_MB29(UsuarioBE_MB29 usuario)
+        {
+            usuario.PrimerLogin = false;
+            _repo.MarcarPrimerLoginUsado_MB29(usuario);
+            Recargar_MB29();
+        }
+
+        public void CerrarSesion_MB29(UsuarioBE_MB29 usuario)
+        {
+            SessionManager_MB29.Instancia.CerrarSesion();
+
+            BitacoraBLL_MB29.instancia.Registrar_MB29(
+                usuario.Usuario,
+                "Logout",
+                "Seguridad",
+                $"Usuario {usuario.Usuario} cerró sesión",
                 criticidad: 1
             );
         }

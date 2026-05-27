@@ -1,5 +1,4 @@
-﻿using BE_MB29;
-using BLL;
+﻿using Servicio_MB29;
 using BLL_MB29;
 using System;
 using System.Collections.Generic;
@@ -10,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using UI_MB29;
 
 namespace IngenieriaSoftware
 {
@@ -67,6 +67,24 @@ namespace IngenieriaSoftware
             UsuarioBLL_MB29.Instancia.CambiarContraseña_MB29(usuario);
 
             MessageBox.Show("Contraseña cambiada correctamente.");
+
+            var usuarioActual = SessionManager_MB29.Instancia.UsuarioActual;
+            if (usuarioActual != null && usuarioActual.PrimerLogin)
+            {
+                UsuarioBLL_MB29.Instancia.MarcarPrimerLoginUsado_MB29(usuarioActual);
+                SessionManager_MB29.Instancia.CerrarSesion();
+
+                FormLogin_MB29 login2 = new FormLogin_MB29();
+                login2.Show();
+                this.Close();
+                return;
+            }
+
+            SessionManager_MB29.Instancia.CerrarSesion();
+
+            FormLogin_MB29 login = new FormLogin_MB29();
+            login.Show();
+            this.Close();
         }
     }
 }

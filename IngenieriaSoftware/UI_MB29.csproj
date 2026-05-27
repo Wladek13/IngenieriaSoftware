@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>IngenieriaSoftware</RootNamespace>
     <AssemblyName>IngenieriaSoftware</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
@@ -132,6 +132,10 @@
     <ProjectReference Include="..\BLL\BLL_MB29.csproj">
       <Project>{a4c5a3e2-aa25-4f19-8958-bee6ce2c7bd7}</Project>
       <Name>BLL_MB29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Servicio_MB29\Servicio_MB29.csproj">
+      <Project>{08ff13ac-7db5-4fdb-9449-45fa2f2cfdd8}</Project>
+      <Name>Servicio_MB29</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

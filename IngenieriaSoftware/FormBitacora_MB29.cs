@@ -1,5 +1,4 @@
-﻿using BE;
-using BLL;
+﻿using Servicio_MB29;
 using BLL_MB29;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
@@ -37,6 +36,12 @@ namespace IngenieriaSoftware
 
         private void FormBitacora_MB29_Load(object sender, EventArgs e)
         {
+            CBModulo.Items.Add("");
+            CBModulo.Items.Add("Seguridad");
+            CBModulo.Items.Add("Usuarios");
+            CBModulo.Items.Add("Bitacora");
+            CBModulo.SelectedIndex = 0;
+
             CargarDGV();
         }
 
@@ -62,9 +67,9 @@ namespace IngenieriaSoftware
 
             NombreTxt.Text = user.Nombre;
             ApellidoTxt.Text = user.Apellido;
-            ModuloTxt.Text = fila.Cells["Modulo"].Value.ToString();
+            CBModulo.SelectedItem = fila.Cells["Modulo"].Value.ToString();
             LoginTxt.Text = fila.Cells["Usuario"].Value.ToString();
-            EventoTxt.Text = fila.Cells["Accion"].Value.ToString();
+            CBAccion.SelectedItem = fila.Cells["Accion"].Value.ToString();
             CriticidadTxt.Text = fila.Cells["Criticidad"].Value.ToString();    
         }
 
@@ -72,9 +77,11 @@ namespace IngenieriaSoftware
         {
             NombreTxt.Clear();
             ApellidoTxt.Clear();
-            ModuloTxt.Clear();
+            CBModulo.SelectedIndex = 0;
+            CBAccion.Items.Clear();
+            CBAccion.Items.Add("");
+            CBAccion.SelectedIndex = 0;
             LoginTxt.Clear();
-            EventoTxt.Clear();
             CriticidadTxt.Clear();
             dtpFechaInicio.Value = DateTime.Now;
             dtpFechaFinal.Value = DateTime.Now;
@@ -101,11 +108,13 @@ namespace IngenieriaSoftware
             if (!string.IsNullOrWhiteSpace(LoginTxt.Text))
                 resultado = resultado.Where(b => b.usuario.ToLower().Contains(LoginTxt.Text.ToLower())).ToList();
 
-            if (!string.IsNullOrWhiteSpace(ModuloTxt.Text))
-                resultado = resultado.Where(b => b.modulo.ToLower().Contains(ModuloTxt.Text.ToLower())).ToList();
+            string moduloFiltro = CBModulo.SelectedItem?.ToString();
+            if (!string.IsNullOrEmpty(moduloFiltro))
+                resultado = resultado.Where(b => b.modulo == moduloFiltro).ToList();
 
-            if (!string.IsNullOrWhiteSpace(EventoTxt.Text))
-                resultado = resultado.Where(b => b.accion.ToLower().Contains(EventoTxt.Text.ToLower())).ToList();
+            string eventoFiltro = CBAccion.SelectedItem?.ToString();
+            if (!string.IsNullOrEmpty(eventoFiltro))
+                resultado = resultado.Where(b => b.accion == eventoFiltro).ToList();
 
             if (!string.IsNullOrWhiteSpace(CriticidadTxt.Text) && int.TryParse(CriticidadTxt.Text, out int crit))
                 resultado = resultado.Where(b => b.Criticidad == crit).ToList();
@@ -168,6 +177,14 @@ namespace IngenieriaSoftware
                 }
             }
 
+            BitacoraBLL_MB29.instancia.Registrar_MB29(
+                SessionManager_MB29.Instancia.UsuarioActual.Usuario,
+                "Exportar PDF",
+                "Bitacora",
+                $"Usuario {SessionManager_MB29.Instancia.UsuarioActual.Usuario} exportó a PDF la bitácora",
+                criticidad: 1
+            );
+
             doc.Add(tabla);
             doc.Close();
 
@@ -177,6 +194,35 @@ namespace IngenieriaSoftware
         private void btnImprimir_Click(object sender, EventArgs e)
         {
             ExportarPDF();
+        }
+
+        private void CBModulo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            CBAccion.Items.Clear();
+            CBAccion.Items.Add("");
+
+            if (CBModulo.SelectedItem?.ToString() == "Seguridad")
+            {
+                CBAccion.Items.Add("Login OK");
+                CBAccion.Items.Add("Login Fallido");
+                CBAccion.Items.Add("Login Bloqueado");
+                CBAccion.Items.Add("Logout");
+                CBAccion.Items.Add("Cambiar Contraseña");
+                CBAccion.Items.Add("Desbloqueo");
+            }
+            else if (CBModulo.SelectedItem?.ToString() == "Usuarios")
+            {
+                CBAccion.Items.Add("Alta Usuario");
+                CBAccion.Items.Add("Modificar Usuario");
+                CBAccion.Items.Add("Deshabilitar Usuario");
+                CBAccion.Items.Add("Desbloquear Usuario");
+            }
+            else if (CBModulo.SelectedItem?.ToString() == "Bitacora")
+            {
+                CBAccion.Items.Add("Exportar PDF");
+            }
+
+            CBAccion.SelectedIndex = 0;
         }
     }
 }

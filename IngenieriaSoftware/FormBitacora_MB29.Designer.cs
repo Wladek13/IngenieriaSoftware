@@ -32,8 +32,6 @@
             this.NombreTxt = new System.Windows.Forms.TextBox();
             this.ApellidoTxt = new System.Windows.Forms.TextBox();
             this.LoginTxt = new System.Windows.Forms.TextBox();
-            this.ModuloTxt = new System.Windows.Forms.TextBox();
-            this.EventoTxt = new System.Windows.Forms.TextBox();
             this.CriticidadTxt = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -41,7 +39,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.btnAplicar = new System.Windows.Forms.Button();
             this.btnLimpiar = new System.Windows.Forms.Button();
@@ -49,6 +46,9 @@
             this.button4 = new System.Windows.Forms.Button();
             this.dtpFechaInicio = new System.Windows.Forms.DateTimePicker();
             this.dtpFechaFinal = new System.Windows.Forms.DateTimePicker();
+            this.label9 = new System.Windows.Forms.Label();
+            this.CBModulo = new System.Windows.Forms.ComboBox();
+            this.CBAccion = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -88,25 +88,9 @@
             this.LoginTxt.Size = new System.Drawing.Size(146, 20);
             this.LoginTxt.TabIndex = 3;
             // 
-            // ModuloTxt
-            // 
-            this.ModuloTxt.Location = new System.Drawing.Point(71, 509);
-            this.ModuloTxt.Margin = new System.Windows.Forms.Padding(2);
-            this.ModuloTxt.Name = "ModuloTxt";
-            this.ModuloTxt.Size = new System.Drawing.Size(146, 20);
-            this.ModuloTxt.TabIndex = 6;
-            // 
-            // EventoTxt
-            // 
-            this.EventoTxt.Location = new System.Drawing.Point(305, 509);
-            this.EventoTxt.Margin = new System.Windows.Forms.Padding(2);
-            this.EventoTxt.Name = "EventoTxt";
-            this.EventoTxt.Size = new System.Drawing.Size(146, 20);
-            this.EventoTxt.TabIndex = 7;
-            // 
             // CriticidadTxt
             // 
-            this.CriticidadTxt.Location = new System.Drawing.Point(537, 509);
+            this.CriticidadTxt.Location = new System.Drawing.Point(559, 508);
             this.CriticidadTxt.Margin = new System.Windows.Forms.Padding(2);
             this.CriticidadTxt.Name = "CriticidadTxt";
             this.CriticidadTxt.Size = new System.Drawing.Size(146, 20);
@@ -178,17 +162,6 @@
             this.label6.Size = new System.Drawing.Size(68, 22);
             this.label6.TabIndex = 14;
             this.label6.Text = "Modulo";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(343, 462);
-            this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(66, 22);
-            this.label7.TabIndex = 15;
-            this.label7.Text = "Evento";
             // 
             // label8
             // 
@@ -267,12 +240,42 @@
             this.dtpFechaFinal.Size = new System.Drawing.Size(200, 20);
             this.dtpFechaFinal.TabIndex = 22;
             // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(347, 462);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(69, 24);
+            this.label9.TabIndex = 24;
+            this.label9.Text = "Accion";
+            // 
+            // CBModulo
+            // 
+            this.CBModulo.FormattingEnabled = true;
+            this.CBModulo.Location = new System.Drawing.Point(81, 508);
+            this.CBModulo.Name = "CBModulo";
+            this.CBModulo.Size = new System.Drawing.Size(121, 21);
+            this.CBModulo.TabIndex = 25;
+            this.CBModulo.SelectedIndexChanged += new System.EventHandler(this.CBModulo_SelectedIndexChanged);
+            // 
+            // CBAccion
+            // 
+            this.CBAccion.FormattingEnabled = true;
+            this.CBAccion.Location = new System.Drawing.Point(328, 507);
+            this.CBAccion.Name = "CBAccion";
+            this.CBAccion.Size = new System.Drawing.Size(121, 21);
+            this.CBAccion.TabIndex = 26;
+            // 
             // FormBitacora_MB29
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ClientSize = new System.Drawing.Size(946, 661);
+            this.ClientSize = new System.Drawing.Size(963, 661);
+            this.Controls.Add(this.CBAccion);
+            this.Controls.Add(this.CBModulo);
+            this.Controls.Add(this.label9);
             this.Controls.Add(this.dtpFechaFinal);
             this.Controls.Add(this.dtpFechaInicio);
             this.Controls.Add(this.button4);
@@ -280,7 +283,6 @@
             this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.btnAplicar);
             this.Controls.Add(this.label8);
-            this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -288,8 +290,6 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.CriticidadTxt);
-            this.Controls.Add(this.EventoTxt);
-            this.Controls.Add(this.ModuloTxt);
             this.Controls.Add(this.LoginTxt);
             this.Controls.Add(this.ApellidoTxt);
             this.Controls.Add(this.NombreTxt);
@@ -310,8 +310,6 @@
         private System.Windows.Forms.TextBox NombreTxt;
         private System.Windows.Forms.TextBox ApellidoTxt;
         private System.Windows.Forms.TextBox LoginTxt;
-        private System.Windows.Forms.TextBox ModuloTxt;
-        private System.Windows.Forms.TextBox EventoTxt;
         private System.Windows.Forms.TextBox CriticidadTxt;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
@@ -319,7 +317,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button btnAplicar;
         private System.Windows.Forms.Button btnLimpiar;
@@ -327,5 +324,8 @@
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.DateTimePicker dtpFechaInicio;
         private System.Windows.Forms.DateTimePicker dtpFechaFinal;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.ComboBox CBModulo;
+        private System.Windows.Forms.ComboBox CBAccion;
     }
 }

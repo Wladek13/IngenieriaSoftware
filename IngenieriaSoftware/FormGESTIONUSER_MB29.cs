@@ -1,7 +1,7 @@
-﻿using BE;
-using BE_MB29;
-using BLL;
+﻿using Servicio_MB29;
 using BLL_MB29;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,12 +10,10 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
-
-using iTextSharp.text;
-using iTextSharp.text.pdf;
 
 namespace IngenieriaSoftware
 {
@@ -43,11 +41,6 @@ namespace IngenieriaSoftware
 
         //modo: 0=ninguno, 1=agregar, 2=deshabilitar, 3=modificar, 4=desbloquear
         private int _modo = 0;
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void BtnSalir_Click(object sender, EventArgs e)
         {
@@ -153,6 +146,23 @@ namespace IngenieriaSoftware
                         if (!double.TryParse(dniTexto, out double dni))
                         {
                             MessageBox.Show("El DNI ingresado no es válido.");
+                            return;
+                        }
+
+                        foreach (UsuarioBE_MB29 usuario in UsuarioBLL_MB29.Instancia.ObtenerUsuarios_MB29())
+                        {
+                            if (Convert.ToDouble(dniTexto) == usuario.DNI)
+                            {
+                                MessageBox.Show($"No puede haber dos DNI iguales.");
+                                return;
+                            }
+                        }
+
+                        bool valido = Regex.IsMatch(email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$");
+
+                        if (!valido)
+                        {
+                            MessageBox.Show("Ingrese un email valido");
                             return;
                         }
 
