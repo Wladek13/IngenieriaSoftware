@@ -9,39 +9,39 @@ namespace Servicio_MB29
 {
     public class SessionManager_MB29
     {
-        private static SessionManager_MB29 _instancia;
+        private static SessionManager_MB29 _instancia_MB29;
 
-        public static SessionManager_MB29 Instancia
+        public static SessionManager_MB29 Instancia_MB29
         {
             get
             {
-                if (_instancia == null)
-                    _instancia = new SessionManager_MB29();
-                return _instancia;
+                if (_instancia_MB29 == null)
+                    _instancia_MB29 = new SessionManager_MB29();
+                return _instancia_MB29;
             }
         }
 
         private SessionManager_MB29() { }
 
-        public UsuarioBE_MB29 UsuarioActual { get; private set; }
+        public UsuarioServicio_MB29 UsuarioActual_MB29 { get; private set; }
 
         public bool HaySesion()
         {
-            return UsuarioActual != null;
+            return UsuarioActual_MB29 != null;
         }
 
-        public bool IniciarSesion(UsuarioBE_MB29 usuario)
+        public bool IniciarSesion(UsuarioServicio_MB29 usuario)
         {
-            if (UsuarioActual != null)
+            if (UsuarioActual_MB29 != null)
                 return false; // ya hay alguien logueado
 
-            UsuarioActual = usuario;
+            UsuarioActual_MB29 = usuario;
             return true;
         }
 
         public void CerrarSesion()
         {
-            UsuarioActual = null;
+            UsuarioActual_MB29 = null;
         }
     }
 }

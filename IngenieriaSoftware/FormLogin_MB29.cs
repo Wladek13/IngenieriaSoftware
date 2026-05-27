@@ -21,7 +21,7 @@ namespace UI_MB29
             InitializeComponent();
         }
 
-        public UsuarioBE_MB29 UsuarioAutenticado { get; private set; }
+        public UsuarioServicio_MB29 UsuarioAutenticado { get; private set; }
 
         private void RecuperarBtn_Click(object sender, EventArgs e)
         {
@@ -31,7 +31,7 @@ namespace UI_MB29
 
         private void BtnLogin_Click_1(object sender, EventArgs e)
         {
-            bool loguearOK = SessionManager_MB29.Instancia.IniciarSesion(UsuarioAutenticado);
+            bool loguearOK = SessionManager_MB29.Instancia_MB29.IniciarSesion(UsuarioAutenticado);
 
             if (!loguearOK)
             {
@@ -85,7 +85,7 @@ namespace UI_MB29
                 return;
             }
 
-            if (UsuarioAutenticado.PrimerLogin)
+            if (UsuarioAutenticado.PrimerLogin_MB29)
             {
                 MessageBox.Show("Bienvenido. Como es tu primer ingreso, debés cambiar tu contraseña.");
                 FormCambiarContaseña_MB29 fcc = new FormCambiarContaseña_MB29();
@@ -94,7 +94,7 @@ namespace UI_MB29
             }
             else
             {
-                MessageBox.Show($"Bienvenido de nuevo {UsuarioAutenticado.Usuario}!");
+                MessageBox.Show($"Bienvenido de nuevo {UsuarioAutenticado.Usuario_MB29}!");
                 FormPrincipal_MB29 FP = new FormPrincipal_MB29();
                 FP.Show();
                 this.Hide();

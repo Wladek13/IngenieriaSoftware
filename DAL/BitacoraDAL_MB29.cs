@@ -13,7 +13,7 @@ namespace DAL
     {
        
         
-            public void Guardar_MB29(BitacoraBE_MB29 bitacora)
+            public void Guardar_MB29(BitacoraServicio_MB29 bitacora)
             {
                 var conectar = new ConexionDB_MB29();
                 var conexion = conectar.Conectar_MB29();
@@ -23,21 +23,21 @@ namespace DAL
 
                 using (SqlCommand comando = new SqlCommand(query, conexion))
                 {
-                    comando.Parameters.AddWithValue("@Usuario", bitacora.usuario);
-                    comando.Parameters.AddWithValue("@Accion", bitacora.accion);
-                    comando.Parameters.AddWithValue("@Modulo", bitacora.modulo);
-                    comando.Parameters.AddWithValue("@Fecha", bitacora.fecha);
-                    comando.Parameters.AddWithValue("@Descripcion", bitacora.Descripcion);
-                    comando.Parameters.AddWithValue("@Criticidad", bitacora.Criticidad);
+                    comando.Parameters.AddWithValue("@Usuario", bitacora.usuario_MB29);
+                    comando.Parameters.AddWithValue("@Accion", bitacora.accion_MB29);
+                    comando.Parameters.AddWithValue("@Modulo", bitacora.modulo_MB29);
+                    comando.Parameters.AddWithValue("@Fecha", bitacora.fecha_MB29);
+                    comando.Parameters.AddWithValue("@Descripcion", bitacora.Descripcion_MB29);
+                    comando.Parameters.AddWithValue("@Criticidad", bitacora.Criticidad_MB29);
                     comando.ExecuteNonQuery();
                 }
 
                 conectar.Desconectar_MB29();
             }
 
-        public List<BitacoraBE_MB29> CargarBitacora_MB29()
+        public List<BitacoraServicio_MB29> CargarBitacora_MB29()
         {
-            List<BitacoraBE_MB29> bitacora = new List<BitacoraBE_MB29>();
+            List<BitacoraServicio_MB29> bitacora = new List<BitacoraServicio_MB29>();
 
             var conectar = new ConexionDB_MB29();
             var conexion = conectar.Conectar_MB29();
@@ -58,7 +58,7 @@ namespace DAL
                         string descripcion = reader["Descripcion"].ToString();
                         int criticidad = Convert.ToInt32(reader["Criticidad"].ToString());
 
-                        BitacoraBE_MB29 bitac = new BitacoraBE_MB29(id, usuario, accion, modulo, fecha, descripcion, criticidad);
+                        BitacoraServicio_MB29 bitac = new BitacoraServicio_MB29(id, usuario, accion, modulo, fecha, descripcion, criticidad);
 
                         bitacora.Add(bitac);
                     }

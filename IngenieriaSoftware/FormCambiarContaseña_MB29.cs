@@ -56,23 +56,23 @@ namespace IngenieriaSoftware
 
             //Verificar que la contraseña actual sea correcta
             string hashActual = Encriptador_MB29.EncriptarPassword_MB29(txtContraActual.Text);
-            if (hashActual != usuario.PassHash)
+            if (hashActual != usuario.PassHash_MB29)
             {
                 MessageBox.Show("La contraseña actual es incorrecta.");
                 return;
             }
 
             //Cambiar la contraseña
-            usuario.PassHash = Encriptador_MB29.EncriptarPassword_MB29(txtContraNueva.Text);
+            usuario.PassHash_MB29 = Encriptador_MB29.EncriptarPassword_MB29(txtContraNueva.Text);
             UsuarioBLL_MB29.Instancia.CambiarContraseña_MB29(usuario);
 
             MessageBox.Show("Contraseña cambiada correctamente.");
 
-            var usuarioActual = SessionManager_MB29.Instancia.UsuarioActual;
-            if (usuarioActual != null && usuarioActual.PrimerLogin)
+            var usuarioActual = SessionManager_MB29.Instancia_MB29.UsuarioActual_MB29;
+            if (usuarioActual != null && usuarioActual.PrimerLogin_MB29)
             {
                 UsuarioBLL_MB29.Instancia.MarcarPrimerLoginUsado_MB29(usuarioActual);
-                SessionManager_MB29.Instancia.CerrarSesion();
+                SessionManager_MB29.Instancia_MB29.CerrarSesion();
 
                 FormLogin_MB29 login2 = new FormLogin_MB29();
                 login2.Show();
@@ -80,7 +80,7 @@ namespace IngenieriaSoftware
                 return;
             }
 
-            SessionManager_MB29.Instancia.CerrarSesion();
+            SessionManager_MB29.Instancia_MB29.CerrarSesion();
 
             FormLogin_MB29 login = new FormLogin_MB29();
             login.Show();

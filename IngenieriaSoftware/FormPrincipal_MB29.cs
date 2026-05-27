@@ -18,7 +18,7 @@ namespace IngenieriaSoftware
         public FormPrincipal_MB29()
         {
             InitializeComponent();
-            if (SessionManager_MB29.Instancia.UsuarioActual.IdRol == 1)
+            if (SessionManager_MB29.Instancia_MB29.UsuarioActual_MB29.IdRol_MB29 == 1)
             {
                 administradorToolStripMenuItem.Enabled = true;
                 usuarioToolStripMenuItem.Enabled = true;
@@ -53,7 +53,7 @@ namespace IngenieriaSoftware
 
         private void cerrarSesionToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            UsuarioBE_MB29 usuario = SessionManager_MB29.Instancia.UsuarioActual;
+            UsuarioServicio_MB29 usuario = SessionManager_MB29.Instancia_MB29.UsuarioActual_MB29;
             UsuarioBLL_MB29.Instancia.CerrarSesion_MB29(usuario);            
             FormLogin_MB29 _login = new FormLogin_MB29();
             _login.Show();

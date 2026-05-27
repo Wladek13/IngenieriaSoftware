@@ -7,9 +7,9 @@ namespace DAL_MB29
 {
     public class UsuarioDAL_MB29
     {
-         public List<UsuarioBE_MB29> CargarUsuarios_MB29()
+         public List<UsuarioServicio_MB29> CargarUsuarios_MB29()
          {
-            List<UsuarioBE_MB29> usuarios = new List<UsuarioBE_MB29>();
+            List<UsuarioServicio_MB29> usuarios = new List<UsuarioServicio_MB29>();
 
             var conectar = new ConexionDB_MB29();
             var conexion = conectar.Conectar_MB29();
@@ -35,9 +35,9 @@ namespace DAL_MB29
                         bool bloqueado = Convert.ToBoolean(reader["Bloqueado"]);
                         bool primerlogin = Convert.ToBoolean(reader["PrimerLogin"]);
 
-                        UsuarioBE_MB29 user = new UsuarioBE_MB29(id, usuario, passwordHash, true, nombre, apellido, dni, idrol, email, telefono, bloqueado);
-                        user.Estado = estado;
-                        user.PrimerLogin = primerlogin;
+                        UsuarioServicio_MB29 user = new UsuarioServicio_MB29(id, usuario, passwordHash, true, nombre, apellido, dni, idrol, email, telefono, bloqueado);
+                        user.Estado_MB29 = estado;
+                        user.PrimerLogin_MB29 = primerlogin;
 
                         usuarios.Add(user);
                     }
@@ -48,7 +48,7 @@ namespace DAL_MB29
             return usuarios;
          }
 
-        public void GuardarUsuario_MB29(UsuarioBE_MB29 usuario)
+        public void GuardarUsuario_MB29(UsuarioServicio_MB29 usuario)
         {
             var conectar = new ConexionDB_MB29();
 
@@ -60,24 +60,24 @@ namespace DAL_MB29
 
             using (SqlCommand comando = new SqlCommand(query, conexion))
             {
-                comando.Parameters.AddWithValue("@DNI", usuario.DNI);
-                comando.Parameters.AddWithValue("@IdRol", usuario.IdRol);
-                comando.Parameters.AddWithValue("@Usuario", usuario.Usuario);
-                comando.Parameters.AddWithValue("@PasswordHash", usuario.PassHash);
-                comando.Parameters.AddWithValue("@Nombre", usuario.Nombre);
-                comando.Parameters.AddWithValue("@Apellido", usuario.Apellido);
-                comando.Parameters.AddWithValue("@Telefono", usuario.Telefono);
-                comando.Parameters.AddWithValue("@Email", usuario.Email);
+                comando.Parameters.AddWithValue("@DNI", usuario.DNI_MB29);
+                comando.Parameters.AddWithValue("@IdRol", usuario.IdRol_MB29);
+                comando.Parameters.AddWithValue("@Usuario", usuario.Usuario_MB29);
+                comando.Parameters.AddWithValue("@PasswordHash", usuario.PassHash_MB29);
+                comando.Parameters.AddWithValue("@Nombre", usuario.Nombre_MB29);
+                comando.Parameters.AddWithValue("@Apellido", usuario.Apellido_MB29);
+                comando.Parameters.AddWithValue("@Telefono", usuario.Telefono_MB29);
+                comando.Parameters.AddWithValue("@Email", usuario.Email_MB29);
                 comando.Parameters.AddWithValue("@Bloqueado", false);
                 comando.Parameters.AddWithValue("@Estado", "Habilitado");
 
                 int nuevoId = Convert.ToInt32(comando.ExecuteScalar());
-                usuario.IdPersona = nuevoId;
+                usuario.IdPersona_MB29 = nuevoId;
             }
             conectar.Desconectar_MB29();
         }
 
-        public void ModificarUsuario_MB29(UsuarioBE_MB29 usuario)
+        public void ModificarUsuario_MB29(UsuarioServicio_MB29 usuario)
         {
             var conectar = new ConexionDB_MB29();
 
@@ -88,17 +88,17 @@ namespace DAL_MB29
 
             using (SqlCommand comando = new SqlCommand(query, conexion))
             {
-                comando.Parameters.AddWithValue("@IdPersona", usuario.IdPersona);
-                comando.Parameters.AddWithValue("@Email", usuario.Email);
-                comando.Parameters.AddWithValue("@IdRol", usuario.IdRol);
-                comando.Parameters.AddWithValue("@Bloqueado", usuario.Bloqueado);
+                comando.Parameters.AddWithValue("@IdPersona", usuario.IdPersona_MB29);
+                comando.Parameters.AddWithValue("@Email", usuario.Email_MB29);
+                comando.Parameters.AddWithValue("@IdRol", usuario.IdRol_MB29);
+                comando.Parameters.AddWithValue("@Bloqueado", usuario.Bloqueado_MB29);
 
                 comando.ExecuteNonQuery();
             }
             conectar.Desconectar_MB29();
         }
 
-        public void DeshabilitarUsuario_MB29(UsuarioBE_MB29 usuario)
+        public void DeshabilitarUsuario_MB29(UsuarioServicio_MB29 usuario)
         {
             var conectar = new ConexionDB_MB29();
             SqlConnection conexion = conectar.Conectar_MB29();
@@ -108,15 +108,15 @@ namespace DAL_MB29
 
             using (SqlCommand comando = new SqlCommand(query, conexion))
             {
-                comando.Parameters.AddWithValue("@IdPersona", usuario.IdPersona);
-                comando.Parameters.AddWithValue("@Estado", usuario.Estado);
+                comando.Parameters.AddWithValue("@IdPersona", usuario.IdPersona_MB29);
+                comando.Parameters.AddWithValue("@Estado", usuario.Estado_MB29);
 
                 comando.ExecuteNonQuery();
             }
             conectar.Desconectar_MB29();
         }
 
-        public void DesbloquearUsuario_MB29(UsuarioBE_MB29 usuario)
+        public void DesbloquearUsuario_MB29(UsuarioServicio_MB29 usuario)
         {
             var conectar = new ConexionDB_MB29();
             SqlConnection conexion = conectar.Conectar_MB29();
@@ -126,16 +126,16 @@ namespace DAL_MB29
 
             using (SqlCommand comando = new SqlCommand(query, conexion))
             {
-                comando.Parameters.AddWithValue("@IdPersona", usuario.IdPersona);
-                comando.Parameters.AddWithValue("@Bloqueado", usuario.Bloqueado);
-                comando.Parameters.AddWithValue("@PrimerLogin", usuario.PrimerLogin);
+                comando.Parameters.AddWithValue("@IdPersona", usuario.IdPersona_MB29);
+                comando.Parameters.AddWithValue("@Bloqueado", usuario.Bloqueado_MB29);
+                comando.Parameters.AddWithValue("@PrimerLogin", usuario.PrimerLogin_MB29);
 
                 comando.ExecuteNonQuery();
             }
             conectar.Desconectar_MB29();
         }
 
-        public void CambiarContraseña_MB29(UsuarioBE_MB29 usuario)
+        public void CambiarContraseña_MB29(UsuarioServicio_MB29 usuario)
         {
             var conectar = new ConexionDB_MB29();
 
@@ -146,15 +146,15 @@ namespace DAL_MB29
 
             using (SqlCommand comando = new SqlCommand(query, conexion))
             {
-                comando.Parameters.AddWithValue("@IdPersona", usuario.IdPersona);
-                comando.Parameters.AddWithValue("@PasswordHash", usuario.PassHash);
+                comando.Parameters.AddWithValue("@IdPersona", usuario.IdPersona_MB29);
+                comando.Parameters.AddWithValue("@PasswordHash", usuario.PassHash_MB29);
 
                 comando.ExecuteNonQuery();
             }
             conectar.Desconectar_MB29();
         }
 
-        public void MarcarPrimerLoginUsado_MB29(UsuarioBE_MB29 usuario)
+        public void MarcarPrimerLoginUsado_MB29(UsuarioServicio_MB29 usuario)
         {
             var conectar = new ConexionDB_MB29();
             var conexion = conectar.Conectar_MB29();
@@ -163,7 +163,7 @@ namespace DAL_MB29
 
             using (SqlCommand comando = new SqlCommand(query, conexion))
             {
-                comando.Parameters.AddWithValue("@IdPersona", usuario.IdPersona);
+                comando.Parameters.AddWithValue("@IdPersona", usuario.IdPersona_MB29);
                 comando.ExecuteNonQuery();
             }
 

@@ -42,16 +42,16 @@ namespace IngenieriaSoftware
             CBModulo.Items.Add("Bitacora");
             CBModulo.SelectedIndex = 0;
 
-            CargarDGV();
+            CargarDGV_MB29();
         }
 
-        private void CargarDGV()
+        private void CargarDGV_MB29()
         {
             dataGridView1.DataSource = null;
-            List<BitacoraBE_MB29> bitacora = BitacoraBLL_MB29.instancia.CargarBitacora_MB29();
+            List<BitacoraServicio_MB29> bitacora = BitacoraBLL_MB29.instancia.CargarBitacora_MB29();
 
             var ultimos3Dias = bitacora
-                .Where(b => b.fecha >= DateTime.Today.AddDays(-3))
+                .Where(b => b.fecha_MB29 >= DateTime.Today.AddDays(-3))
                 .ToList();
 
             dataGridView1.DataSource = ultimos3Dias;
@@ -62,15 +62,15 @@ namespace IngenieriaSoftware
             if (dataGridView1.SelectedRows.Count == 0) return;
 
             DataGridViewRow fila = dataGridView1.SelectedRows[0];
-            var usuario = fila.Cells["Usuario"].Value.ToString();
+            var usuario = fila.Cells["Usuario_MB29"].Value.ToString();
             var user = UsuarioBLL_MB29.Instancia.ObtenerUsuarioPorNombre_MB29(usuario);
 
-            NombreTxt.Text = user.Nombre;
-            ApellidoTxt.Text = user.Apellido;
-            CBModulo.SelectedItem = fila.Cells["Modulo"].Value.ToString();
-            LoginTxt.Text = fila.Cells["Usuario"].Value.ToString();
-            CBAccion.SelectedItem = fila.Cells["Accion"].Value.ToString();
-            CriticidadTxt.Text = fila.Cells["Criticidad"].Value.ToString();    
+            NombreTxt.Text = user.Nombre_MB29;
+            ApellidoTxt.Text = user.Apellido_MB29;
+            CBModulo.SelectedItem = fila.Cells["Modulo_MB29"].Value.ToString();
+            LoginTxt.Text = fila.Cells["Usuario_MB29"].Value.ToString();
+            CBAccion.SelectedItem = fila.Cells["Accion_MB29"].Value.ToString();
+            CriticidadTxt.Text = fila.Cells["Criticidad_MB29"].Value.ToString();    
         }
 
         private void btnLimpiar_Click(object sender, EventArgs e)
@@ -86,7 +86,7 @@ namespace IngenieriaSoftware
             dtpFechaInicio.Value = DateTime.Now;
             dtpFechaFinal.Value = DateTime.Now;
 
-            CargarDGV();
+            CargarDGV_MB29();
         }
 
         private void btnAplicar_Click(object sender, EventArgs e)
@@ -95,35 +95,35 @@ namespace IngenieriaSoftware
 
             if (!string.IsNullOrWhiteSpace(NombreTxt.Text))
                 resultado = resultado.Where(b => {
-                    var user = UsuarioBLL_MB29.Instancia.ObtenerUsuarioPorNombre_MB29(b.usuario);
-                    return user != null && user.Nombre.ToLower().Contains(NombreTxt.Text.ToLower());
+                    var user = UsuarioBLL_MB29.Instancia.ObtenerUsuarioPorNombre_MB29(b.usuario_MB29);
+                    return user != null && user.Nombre_MB29.ToLower().Contains(NombreTxt.Text.ToLower());
                 }).ToList();
 
             if (!string.IsNullOrWhiteSpace(ApellidoTxt.Text))
                 resultado = resultado.Where(b => {
-                    var user = UsuarioBLL_MB29.Instancia.ObtenerUsuarioPorNombre_MB29(b.usuario);
-                    return user != null && user.Apellido.ToLower().Contains(ApellidoTxt.Text.ToLower());
+                    var user = UsuarioBLL_MB29.Instancia.ObtenerUsuarioPorNombre_MB29(b.usuario_MB29);
+                    return user != null && user.Apellido_MB29.ToLower().Contains(ApellidoTxt.Text.ToLower());
                 }).ToList();
 
             if (!string.IsNullOrWhiteSpace(LoginTxt.Text))
-                resultado = resultado.Where(b => b.usuario.ToLower().Contains(LoginTxt.Text.ToLower())).ToList();
+                resultado = resultado.Where(b => b.usuario_MB29.ToLower().Contains(LoginTxt.Text.ToLower())).ToList();
 
             string moduloFiltro = CBModulo.SelectedItem?.ToString();
             if (!string.IsNullOrEmpty(moduloFiltro))
-                resultado = resultado.Where(b => b.modulo == moduloFiltro).ToList();
+                resultado = resultado.Where(b => b.modulo_MB29 == moduloFiltro).ToList();
 
             string eventoFiltro = CBAccion.SelectedItem?.ToString();
             if (!string.IsNullOrEmpty(eventoFiltro))
-                resultado = resultado.Where(b => b.accion == eventoFiltro).ToList();
+                resultado = resultado.Where(b => b.accion_MB29 == eventoFiltro).ToList();
 
             if (!string.IsNullOrWhiteSpace(CriticidadTxt.Text) && int.TryParse(CriticidadTxt.Text, out int crit))
-                resultado = resultado.Where(b => b.Criticidad == crit).ToList();
+                resultado = resultado.Where(b => b.Criticidad_MB29 == crit).ToList();
 
             if (dtpFechaInicio.Checked)
-                resultado = resultado.Where(b => b.fecha >= dtpFechaInicio.Value.Date).ToList();
+                resultado = resultado.Where(b => b.fecha_MB29 >= dtpFechaInicio.Value.Date).ToList();
 
             if (dtpFechaFinal.Checked)
-                resultado = resultado.Where(b => b.fecha <= dtpFechaFinal.Value.Date.AddDays(1)).ToList();
+                resultado = resultado.Where(b => b.fecha_MB29 <= dtpFechaFinal.Value.Date.AddDays(1)).ToList();
 
             dataGridView1.DataSource = resultado;
         }
@@ -178,10 +178,10 @@ namespace IngenieriaSoftware
             }
 
             BitacoraBLL_MB29.instancia.Registrar_MB29(
-                SessionManager_MB29.Instancia.UsuarioActual.Usuario,
+                SessionManager_MB29.Instancia_MB29.UsuarioActual_MB29.Usuario_MB29,
                 "Exportar PDF",
                 "Bitacora",
-                $"Usuario {SessionManager_MB29.Instancia.UsuarioActual.Usuario} exportó a PDF la bitácora",
+                $"Usuario {SessionManager_MB29.Instancia_MB29.UsuarioActual_MB29.Usuario_MB29} exportó a PDF la bitácora",
                 criticidad: 1
             );
 

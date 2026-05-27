@@ -23,9 +23,9 @@ namespace Servicio_MB29
         }
 
         private BitacoraDAL_MB29 _dal = new BitacoraDAL_MB29();
-        private List<BitacoraBE_MB29> _bitacora = new List<BitacoraBE_MB29>();
+        private List<BitacoraServicio_MB29> _bitacora = new List<BitacoraServicio_MB29>();
 
-        public List<BitacoraBE_MB29> CargarBitacora_MB29()
+        public List<BitacoraServicio_MB29> CargarBitacora_MB29()
         {
             _bitacora = _dal.CargarBitacora_MB29();
             return _bitacora;
@@ -33,7 +33,7 @@ namespace Servicio_MB29
 
         public void Registrar_MB29(string usuario, string accion, string modulo, string descripcion, int criticidad)
         {           
-            BitacoraBE_MB29 bitacora = new BitacoraBE_MB29(usuario,
+            BitacoraServicio_MB29 bitacora = new BitacoraServicio_MB29(usuario,
                 accion,
                 modulo,
                 DateTime.Now,

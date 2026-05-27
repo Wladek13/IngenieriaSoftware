@@ -23,7 +23,7 @@ namespace IngenieriaSoftware
         {
             InitializeComponent();
 
-            CargarDGV();
+            CargarDGV_MB29();
 
             //Limpiar campos
             NombreTxt.Clear();
@@ -78,10 +78,10 @@ namespace IngenieriaSoftware
             EmailTxt.Enabled = false;
             RolCB.Enabled = false;
 
-            var seleccionado = (UsuarioBE_MB29)DGVUsuarios.CurrentRow.DataBoundItem;
-            if(seleccionado.Estado != "Deshabilitado")
+            var seleccionado = (UsuarioServicio_MB29)DGVUsuarios.CurrentRow.DataBoundItem;
+            if(seleccionado.Estado_MB29 != "Deshabilitado")
             {
-                MessageBox.Show($"Está seguro que desea deshabilitar al usuario {seleccionado.Nombre}? Para confirmar presione el boton Aplicar");
+                MessageBox.Show($"Está seguro que desea deshabilitar al usuario {seleccionado.Nombre_MB29}? Para confirmar presione el boton Aplicar");
             }
             else
             {
@@ -115,10 +115,10 @@ namespace IngenieriaSoftware
             EmailTxt.Enabled = false;
             RolCB.Enabled = false;
 
-            var seleccionado = (UsuarioBE_MB29)DGVUsuarios.CurrentRow.DataBoundItem;
-            if (!seleccionado.Bloqueado)
+            var seleccionado = (UsuarioServicio_MB29)DGVUsuarios.CurrentRow.DataBoundItem;
+            if (!seleccionado.Bloqueado_MB29)
             {
-                MessageBox.Show($"El usuario {seleccionado.Usuario} no se encuentra bloqueado");
+                MessageBox.Show($"El usuario {seleccionado.Usuario_MB29} no se encuentra bloqueado");
                 _modo = 0;
             }
         }
@@ -149,9 +149,9 @@ namespace IngenieriaSoftware
                             return;
                         }
 
-                        foreach (UsuarioBE_MB29 usuario in UsuarioBLL_MB29.Instancia.ObtenerUsuarios_MB29())
+                        foreach (UsuarioServicio_MB29 usuario in UsuarioBLL_MB29.Instancia.ObtenerUsuarios_MB29())
                         {
-                            if (Convert.ToDouble(dniTexto) == usuario.DNI)
+                            if (Convert.ToDouble(dniTexto) == usuario.DNI_MB29)
                             {
                                 MessageBox.Show($"No puede haber dos DNI iguales.");
                                 return;
@@ -173,7 +173,7 @@ namespace IngenieriaSoftware
                         int idrol = Convert.ToInt32(RolCB.SelectedValue);
 
                         //Crear usuario y guardarlo
-                        var nuevoUsuario = new UsuarioBE_MB29(
+                        var nuevoUsuario = new UsuarioServicio_MB29(
                             id: 0,               //No llega a la BD
                             usuario: usuarioGen,
                             contra: contraGen,
@@ -186,10 +186,10 @@ namespace IngenieriaSoftware
                             telefono: "",
                             false
                         );
-                        nuevoUsuario.Estado = "Habilitado";
+                        nuevoUsuario.Estado_MB29 = "Habilitado";
 
                         UsuarioBLL_MB29.Instancia.Guardar_MB29(nuevoUsuario);
-                        CargarDGV();
+                        CargarDGV_MB29();
 
                         break;
                     }
@@ -198,30 +198,30 @@ namespace IngenieriaSoftware
                     {
                         if (DGVUsuarios.CurrentRow != null)
                         {
-                            var seleccionado = (UsuarioBE_MB29)DGVUsuarios.CurrentRow.DataBoundItem;
+                            var seleccionado = (UsuarioServicio_MB29)DGVUsuarios.CurrentRow.DataBoundItem;
                             UsuarioBLL_MB29.Instancia.Deshabilitar_MB29(seleccionado);
-                            MessageBox.Show($"El usuario {seleccionado.Nombre} fue deshabilitado correctamente.");                           
+                            MessageBox.Show($"El usuario {seleccionado.Nombre_MB29} fue deshabilitado correctamente.");                           
                         }
-                        CargarDGV();
+                        CargarDGV_MB29();
                         break;
                     }
 
                 case 3: //Modificar usuario
                     {
-                        var seleccionado = (UsuarioBE_MB29)DGVUsuarios.CurrentRow.DataBoundItem;
+                        var seleccionado = (UsuarioServicio_MB29)DGVUsuarios.CurrentRow.DataBoundItem;
                         if (!string.IsNullOrEmpty(EmailTxt.Text))
                         {
-                            seleccionado.Email = EmailTxt.Text;
+                            seleccionado.Email_MB29 = EmailTxt.Text;
                         }
                         if(RolCB.SelectedItem != null)
                         {
                             int idrol = Convert.ToInt32(RolCB.SelectedValue);
-                            seleccionado.IdRol = idrol;
+                            seleccionado.IdRol_MB29 = idrol;
                         }
                         
                         UsuarioBLL_MB29.Instancia.Modificar_MB29(seleccionado);
-                        MessageBox.Show($"El usuario {seleccionado.Nombre} fue modificado correctamente.");
-                        CargarDGV();
+                        MessageBox.Show($"El usuario {seleccionado.Nombre_MB29} fue modificado correctamente.");
+                        CargarDGV_MB29();
                         break;
                     }
 
@@ -229,24 +229,24 @@ namespace IngenieriaSoftware
                     {
                         if(DGVUsuarios.CurrentRow != null)
                         {
-                            var seleccionado = (UsuarioBE_MB29)DGVUsuarios.CurrentRow.DataBoundItem;
+                            var seleccionado = (UsuarioServicio_MB29)DGVUsuarios.CurrentRow.DataBoundItem;
                             UsuarioBLL_MB29.Instancia.Desbloquear_MB29(seleccionado);
-                            MessageBox.Show($"El usuario {seleccionado.Nombre} fue desbloqueado correctamente.");
+                            MessageBox.Show($"El usuario {seleccionado.Nombre_MB29} fue desbloqueado correctamente.");
                         }
-                        CargarDGV();
+                        CargarDGV_MB29();
                         break;
                     }
             }
         }
 
-        private void FiltrarUsuarios()
+        private void FiltrarUsuarios_MB29()
         {
             var usuarios = UsuarioBLL_MB29.Instancia.ObtenerUsuarios_MB29();
 
             if (BloqueadosRB.Checked)
-                usuarios = usuarios.Where(u => u.Bloqueado).ToList();
+                usuarios = usuarios.Where(u => u.Bloqueado_MB29).ToList();
             else if (ActivosRB.Checked)
-                usuarios = usuarios.Where(u => !u.Bloqueado).ToList();
+                usuarios = usuarios.Where(u => !u.Bloqueado_MB29).ToList();
             else if (RBTodos.Checked)
                 usuarios = usuarios.ToList();
 
@@ -259,25 +259,37 @@ namespace IngenieriaSoftware
 
             DataGridViewRow fila = DGVUsuarios.SelectedRows[0];
 
-            NombreTxt.Text = fila.Cells["Nombre"].Value.ToString();
-            ApellidoTxt.Text = fila.Cells["Apellido"].Value.ToString();
-            DNITxt.Text = fila.Cells["DNI"].Value.ToString();
-            EmailTxt.Text = fila.Cells["Email"].Value.ToString();
-            RolCB.SelectedValue = Convert.ToInt32(fila.Cells["IdRol"].Value);
+            NombreTxt.Text = fila.Cells["Nombre_MB29"].Value.ToString();
+            ApellidoTxt.Text = fila.Cells["Apellido_MB29"].Value.ToString();
+            DNITxt.Text = fila.Cells["DNI_MB29"].Value.ToString();
+            EmailTxt.Text = fila.Cells["Email_MB29"].Value.ToString();
+            RolCB.SelectedValue = Convert.ToInt32(fila.Cells["IdRol_MB29"].Value);
         }
 
-        private void CargarDGV()
+        private void CargarDGV_MB29()
         {
             DGVUsuarios.DataSource = null;
-            List<UsuarioBE_MB29> usuarios = UsuarioBLL_MB29.Instancia.ObtenerUsuarios_MB29();
+            List<UsuarioServicio_MB29> usuarios = UsuarioBLL_MB29.Instancia.ObtenerUsuarios_MB29();
             DGVUsuarios.DataSource = usuarios; // genera columnas automáticamente
 
-            if (DGVUsuarios.Columns["PassHash"] != null)
-                DGVUsuarios.Columns["PassHash"].Visible = false;
-            if (DGVUsuarios.Columns["Contra"] != null)
-                DGVUsuarios.Columns["Contra"].Visible = false;
-            if (DGVUsuarios.Columns["IntentosErrados"] != null)
-                DGVUsuarios.Columns["IntentosErrados"].Visible = false;
+            DGVUsuarios.Columns["IdPersona_MB29"].DisplayIndex = 0;
+            DGVUsuarios.Columns["Nombre_MB29"].DisplayIndex = 1;
+            DGVUsuarios.Columns["Apellido_MB29"].DisplayIndex = 2;
+            DGVUsuarios.Columns["Email_MB29"].DisplayIndex = 3;
+            DGVUsuarios.Columns["Telefono_MB29"].DisplayIndex = 4;
+            DGVUsuarios.Columns["DNI_MB29"].DisplayIndex = 5;
+            DGVUsuarios.Columns["Usuario_MB29"].DisplayIndex = 6;
+            DGVUsuarios.Columns["IdRol_MB29"].DisplayIndex = 7;
+            DGVUsuarios.Columns["Bloqueado_MB29"].DisplayIndex = 8;
+            DGVUsuarios.Columns["Estado_MB29"].DisplayIndex = 9;
+            DGVUsuarios.Columns["PrimerLogin_MB29"].DisplayIndex = 10;
+
+            if (DGVUsuarios.Columns["PassHash_MB29"] != null)
+                DGVUsuarios.Columns["PassHash_MB29"].Visible = false;
+            if (DGVUsuarios.Columns["Contra_MB29"] != null)
+                DGVUsuarios.Columns["Contra_MB29"].Visible = false;
+            if (DGVUsuarios.Columns["IntentosErrados_MB29"] != null)
+                DGVUsuarios.Columns["IntentosErrados_MB29"].Visible = false;
         }
 
         private void FormGESTIONUSER_MB29_Load(object sender, EventArgs e)
@@ -306,17 +318,17 @@ namespace IngenieriaSoftware
 
         private void BloqueadosRB_CheckedChanged(object sender, EventArgs e)
         {
-            FiltrarUsuarios();
+            FiltrarUsuarios_MB29();
         }
 
         private void ActivosRB_CheckedChanged(object sender, EventArgs e)
         {
-            FiltrarUsuarios();
+            FiltrarUsuarios_MB29();
         }
 
         private void RBTodos_CheckedChanged(object sender, EventArgs e)
         {
-            FiltrarUsuarios();
+            FiltrarUsuarios_MB29();
         }
     }
 }

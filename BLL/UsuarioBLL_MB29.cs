@@ -22,7 +22,7 @@ namespace BLL_MB29
 
         private const int Intentos_MAX = 3;
 
-        private List<UsuarioBE_MB29> _usuarios;
+        private List<UsuarioServicio_MB29> _usuarios;
 
         private UsuarioDAL_MB29 _repo;
 
@@ -32,7 +32,7 @@ namespace BLL_MB29
             _usuarios = _repo.CargarUsuarios_MB29();
         }
 
-        public UsuarioBE_MB29 Login_MB29(string usuario, string contra)
+        public UsuarioServicio_MB29 Login_MB29(string usuario, string contra)
         {
            var user = _usuarios.FirstOrDefault(u => u.IniciarSesion_MB29(usuario, contra));
             if (user == null)
@@ -62,30 +62,30 @@ namespace BLL_MB29
 
             if(credencialOK)
             {
-                if(user.IntentosErrados != 0)
+                if(user.IntentosErrados_MB29 != 0)
                 {
-                    user.IntentosErrados = 0;
+                    user.IntentosErrados_MB29 = 0;
                     _repo.ModificarUsuario_MB29(user);
                     Recargar_MB29();
                 }
 
-                SessionManager_MB29.Instancia.IniciarSesion(user);
+                SessionManager_MB29.Instancia_MB29.IniciarSesion(user);
 
                 BitacoraBLL_MB29.instancia.Registrar_MB29(
-                    SessionManager_MB29.Instancia.UsuarioActual.Usuario,
+                    SessionManager_MB29.Instancia_MB29.UsuarioActual_MB29.Usuario_MB29,
                     "Login OK",
                     "Seguridad",
-                    $"Usuario {user.Usuario} inició sesión",
+                    $"Usuario {user.Usuario_MB29} inició sesión",
                     criticidad: 1
                 );
             }
             else
             {
                 //Credenciales incorrectas
-                user.IntentosErrados++;
-                if (user.IntentosErrados >= Intentos_MAX)
+                user.IntentosErrados_MB29++;
+                if (user.IntentosErrados_MB29 >= Intentos_MAX)
                 {
-                    user.Bloqueado = true;
+                    user.Bloqueado_MB29 = true;
                 }
 
                 _repo.ModificarUsuario_MB29(user);
@@ -94,28 +94,28 @@ namespace BLL_MB29
             return user;
         }
 
-        public UsuarioBE_MB29 ObtenerUsuarioPorNombre_MB29(string usuario)
+        public UsuarioServicio_MB29 ObtenerUsuarioPorNombre_MB29(string usuario)
         {
-            return _usuarios.FirstOrDefault(u => string.Equals(u.Usuario, usuario, StringComparison.OrdinalIgnoreCase));
+            return _usuarios.FirstOrDefault(u => string.Equals(u.Usuario_MB29, usuario, StringComparison.OrdinalIgnoreCase));
         }
 
-        public bool EstaBloqueado_MB29(UsuarioBE_MB29 usuario)
+        public bool EstaBloqueado_MB29(UsuarioServicio_MB29 usuario)
         {
             if (usuario == null) return false;
-            if (usuario.Bloqueado) return true;
+            if (usuario.Bloqueado_MB29) return true;
 
-            int intentos = BitacoraBLL_MB29.instancia.ObtenerIntentosFallidos_MB29(usuario.Usuario);
+            int intentos = BitacoraBLL_MB29.instancia.ObtenerIntentosFallidos_MB29(usuario.Usuario_MB29);
 
             if (intentos >= Intentos_MAX)
             {
-                usuario.Bloqueado = true;
+                usuario.Bloqueado_MB29 = true;
                 _repo.ModificarUsuario_MB29(usuario);
                 Recargar_MB29();
                 BitacoraBLL_MB29.instancia.Registrar_MB29(
-                    usuario.Usuario,
+                    usuario.Usuario_MB29,
                     "Login Bloqueado",
                     "Seguridad",
-                    $"El usuario {usuario.Usuario} superó los intentos máximos y fue bloqueado",
+                    $"El usuario {usuario.Usuario_MB29} superó los intentos máximos y fue bloqueado",
                     criticidad: 3
                 );
                 return true;
@@ -123,11 +123,11 @@ namespace BLL_MB29
             return false;
         }
 
-        public bool EstaDeshabilitado_MB29(UsuarioBE_MB29 usuario)
+        public bool EstaDeshabilitado_MB29(UsuarioServicio_MB29 usuario)
         {
              if(usuario != null)
              {
-                if (usuario.Estado == "Deshabilitado") return true;
+                if (usuario.Estado_MB29 == "Deshabilitado") return true;
                 else
                 {
                     return false;
@@ -138,7 +138,7 @@ namespace BLL_MB29
 
         public bool EstaBloqueado_MB29(string user)
         {
-            var usuario = _usuarios.FirstOrDefault(u => string.Equals(u.Usuario, user, StringComparison.OrdinalIgnoreCase));
+            var usuario = _usuarios.FirstOrDefault(u => string.Equals(u.Usuario_MB29, user, StringComparison.OrdinalIgnoreCase));
             return EstaBloqueado_MB29(usuario);
         }
 
@@ -156,97 +156,97 @@ namespace BLL_MB29
             return (usuario, contra);
         }
 
-        public void Guardar_MB29(UsuarioBE_MB29 usuario)
+        public void Guardar_MB29(UsuarioServicio_MB29 usuario)
         {
-            if (usuario.PassHash.Length != 44)
+            if (usuario.PassHash_MB29.Length != 44)
             {
-                usuario.PassHash = Encriptador_MB29.EncriptarPassword_MB29(usuario.PassHash);
+                usuario.PassHash_MB29 = Encriptador_MB29.EncriptarPassword_MB29(usuario.PassHash_MB29);
             }
             _repo.GuardarUsuario_MB29(usuario);
-            usuario.PrimerLogin = true;
+            usuario.PrimerLogin_MB29 = true;
             _usuarios.Add(usuario);
 
             //accion critica por esto nivel 5
             BitacoraBLL_MB29.instancia.Registrar_MB29(
-                SessionManager_MB29.Instancia.UsuarioActual.Usuario,
+                SessionManager_MB29.Instancia_MB29.UsuarioActual_MB29.Usuario_MB29,
                 "Alta Usuario",
                 "Usuarios",
-                $"Se creó el usuario {usuario.Usuario}",
+                $"Se creó el usuario {usuario.Usuario_MB29}",
                 criticidad: 5
             );
         }
 
-        public void Desbloquear_MB29(UsuarioBE_MB29 usuario)
+        public void Desbloquear_MB29(UsuarioServicio_MB29 usuario)
         {
             if (!EstaBloqueado_MB29(usuario))
             {
                 return;
             }
 
-            usuario.Bloqueado = false;
-            usuario.IntentosErrados = 0;
+            usuario.Bloqueado_MB29 = false;
+            usuario.IntentosErrados_MB29 = 0;
 
             _repo.DesbloquearUsuario_MB29(usuario);
             Recargar_MB29();
 
             BitacoraBLL_MB29.instancia.Registrar_MB29(
-                SessionManager_MB29.Instancia.UsuarioActual.Usuario,
+                SessionManager_MB29.Instancia_MB29.UsuarioActual_MB29.Usuario_MB29,
                  "Desbloquear Usuario",
                   "Usuarios",
-              $"Se desbloqueó el usuario {usuario.Usuario}",
+              $"Se desbloqueó el usuario {usuario.Usuario_MB29}",
                criticidad: 4
              );
 
             BitacoraBLL_MB29.instancia.Registrar_MB29(
-                    usuario.Usuario,
+                    usuario.Usuario_MB29,
                     "Desbloqueo",
                     "Seguridad",
-                    $"{usuario.Usuario}",
+                    $"{usuario.Usuario_MB29}",
                     criticidad: 1
                 );
         }
 
-        public void Modificar_MB29(UsuarioBE_MB29 usuario)
+        public void Modificar_MB29(UsuarioServicio_MB29 usuario)
         {
-            if(usuario.PassHash.Length != 44)
+            if(usuario.PassHash_MB29.Length != 44)
             {
-                usuario.PassHash = Encriptador_MB29.EncriptarPassword_MB29(usuario.PassHash);
+                usuario.PassHash_MB29 = Encriptador_MB29.EncriptarPassword_MB29(usuario.PassHash_MB29);
             }            
             _repo.ModificarUsuario_MB29(usuario);
             Recargar_MB29();
 
             BitacoraBLL_MB29.instancia.Registrar_MB29(
-                SessionManager_MB29.Instancia.UsuarioActual.Usuario,
+                SessionManager_MB29.Instancia_MB29.UsuarioActual_MB29.Usuario_MB29,
                  "Modificar Usuario",
                   "Usuarios",
-              $"Se modificó el usuario {usuario.Usuario}",
+              $"Se modificó el usuario {usuario.Usuario_MB29}",
                criticidad: 4
              );
         }
 
-        public void Deshabilitar_MB29(UsuarioBE_MB29 usuario)
+        public void Deshabilitar_MB29(UsuarioServicio_MB29 usuario)
         {
             if (EstaDeshabilitado_MB29(usuario))
             {
                 return;
             }
 
-            usuario.Estado = "Deshabilitado";
+            usuario.Estado_MB29 = "Deshabilitado";
 
             _repo.DeshabilitarUsuario_MB29(usuario);
             Recargar_MB29();
 
             //accion critica por esto nivel 5
             BitacoraBLL_MB29.instancia.Registrar_MB29(
-                SessionManager_MB29.Instancia.UsuarioActual.Usuario,
+                SessionManager_MB29.Instancia_MB29.UsuarioActual_MB29.Usuario_MB29,
                 "Deshabilitar Usuario",
                 "Usuarios",
-                $"Se deshabilitó el usuario {usuario.Usuario}",
+                $"Se deshabilitó el usuario {usuario.Usuario_MB29}",
                 criticidad: 5
             );
         }
 
-        public List<UsuarioBE_MB29> ObtenerUsuarios_MB29()
+        public List<UsuarioServicio_MB29> ObtenerUsuarios_MB29()
         {
             return _usuarios;
         }
@@ -256,35 +256,35 @@ namespace BLL_MB29
             _usuarios = _repo.CargarUsuarios_MB29();
         }
 
-        public void CambiarContraseña_MB29(UsuarioBE_MB29 usuario)
+        public void CambiarContraseña_MB29(UsuarioServicio_MB29 usuario)
         {
             _repo.CambiarContraseña_MB29(usuario);
 
             BitacoraBLL_MB29.instancia.Registrar_MB29(
-                usuario.Usuario,
+                usuario.Usuario_MB29,
                 "Cambiar Contraseña",
                 "Seguridad",
-                $"El usuario {usuario.Usuario} cambió su contraseña",
+                $"El usuario {usuario.Usuario_MB29} cambió su contraseña",
                 criticidad: 1
             );
         }
 
-        public void MarcarPrimerLoginUsado_MB29(UsuarioBE_MB29 usuario)
+        public void MarcarPrimerLoginUsado_MB29(UsuarioServicio_MB29 usuario)
         {
-            usuario.PrimerLogin = false;
+            usuario.PrimerLogin_MB29 = false;
             _repo.MarcarPrimerLoginUsado_MB29(usuario);
             Recargar_MB29();
         }
 
-        public void CerrarSesion_MB29(UsuarioBE_MB29 usuario)
+        public void CerrarSesion_MB29(UsuarioServicio_MB29 usuario)
         {
-            SessionManager_MB29.Instancia.CerrarSesion();
+            SessionManager_MB29.Instancia_MB29.CerrarSesion();
 
             BitacoraBLL_MB29.instancia.Registrar_MB29(
-                usuario.Usuario,
+                usuario.Usuario_MB29,
                 "Logout",
                 "Seguridad",
-                $"Usuario {usuario.Usuario} cerró sesión",
+                $"Usuario {usuario.Usuario_MB29} cerró sesión",
                 criticidad: 1
             );
         }
