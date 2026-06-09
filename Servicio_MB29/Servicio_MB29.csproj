@@ -44,7 +44,9 @@
     <Compile Include="BitacoraBE_MB29.cs" />
     <Compile Include="Encriptador_MB29.cs" />
     <Compile Include="IInicioSesion_MB29.cs" />
+    <Compile Include="ISujetoComponente.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SessionManager_MB29.cs" />
     <Compile Include="UsuarioBE_MB29.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
