@@ -17,7 +17,7 @@ using System.Xml.Linq;
 
 namespace IngenieriaSoftware
 {
-    public partial class FormGESTIONUSER_MB29: Form
+    public partial class FormGESTIONUSER_MB29: Form, IObserverIdioma
     {
         public FormGESTIONUSER_MB29()
         {
@@ -37,6 +37,9 @@ namespace IngenieriaSoftware
             DNITxt.Enabled = false;
             EmailTxt.Enabled = false;
             RolCB.Enabled = false;
+            Gestoridioma_MB29.Instancia.Agregar_MB29(this);
+            actualizar_MB29(Gestoridioma_MB29.Instancia.IdiomaActual);
+
         }
 
         //modo: 0=ninguno, 1=agregar, 2=deshabilitar, 3=modificar, 4=desbloquear
@@ -320,7 +323,32 @@ namespace IngenieriaSoftware
         {
             FiltrarUsuarios_MB29();
         }
+        public void actualizar_MB29(string idioma)
+        {
+            var g = Gestoridioma_MB29.Instancia;
+            this.Text = g.Traducir("gestion_titulo");
+            label1.Text = g.Traducir("gestion_lbl_dni");
+            label2.Text = g.Traducir("gestion_lbl_nombre");
+            label3.Text = g.Traducir("gestion_lbl_apellido");
+            label4.Text = g.Traducir("gestion_lbl_email");
+            label5.Text = g.Traducir("gestion_lbl_rol");
+            BtnAgregar.Text = g.Traducir("gestion_btn_agregar");
+            BtnDeshabilitar.Text = g.Traducir("gestion_btn_deshabilitar");
+            BtnModificar.Text = g.Traducir("gestion_btn_modificar");
+            BtnDesbloquear.Text = g.Traducir("gestion_btn_desbloquear");
+            BtnAplicar.Text = g.Traducir("gestion_btn_aplicar");
+            BtnSalir.Text = g.Traducir("gestion_btn_salir");
+            ActivosRB.Text = g.Traducir("gestion_rb_activos");
+            BloqueadosRB.Text = g.Traducir("gestion_rb_bloqueados");
+            RBTodos.Text = g.Traducir("gestion_rb_todos");
+        }
 
+        // Override:
+        protected override void OnFormClosed(FormClosedEventArgs e)
+        {
+            Gestoridioma_MB29.Instancia.Eliminar_MB29(this);
+            base.OnFormClosed(e);
+        }
         private void ActivosRB_CheckedChanged(object sender, EventArgs e)
         {
             FiltrarUsuarios_MB29();

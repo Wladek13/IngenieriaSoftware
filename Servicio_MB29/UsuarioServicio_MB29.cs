@@ -117,6 +117,13 @@ namespace Servicio_MB29
             set { _primerLogin_MB29 = value; }
         }
 
+        private string _idiomaPreferido_MB29 = "es";
+        [DisplayName("IdiomaPreferido")]
+        public string IdiomaPreferido_MB29
+        {
+            get { return _idiomaPreferido_MB29; }
+            set { _idiomaPreferido_MB29 = value; }
+        }
         public UsuarioServicio_MB29(int id, string usuario, string contra, bool esHash, string nombre, string apellido, double dni, int idrol, string email, string telefono, bool bloqueado)
         {
             IdPersona_MB29 = id;

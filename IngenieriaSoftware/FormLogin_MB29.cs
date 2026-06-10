@@ -13,12 +13,14 @@ using System.Windows.Forms;
 
 namespace UI_MB29
 {
-     public partial class FormLogin_MB29 : Form
-     {
+     public partial class FormLogin_MB29 : Form, IObserverIdioma
+    {
         
         public FormLogin_MB29()
         {
             InitializeComponent();
+            Gestoridioma_MB29.Instancia.Agregar_MB29(this);
+            actualizar_MB29(Gestoridioma_MB29.Instancia.IdiomaActual);
         }
 
         public UsuarioServicio_MB29 UsuarioAutenticado { get; private set; }
@@ -101,6 +103,23 @@ namespace UI_MB29
             }
         }
 
+      
+
+        public void actualizar_MB29(string idioma)
+        {
+            var g = Gestoridioma_MB29.Instancia;
+            this.Text = g.Traducir("login_titulo");
+            label1.Text = g.Traducir("login_usuario");
+            label2.Text = g.Traducir("login_contrasena");
+            BtnLogin.Text = g.Traducir("login_btn_ingresar");
+            btnSalir.Text = g.Traducir("login_btn_salir");
+        }
+
+        protected override void OnFormClosed(FormClosedEventArgs e)
+        {
+            Gestoridioma_MB29.Instancia.Eliminar_MB29(this);
+            base.OnFormClosed(e);
+        }
         private void btnSalir_Click(object sender, EventArgs e)
         {
             this.Close();

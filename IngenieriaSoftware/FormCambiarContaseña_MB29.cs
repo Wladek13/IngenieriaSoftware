@@ -13,11 +13,13 @@ using UI_MB29;
 
 namespace IngenieriaSoftware
 {
-    public partial class FormCambiarContaseña_MB29 : Form
+    public partial class FormCambiarContaseña_MB29 : Form, IObserverIdioma
     {
         public FormCambiarContaseña_MB29()
         {
             InitializeComponent();
+            Gestoridioma_MB29.Instancia.Agregar_MB29(this);
+            actualizar_MB29(Gestoridioma_MB29.Instancia.IdiomaActual);
         }
 
         private void btnAplicar_Click(object sender, EventArgs e)
@@ -85,6 +87,23 @@ namespace IngenieriaSoftware
             FormLogin_MB29 login = new FormLogin_MB29();
             login.Show();
             this.Close();
+        }
+        public void actualizar_MB29(string idioma)
+        {
+            var g = Gestoridioma_MB29.Instancia;
+            this.Text = g.Traducir("cambiar_titulo");
+            label4.Text = g.Traducir("cambiar_lbl_nombre");
+            label1.Text = g.Traducir("cambiar_lbl_contra_actual");
+            label2.Text = g.Traducir("cambiar_lbl_contra_nueva");
+            label3.Text = g.Traducir("cambiar_lbl_repetir");
+            btnAplicar.Text = g.Traducir("cambiar_btn_aplicar");
+        }
+
+        // Override:
+        protected override void OnFormClosed(FormClosedEventArgs e)
+        {
+            Gestoridioma_MB29.Instancia.Eliminar_MB29(this);
+            base.OnFormClosed(e);
         }
     }
 }

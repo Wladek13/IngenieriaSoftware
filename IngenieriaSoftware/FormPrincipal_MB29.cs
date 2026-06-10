@@ -13,7 +13,7 @@ using UI_MB29;
 
 namespace IngenieriaSoftware
 {
-    public partial class FormPrincipal_MB29 : Form
+    public partial class FormPrincipal_MB29 : Form, IObserverIdioma
     {
         public FormPrincipal_MB29()
         {
@@ -37,6 +37,9 @@ namespace IngenieriaSoftware
                 rF2ToolStripMenuItem.Visible = false;
                 ayudaToolStripMenuItem.Enabled = true;
             }
+            // Registrar como observer y aplicar idioma actual
+            Gestoridioma_MB29.Instancia.Agregar_MB29(this);
+            actualizar_MB29(Gestoridioma_MB29.Instancia.IdiomaActual);
         }
 
         private void gestionDeUsuariosToolStripMenuItem_Click(object sender, EventArgs e)
@@ -71,6 +74,44 @@ namespace IngenieriaSoftware
             FormCambiarContaseña_MB29 CamCon = new FormCambiarContaseña_MB29();
             CamCon.Show();
             this.Close();
+        }
+        public void actualizar_MB29(string idioma)
+        {
+            MessageBox.Show("FormPrincipal actualizando a: " + idioma);
+            var g = Gestoridioma_MB29.Instancia;
+            this.Text = g.Traducir("menu_administrador"); // título del form
+            administradorToolStripMenuItem.Text = g.Traducir("menu_administrador");
+            gestionDeUsuariosToolStripMenuItem.Text = g.Traducir("menu_gestion_usuarios");
+            gestionDePerfilesToolStripMenuItem.Text = g.Traducir("menu_gestion_perfiles");
+            bitacoraDeEventosToolStripMenuItem.Text = g.Traducir("menu_bitacora");
+            cerrarSesionToolStripMenuItem.Text = g.Traducir("menu_cerrar_sesion");
+            usuarioToolStripMenuItem.Text = g.Traducir("menu_usuario");
+            cambiarContraseñaToolStripMenuItem.Text = g.Traducir("menu_cambiar_contrasena");
+            cambairIdiomaToolStripMenuItem.Text = g.Traducir("menu_cambiar_idioma");
+            cerrarSesionToolStripMenuItem1.Text = g.Traducir("menu_cerrar_sesion");
+            iniciarSesionToolStripMenuItem.Text = g.Traducir("menu_iniciar_sesion");
+        }
+
+        protected override void OnFormClosed(FormClosedEventArgs e)
+        {
+            Gestoridioma_MB29.Instancia.Eliminar_MB29(this);
+            base.OnFormClosed(e);
+        }
+
+        private void españolToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Gestoridioma_MB29.Instancia.CambiarIdioma("es");
+        }
+
+        private void inglesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            Gestoridioma_MB29.Instancia.CambiarIdioma("en");
+        }
+
+        private void portuguesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Gestoridioma_MB29.Instancia.CambiarIdioma("pt");
         }
     }
 }

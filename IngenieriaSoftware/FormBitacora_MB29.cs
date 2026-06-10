@@ -16,11 +16,13 @@ using System.Windows.Forms;
 
 namespace IngenieriaSoftware
 {
-    public partial class FormBitacora_MB29: Form
+    public partial class FormBitacora_MB29: Form, IObserverIdioma
     {
         public FormBitacora_MB29()
         {
             InitializeComponent();
+            Gestoridioma_MB29.Instancia.Agregar_MB29(this);
+            actualizar_MB29(Gestoridioma_MB29.Instancia.IdiomaActual);
         }
 
         private void textBox8_TextChanged(object sender, EventArgs e)
@@ -195,6 +197,32 @@ namespace IngenieriaSoftware
         {
             ExportarPDF();
         }
+
+        public void actualizar_MB29(string idioma)
+        {
+            var g = Gestoridioma_MB29.Instancia;
+            this.Text = g.Traducir("bitacora_titulo");
+            label1.Text = g.Traducir("bitacora_lbl_nombre");
+            label2.Text = g.Traducir("bitacora_lbl_apellido");
+            label3.Text = g.Traducir("bitacora_lbl_login");
+            label4.Text = g.Traducir("bitacora_lbl_fecha_inicio");
+            label5.Text = g.Traducir("bitacora_lbl_fecha_salida");
+            label6.Text = g.Traducir("bitacora_lbl_modulo");
+            label8.Text = g.Traducir("bitacora_lbl_criticidad");
+            label9.Text = g.Traducir("bitacora_lbl_accion");
+            btnAplicar.Text = g.Traducir("bitacora_btn_aplicar");
+            btnLimpiar.Text = g.Traducir("bitacora_btn_limpiar");
+            btnImprimir.Text = g.Traducir("bitacora_btn_imprimir");
+            button4.Text = g.Traducir("bitacora_btn_salir");
+        }
+
+        // Override:
+        protected override void OnFormClosed(FormClosedEventArgs e)
+        {
+            Gestoridioma_MB29.Instancia.Eliminar_MB29(this);
+            base.OnFormClosed(e);
+        }
+
 
         private void CBModulo_SelectedIndexChanged(object sender, EventArgs e)
         {
