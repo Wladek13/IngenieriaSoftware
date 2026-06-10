@@ -14,7 +14,7 @@ namespace DAL_MB29
             var conectar = new ConexionDB_MB29();
             var conexion = conectar.Conectar_MB29();
 
-            string query = "SELECT IdPersona, DNI, IdRol, Usuario, PasswordHash, Nombre, Apellido, Telefono, Email, Estado, Bloqueado, PrimerLogin FROM Persona";
+            string query = "SELECT IdPersona, DNI, IdRol, Usuario, PasswordHash, Nombre, Apellido, Telefono, Email, Estado, Bloqueado, PrimerLogin, UltimoIdioma FROM Persona";
             
             using (SqlCommand comando = new SqlCommand(query, conexion))
             {
@@ -34,10 +34,12 @@ namespace DAL_MB29
                         string estado = reader["Estado"].ToString();
                         bool bloqueado = Convert.ToBoolean(reader["Bloqueado"]);
                         bool primerlogin = Convert.ToBoolean(reader["PrimerLogin"]);
+                        string ultimoidioma = reader["UltimoIdioma"].ToString();
 
                         UsuarioServicio_MB29 user = new UsuarioServicio_MB29(id, usuario, passwordHash, true, nombre, apellido, dni, idrol, email, telefono, bloqueado);
                         user.Estado_MB29 = estado;
                         user.PrimerLogin_MB29 = primerlogin;
+                        user.UltimoIdioma_MB29 = ultimoidioma;
 
                         usuarios.Add(user);
                     }
@@ -164,6 +166,24 @@ namespace DAL_MB29
             using (SqlCommand comando = new SqlCommand(query, conexion))
             {
                 comando.Parameters.AddWithValue("@IdPersona", usuario.IdPersona_MB29);
+                comando.ExecuteNonQuery();
+            }
+
+            conectar.Desconectar_MB29();
+        }
+
+        public void GuardarIdioma_MB29(UsuarioServicio_MB29 usuario)
+        {
+            var conectar = new ConexionDB_MB29();
+            var conexion = conectar.Conectar_MB29();
+
+            string query = @"UPDATE Persona SET UltimoIdioma = @UltimoIdioma
+                            WHERE IdPersona = @IdPersona";
+
+            using (SqlCommand comando = new SqlCommand(query, conexion))
+            {
+                comando.Parameters.AddWithValue("@IdPersona", usuario.IdPersona_MB29);
+                comando.Parameters.AddWithValue("@UltimoIdioma", usuario.UltimoIdioma_MB29);
                 comando.ExecuteNonQuery();
             }
 

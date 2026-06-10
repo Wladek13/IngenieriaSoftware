@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Servicio_MB29
 {
-    public class Gestoridioma_MB29
+    public class Gestoridioma_MB29 : ISujetoComponente
     {
         private static Gestoridioma_MB29 _instancia;
         public static Gestoridioma_MB29 Instancia
@@ -23,8 +23,8 @@ namespace Servicio_MB29
 
         private Gestoridioma_MB29()
         {
-            IdiomaActual = "es";
-            CargarJson("es");
+            IdiomaActual = "ES";
+            CargarJson(IdiomaActual);
         }
 
         public string IdiomaActual { get; private set; }
@@ -50,7 +50,6 @@ namespace Servicio_MB29
                 obs.actualizar_MB29(IdiomaActual); 
         }
 
-        
         public void CambiarIdioma(string idioma)
         {
             IdiomaActual = idioma;
@@ -58,14 +57,15 @@ namespace Servicio_MB29
 
             var usuario = SessionManager_MB29.Instancia_MB29.UsuarioActual_MB29;
             if (usuario != null)
-                usuario.IdiomaPreferido_MB29 = idioma;
+                usuario.UltimoIdioma_MB29 = idioma;
 
             Notificar_MB29();
         }
 
-        public void AplicarIdiomaUsuario(string idioma)
+        public void AplicarIdiomaUsuario()
         {
-            IdiomaActual = idioma ?? "es";
+            var usuario = SessionManager_MB29.Instancia_MB29.UsuarioActual_MB29;
+            IdiomaActual = usuario.UltimoIdioma_MB29;
             CargarJson(IdiomaActual);
             Notificar_MB29();
         }

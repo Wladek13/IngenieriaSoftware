@@ -100,18 +100,20 @@ namespace IngenieriaSoftware
 
         private void españolToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Gestoridioma_MB29.Instancia.CambiarIdioma("es");
+            Gestoridioma_MB29.Instancia.CambiarIdioma("ES");
+            UsuarioBLL_MB29.Instancia.GuardarIdioma_MB29(SessionManager_MB29.Instancia_MB29.UsuarioActual_MB29);
         }
 
         private void inglesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
-            Gestoridioma_MB29.Instancia.CambiarIdioma("en");
+            Gestoridioma_MB29.Instancia.CambiarIdioma("EN");
+            UsuarioBLL_MB29.Instancia.GuardarIdioma_MB29(SessionManager_MB29.Instancia_MB29.UsuarioActual_MB29);          
         }
 
         private void portuguesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Gestoridioma_MB29.Instancia.CambiarIdioma("pt");
+            Gestoridioma_MB29.Instancia.CambiarIdioma("PT");
+            UsuarioBLL_MB29.Instancia.GuardarIdioma_MB29(SessionManager_MB29.Instancia_MB29.UsuarioActual_MB29);
         }
     }
 }

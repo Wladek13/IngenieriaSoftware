@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Servicio_MB29
 {
-    public class Rol_MB29
+    public abstract class ComponentePermiso_MB29
     {
-        public int IdRol { get; set; }
-        public string NombreRol { get; set; }
-        public string Descripcion { get; set; }
+        public string Nombre { get; set; }
+
+        public abstract HashSet<int> ObtenerPermisos();
     }
 }

@@ -12,10 +12,6 @@ namespace Servicio_MB29
 
          void Eliminar_MB29(IObserverIdioma idioma);
 
-        void Notificar_MB29();
-
-
-
-
+         void Notificar_MB29();
     }
 }

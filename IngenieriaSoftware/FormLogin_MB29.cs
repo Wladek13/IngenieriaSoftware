@@ -87,9 +87,11 @@ namespace UI_MB29
                 return;
             }
 
+            Gestoridioma_MB29.Instancia.AplicarIdiomaUsuario();
+
             if (UsuarioAutenticado.PrimerLogin_MB29)
-            {
-                MessageBox.Show("Bienvenido. Como es tu primer ingreso, debés cambiar tu contraseña.");
+            {               
+                MessageBox.Show("Bienvenido. Como es tu primer ingreso, debés cambiar tu contraseña.");              
                 FormCambiarContaseña_MB29 fcc = new FormCambiarContaseña_MB29();
                 fcc.Show();
                 this.Hide();
@@ -102,8 +104,6 @@ namespace UI_MB29
                 this.Hide();
             }
         }
-
-      
 
         public void actualizar_MB29(string idioma)
         {

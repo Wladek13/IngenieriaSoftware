@@ -288,5 +288,10 @@ namespace BLL_MB29
                 criticidad: 1
             );
         }
+
+        public void GuardarIdioma_MB29(UsuarioServicio_MB29 usuario)
+        {
+            _repo.GuardarIdioma_MB29(usuario);
+        }
     }
 }
