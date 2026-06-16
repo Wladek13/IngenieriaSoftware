@@ -299,8 +299,8 @@ namespace IngenieriaSoftware
         {
             var roles = new List<Rol_MB29>
             {
-                new Rol_MB29 { IdRol = 1, NombreRol = "Administrador" },
-                new Rol_MB29 { IdRol = 2, NombreRol = "Usuario" }
+                new Rol_MB29 { IdRol = 1, Nombre = "Administrador" },
+                new Rol_MB29 { IdRol = 2, Nombre = "Usuario" }
             };
 
             RolCB.DataSource = roles;

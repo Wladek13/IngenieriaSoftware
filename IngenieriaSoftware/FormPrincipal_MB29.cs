@@ -115,5 +115,18 @@ namespace IngenieriaSoftware
             Gestoridioma_MB29.Instancia.CambiarIdioma("PT");
             UsuarioBLL_MB29.Instancia.GuardarIdioma_MB29(SessionManager_MB29.Instancia_MB29.UsuarioActual_MB29);
         }
+
+        private void gestionFamiliasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormGESTIONPERFIL FPER = new FormGESTIONPERFIL();
+            FPER.Show();
+        }
+
+        private void gestionRolesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormRoles formRoles = new FormRoles();  
+            formRoles.Show();
+
+        }
     }
 }

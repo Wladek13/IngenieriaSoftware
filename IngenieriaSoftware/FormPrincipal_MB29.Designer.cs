@@ -38,13 +38,15 @@
             this.cambiarContraseñaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cerrarSesionToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.cambairIdiomaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.españolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.inglesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.portuguesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.iniciarSesionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rF1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rF2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ayudaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.españolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.inglesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.portuguesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gestionFamiliasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gestionRolesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -78,27 +80,30 @@
             // gestionDeUsuariosToolStripMenuItem
             // 
             this.gestionDeUsuariosToolStripMenuItem.Name = "gestionDeUsuariosToolStripMenuItem";
-            this.gestionDeUsuariosToolStripMenuItem.Size = new System.Drawing.Size(223, 26);
+            this.gestionDeUsuariosToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.gestionDeUsuariosToolStripMenuItem.Text = "Gestion de usuarios";
             this.gestionDeUsuariosToolStripMenuItem.Click += new System.EventHandler(this.gestionDeUsuariosToolStripMenuItem_Click);
             // 
             // gestionDePerfilesToolStripMenuItem
             // 
+            this.gestionDePerfilesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.gestionFamiliasToolStripMenuItem,
+            this.gestionRolesToolStripMenuItem});
             this.gestionDePerfilesToolStripMenuItem.Name = "gestionDePerfilesToolStripMenuItem";
-            this.gestionDePerfilesToolStripMenuItem.Size = new System.Drawing.Size(223, 26);
+            this.gestionDePerfilesToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.gestionDePerfilesToolStripMenuItem.Text = "Gestion de perfiles";
             // 
             // bitacoraDeEventosToolStripMenuItem
             // 
             this.bitacoraDeEventosToolStripMenuItem.Name = "bitacoraDeEventosToolStripMenuItem";
-            this.bitacoraDeEventosToolStripMenuItem.Size = new System.Drawing.Size(223, 26);
+            this.bitacoraDeEventosToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.bitacoraDeEventosToolStripMenuItem.Text = "Bitacora de eventos";
             this.bitacoraDeEventosToolStripMenuItem.Click += new System.EventHandler(this.bitacoraDeEventosToolStripMenuItem_Click);
             // 
             // cerrarSesionToolStripMenuItem
             // 
             this.cerrarSesionToolStripMenuItem.Name = "cerrarSesionToolStripMenuItem";
-            this.cerrarSesionToolStripMenuItem.Size = new System.Drawing.Size(223, 26);
+            this.cerrarSesionToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.cerrarSesionToolStripMenuItem.Text = "Cerrar sesion";
             this.cerrarSesionToolStripMenuItem.Click += new System.EventHandler(this.cerrarSesionToolStripMenuItem1_Click);
             // 
@@ -137,6 +142,27 @@
             this.cambairIdiomaToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.cambairIdiomaToolStripMenuItem.Text = "Cambair idioma";
             // 
+            // españolToolStripMenuItem
+            // 
+            this.españolToolStripMenuItem.Name = "españolToolStripMenuItem";
+            this.españolToolStripMenuItem.Size = new System.Drawing.Size(157, 26);
+            this.españolToolStripMenuItem.Text = "Español";
+            this.españolToolStripMenuItem.Click += new System.EventHandler(this.españolToolStripMenuItem_Click);
+            // 
+            // inglesToolStripMenuItem
+            // 
+            this.inglesToolStripMenuItem.Name = "inglesToolStripMenuItem";
+            this.inglesToolStripMenuItem.Size = new System.Drawing.Size(157, 26);
+            this.inglesToolStripMenuItem.Text = "Ingles";
+            this.inglesToolStripMenuItem.Click += new System.EventHandler(this.inglesToolStripMenuItem_Click);
+            // 
+            // portuguesToolStripMenuItem
+            // 
+            this.portuguesToolStripMenuItem.Name = "portuguesToolStripMenuItem";
+            this.portuguesToolStripMenuItem.Size = new System.Drawing.Size(157, 26);
+            this.portuguesToolStripMenuItem.Text = "Portugues";
+            this.portuguesToolStripMenuItem.Click += new System.EventHandler(this.portuguesToolStripMenuItem_Click);
+            // 
             // iniciarSesionToolStripMenuItem
             // 
             this.iniciarSesionToolStripMenuItem.Name = "iniciarSesionToolStripMenuItem";
@@ -162,26 +188,19 @@
             this.ayudaToolStripMenuItem.Size = new System.Drawing.Size(65, 24);
             this.ayudaToolStripMenuItem.Text = "Ayuda";
             // 
-            // españolToolStripMenuItem
+            // gestionFamiliasToolStripMenuItem
             // 
-            this.españolToolStripMenuItem.Name = "españolToolStripMenuItem";
-            this.españolToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.españolToolStripMenuItem.Text = "Español";
-            this.españolToolStripMenuItem.Click += new System.EventHandler(this.españolToolStripMenuItem_Click);
+            this.gestionFamiliasToolStripMenuItem.Name = "gestionFamiliasToolStripMenuItem";
+            this.gestionFamiliasToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.gestionFamiliasToolStripMenuItem.Text = "Gestion familias";
+            this.gestionFamiliasToolStripMenuItem.Click += new System.EventHandler(this.gestionFamiliasToolStripMenuItem_Click);
             // 
-            // inglesToolStripMenuItem
+            // gestionRolesToolStripMenuItem
             // 
-            this.inglesToolStripMenuItem.Name = "inglesToolStripMenuItem";
-            this.inglesToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.inglesToolStripMenuItem.Text = "Ingles";
-            this.inglesToolStripMenuItem.Click += new System.EventHandler(this.inglesToolStripMenuItem_Click);
-            // 
-            // portuguesToolStripMenuItem
-            // 
-            this.portuguesToolStripMenuItem.Name = "portuguesToolStripMenuItem";
-            this.portuguesToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.portuguesToolStripMenuItem.Text = "Portugues";
-            this.portuguesToolStripMenuItem.Click += new System.EventHandler(this.portuguesToolStripMenuItem_Click);
+            this.gestionRolesToolStripMenuItem.Name = "gestionRolesToolStripMenuItem";
+            this.gestionRolesToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.gestionRolesToolStripMenuItem.Text = "Gestion Roles";
+            this.gestionRolesToolStripMenuItem.Click += new System.EventHandler(this.gestionRolesToolStripMenuItem_Click);
             // 
             // FormPrincipal_MB29
             // 
@@ -220,5 +239,7 @@
         private System.Windows.Forms.ToolStripMenuItem españolToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem inglesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem portuguesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem gestionFamiliasToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem gestionRolesToolStripMenuItem;
     }
 }

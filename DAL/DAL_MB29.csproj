@@ -44,6 +44,9 @@
   <ItemGroup>
     <Compile Include="BitacoraDAL_MB29.cs" />
     <Compile Include="ConexionDB_MB29.cs" />
+    <Compile Include="FamiliaDAL_MB29.cs" />
+    <Compile Include="PermisoDAL_MB29.cs" />
+    <Compile Include="RolDAL_MB29.cs" />
     <Compile Include="UsuarioDAL_MB29.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -8,6 +8,7 @@ namespace Servicio_MB29
 {
     public class Rol_MB29 : ComponentePermiso_MB29
     {
+        public int IdRol { get; set; }
         public List<ComponentePermiso_MB29> Componentes { get; set; } = new List<ComponentePermiso_MB29>();
 
         public override HashSet<int> ObtenerPermisos()

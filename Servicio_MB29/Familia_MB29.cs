@@ -8,6 +8,7 @@ namespace Servicio_MB29
 {
     public class Familia_MB29 : ComponentePermiso_MB29
     {
+        public int IdFamilia { get; set; }
         public List<ComponentePermiso_MB29> Hijos { get; set; } = new List<ComponentePermiso_MB29>();
 
         public override HashSet<int> ObtenerPermisos()
