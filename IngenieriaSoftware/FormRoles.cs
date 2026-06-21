@@ -25,7 +25,19 @@ namespace IngenieriaSoftware
             CargarFamilias();
             CargarPermisos();
         }
-
+        private void EstaLogueado_MB29()
+        {
+            if (!SessionManager_MB29.Instancia_MB29.HaySesion())
+            {
+                this.Close();
+                return;
+            }
+            else if (SessionManager_MB29.Instancia_MB29.UsuarioActual_MB29.IdRol_MB29 == 2)
+            {
+                this.Close();
+                return;
+            }
+        }
 
 
         private void CargarRoles()
@@ -54,6 +66,7 @@ namespace IngenieriaSoftware
 
         private void btnCrear_Click(object sender, EventArgs e)
         {
+            EstaLogueado_MB29();
             if (string.IsNullOrWhiteSpace(txtRol.Text))
             {
                 MessageBox.Show("Ingrese un nombre para el rol.");
@@ -76,6 +89,7 @@ namespace IngenieriaSoftware
 
         private void btnEliminar_Click(object sender, EventArgs e)
         {
+            EstaLogueado_MB29();
             if (LBRoles.SelectedItem == null)
             {
                 MessageBox.Show("Seleccione un rol.");
@@ -98,12 +112,14 @@ namespace IngenieriaSoftware
 
         private void btnSalir_Click(object sender, EventArgs e)
         {
+            EstaLogueado_MB29();
             this.Close();
 
         }
 
         private void btnAplicar_Click(object sender, EventArgs e)
         {
+            EstaLogueado_MB29();
             if (LBRoles.SelectedItem == null)
             {
                 MessageBox.Show("Seleccione un rol.");

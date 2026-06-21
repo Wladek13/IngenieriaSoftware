@@ -42,16 +42,32 @@ namespace IngenieriaSoftware
 
         }
 
+        private void EstaLogueado_MB29()
+        {
+            if (!SessionManager_MB29.Instancia_MB29.HaySesion())
+            {
+                this.Close();
+                return;
+            }
+            else if (SessionManager_MB29.Instancia_MB29.UsuarioActual_MB29.IdRol_MB29 == 2)
+            {
+                this.Close();
+                return;
+            }
+        }
+
         //modo: 0=ninguno, 1=agregar, 2=deshabilitar, 3=modificar, 4=desbloquear
         private int _modo = 0;
 
         private void BtnSalir_Click(object sender, EventArgs e)
         {
+            EstaLogueado_MB29();
             this.Close();
         }
 
         private void BtnAgregar_Click(object sender, EventArgs e)
         {
+            EstaLogueado_MB29();
             //Agregar usuario
             _modo = 1;
 
@@ -71,6 +87,7 @@ namespace IngenieriaSoftware
 
         private void BtnDeshabilitar_Click(object sender, EventArgs e)
         {
+            EstaLogueado_MB29();
             //Deshabilitar usuario
             _modo = 2;
 
@@ -95,6 +112,7 @@ namespace IngenieriaSoftware
 
         private void BtnModificar_Click(object sender, EventArgs e)
         {
+            EstaLogueado_MB29();
             //Modificar usuario
             _modo = 3;
 
@@ -108,6 +126,7 @@ namespace IngenieriaSoftware
 
         private void BtnDesbloquear_Click(object sender, EventArgs e)
         {
+            EstaLogueado_MB29();
             //Desbloquear usuario
             _modo = 4;
 
@@ -128,6 +147,7 @@ namespace IngenieriaSoftware
 
         private void BtnAplicar_Click(object sender, EventArgs e)
         {
+            EstaLogueado_MB29();
             switch (_modo)
             {
                 case 1: //Agregar usuario
