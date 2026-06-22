@@ -13,7 +13,7 @@ using UI_MB29;
 
 namespace IngenieriaSoftware
 {
-    public partial class FormPrincipal_MB29 : Form, IObserverIdioma
+    public partial class FormPrincipal_MB29 : Form, IObserverIdioma, IObserverSesion_MB29
     {
         public FormPrincipal_MB29()
         {
@@ -40,6 +40,27 @@ namespace IngenieriaSoftware
             // Registrar como observer y aplicar idioma actual
             Gestoridioma_MB29.Instancia.Agregar_MB29(this);
             actualizar_MB29(Gestoridioma_MB29.Instancia.IdiomaActual);
+            SessionManager_MB29.Instancia_MB29.AgregarObserverSesion(this);
+        }
+
+        //Cuando el SessionManager notifica, el form se cierra solo
+        public void SesionCerrada_MB29()
+        {
+            if (this.InvokeRequired)
+                this.Invoke(new Action(() => this.Close()));
+            else
+                this.Close();
+        }
+
+        protected override void OnFormClosed(FormClosedEventArgs e)
+        {
+            Gestoridioma_MB29.Instancia.Eliminar_MB29(this);
+            SessionManager_MB29.Instancia_MB29.EliminarObserverSesion(this);
+            base.OnFormClosed(e);
+
+            // Si no hay otros forms abiertos, termina el programa
+            if (Application.OpenForms.Count == 0)
+                Application.Exit();
         }
 
         private void gestionDeUsuariosToolStripMenuItem_Click(object sender, EventArgs e)
@@ -56,11 +77,11 @@ namespace IngenieriaSoftware
 
         private void cerrarSesionToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            UsuarioServicio_MB29 usuario = SessionManager_MB29.Instancia_MB29.UsuarioActual_MB29;
-            UsuarioBLL_MB29.Instancia.CerrarSesion_MB29(usuario);            
             FormLogin_MB29 _login = new FormLogin_MB29();
             _login.Show();
-            this.Close();    // cierra el menú
+
+            UsuarioServicio_MB29 usuario = SessionManager_MB29.Instancia_MB29.UsuarioActual_MB29;
+            UsuarioBLL_MB29.Instancia.CerrarSesion_MB29(usuario);
         }
 
         private void iniciarSesionToolStripMenuItem_Click(object sender, EventArgs e)
@@ -77,7 +98,6 @@ namespace IngenieriaSoftware
         }
         public void actualizar_MB29(string idioma)
         {
-            MessageBox.Show("FormPrincipal actualizando a: " + idioma);
             var g = Gestoridioma_MB29.Instancia;
             this.Text = g.Traducir("menu_administrador"); // título del form
             administradorToolStripMenuItem.Text = g.Traducir("menu_administrador");
@@ -90,12 +110,6 @@ namespace IngenieriaSoftware
             cambairIdiomaToolStripMenuItem.Text = g.Traducir("menu_cambiar_idioma");
             cerrarSesionToolStripMenuItem1.Text = g.Traducir("menu_cerrar_sesion");
             iniciarSesionToolStripMenuItem.Text = g.Traducir("menu_iniciar_sesion");
-        }
-
-        protected override void OnFormClosed(FormClosedEventArgs e)
-        {
-            Gestoridioma_MB29.Instancia.Eliminar_MB29(this);
-            base.OnFormClosed(e);
         }
 
         private void españolToolStripMenuItem_Click(object sender, EventArgs e)

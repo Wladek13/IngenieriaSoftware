@@ -39,15 +39,18 @@
             this.label3 = new System.Windows.Forms.Label();
             this.btnAgregar = new System.Windows.Forms.Button();
             this.btnElimPerm = new System.Windows.Forms.Button();
+            this.LBPermisosFamilia = new System.Windows.Forms.ListBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // LBFamilias
             // 
             this.LBFamilias.FormattingEnabled = true;
-            this.LBFamilias.Location = new System.Drawing.Point(64, 51);
+            this.LBFamilias.Location = new System.Drawing.Point(55, 51);
             this.LBFamilias.Name = "LBFamilias";
-            this.LBFamilias.Size = new System.Drawing.Size(212, 290);
+            this.LBFamilias.Size = new System.Drawing.Size(257, 121);
             this.LBFamilias.TabIndex = 0;
+            this.LBFamilias.SelectedIndexChanged += new System.EventHandler(this.LBFamilias_SelectedIndexChanged);
             // 
             // LBPermisos
             // 
@@ -99,7 +102,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(64, 35);
+            this.label2.Location = new System.Drawing.Point(55, 35);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(44, 13);
             this.label2.TabIndex = 7;
@@ -141,11 +144,30 @@
             this.btnElimPerm.UseVisualStyleBackColor = true;
             this.btnElimPerm.Click += new System.EventHandler(this.btnElimPerm_Click);
             // 
+            // LBPermisosFamilia
+            // 
+            this.LBPermisosFamilia.FormattingEnabled = true;
+            this.LBPermisosFamilia.Location = new System.Drawing.Point(55, 200);
+            this.LBPermisosFamilia.Name = "LBPermisosFamilia";
+            this.LBPermisosFamilia.Size = new System.Drawing.Size(257, 147);
+            this.LBPermisosFamilia.TabIndex = 12;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(55, 184);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(147, 13);
+            this.label4.TabIndex = 13;
+            this.label4.Text = "Permisos familia seleccionada";
+            // 
             // FormGESTIONPERFIL
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(599, 450);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.LBPermisosFamilia);
             this.Controls.Add(this.btnElimPerm);
             this.Controls.Add(this.btnAgregar);
             this.Controls.Add(this.label3);
@@ -177,5 +199,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnAgregar;
         private System.Windows.Forms.Button btnElimPerm;
+        private System.Windows.Forms.ListBox LBPermisosFamilia;
+        private System.Windows.Forms.Label label4;
     }
 }

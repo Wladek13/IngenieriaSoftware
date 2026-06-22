@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace IngenieriaSoftware
 {
-    public partial class FormRoles : Form
+    public partial class FormRoles : Form, IObserverSesion_MB29
     {
 
         private readonly RolBLL_MB29 rolBLL = new RolBLL_MB29();
@@ -24,8 +24,26 @@ namespace IngenieriaSoftware
             CargarRoles();
             CargarFamilias();
             CargarPermisos();
+            SessionManager_MB29.Instancia_MB29.AgregarObserverSesion(this);
         }
-        private void EstaLogueado_MB29()
+
+        //Cuando el SessionManager notifica, el form se cierra solo
+        public void SesionCerrada_MB29()
+        {
+            if (this.InvokeRequired)
+                this.Invoke(new Action(() => this.Close()));
+            else
+                this.Close();
+        }
+
+        protected override void OnFormClosed(FormClosedEventArgs e)
+        {
+            //Se desregistra si el usuario cierra el form manualmente
+            SessionManager_MB29.Instancia_MB29.EliminarObserverSesion(this);
+            base.OnFormClosed(e);
+        }
+
+        /*private void EstaLogueado_MB29()
         {
             if (!SessionManager_MB29.Instancia_MB29.HaySesion())
             {
@@ -37,8 +55,7 @@ namespace IngenieriaSoftware
                 this.Close();
                 return;
             }
-        }
-
+        }*/
 
         private void CargarRoles()
         {
@@ -66,7 +83,6 @@ namespace IngenieriaSoftware
 
         private void btnCrear_Click(object sender, EventArgs e)
         {
-            EstaLogueado_MB29();
             if (string.IsNullOrWhiteSpace(txtRol.Text))
             {
                 MessageBox.Show("Ingrese un nombre para el rol.");
@@ -89,7 +105,6 @@ namespace IngenieriaSoftware
 
         private void btnEliminar_Click(object sender, EventArgs e)
         {
-            EstaLogueado_MB29();
             if (LBRoles.SelectedItem == null)
             {
                 MessageBox.Show("Seleccione un rol.");
@@ -112,14 +127,11 @@ namespace IngenieriaSoftware
 
         private void btnSalir_Click(object sender, EventArgs e)
         {
-            EstaLogueado_MB29();
             this.Close();
-
         }
 
-        private void btnAplicar_Click(object sender, EventArgs e)
+        private void btnAgregarPerm_Click(object sender, EventArgs e)
         {
-            EstaLogueado_MB29();
             if (LBRoles.SelectedItem == null)
             {
                 MessageBox.Show("Seleccione un rol.");
@@ -128,7 +140,7 @@ namespace IngenieriaSoftware
 
             if (LBFamilias.SelectedItem == null && LBPermisos.SelectedItem == null)
             {
-                MessageBox.Show("Seleccione una familia o un permiso para agregar al rol.");
+                MessageBox.Show("Seleccione un permiso para agregar al rol.");
                 return;
             }
 
@@ -136,18 +148,39 @@ namespace IngenieriaSoftware
             {
                 var rol = (Rol_MB29)LBRoles.SelectedItem;
 
-                if (LBFamilias.SelectedItem != null)
-                {
-                    var familia = (Familia_MB29)LBFamilias.SelectedItem;
-                    rolBLL.AgregarComponente(rol, familia);
-                    MessageBox.Show("Familia agregada al rol correctamente.");
-                }
-                else
-                {
-                    var permiso = (Permiso_MB29)LBPermisos.SelectedItem;
-                    rolBLL.AgregarComponente(rol, permiso);
-                    MessageBox.Show("Permiso agregado al rol correctamente.");
-                }
+                var permiso = (Permiso_MB29)LBPermisos.SelectedItem;
+                rolBLL.AgregarComponente(rol, permiso);
+                MessageBox.Show("Permiso agregado al rol correctamente.");
+
+                CargarRoles();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+        }
+
+        private void btnAgregarFam_Click(object sender, EventArgs e)
+        {
+            if (LBRoles.SelectedItem == null)
+            {
+                MessageBox.Show("Seleccione un rol.");
+                return;
+            }
+
+            if (LBFamilias.SelectedItem == null)
+            {
+                MessageBox.Show("Seleccione una familia para agregar al rol.");
+                return;
+            }
+
+            try
+            {
+                var rol = (Rol_MB29)LBRoles.SelectedItem;
+
+                var familia = (Familia_MB29)LBFamilias.SelectedItem;
+                rolBLL.AgregarComponente(rol, familia);
+                MessageBox.Show("Familia agregada al rol correctamente.");
 
                 CargarRoles();
             }

@@ -17,18 +17,55 @@ namespace DAL
             var conectar = new ConexionDB_MB29();
             var conexion = conectar.Conectar_MB29();
 
-            string query = "SELECT IdRol, Nombre FROM Rol";
-
-            using (SqlCommand cmd = new SqlCommand(query, conexion))
+            //Traemos roles base
+            using (SqlCommand cmd = new SqlCommand("SELECT IdRol, Nombre FROM Rol", conexion))
             using (SqlDataReader reader = cmd.ExecuteReader())
             {
                 while (reader.Read())
-                {
                     roles.Add(new Rol_MB29
                     {
                         IdRol = Convert.ToInt32(reader["IdRol"]),
                         Nombre = reader["Nombre"].ToString()
                     });
+            }
+
+            //Para cada rol, cargamos familias y permisos sueltos
+            var familiaDAL = new FamiliaDAL_MB29();
+            var todasFamilias = familiaDAL.ObtenerTodas(); // ya trae hijos
+            var familiasDict = todasFamilias.ToDictionary(f => f.IdFamilia);
+
+            var permisoDAL = new PermisoDAL_MB29();
+            var todosPermisos = permisoDAL.ObtenerTodos();
+            var permisosDict = todosPermisos.ToDictionary(p => p.Id);
+
+            foreach (var rol in roles)
+            {
+                //Familias del rol
+                using (SqlCommand cmd = new SqlCommand(
+                    "SELECT IdFamilia FROM RolFamilia WHERE IdRol = @IdRol", conexion))
+                {
+                    cmd.Parameters.AddWithValue("@IdRol", rol.IdRol);
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                        while (reader.Read())
+                        {
+                            int idFam = Convert.ToInt32(reader["IdFamilia"]);
+                            if (familiasDict.TryGetValue(idFam, out var f))
+                                rol.Componentes.Add(f);
+                        }
+                }
+
+                //Permisos sueltos del rol
+                using (SqlCommand cmd = new SqlCommand(
+                    "SELECT IdPermiso FROM RolPermiso WHERE IdRol = @IdRol", conexion))
+                {
+                    cmd.Parameters.AddWithValue("@IdRol", rol.IdRol);
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                        while (reader.Read())
+                        {
+                            int idPerm = Convert.ToInt32(reader["IdPermiso"]);
+                            if (permisosDict.TryGetValue(idPerm, out var p))
+                                rol.Componentes.Add(p);
+                        }
                 }
             }
 

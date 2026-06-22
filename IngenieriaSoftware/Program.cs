@@ -19,7 +19,10 @@ namespace IngenieriaSoftware
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            Application.Run(new FormLogin_MB29());
+            FormLogin_MB29 login = new FormLogin_MB29();
+            login.Show();
+
+            Application.Run();
         }
     }
 }

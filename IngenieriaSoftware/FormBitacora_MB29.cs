@@ -16,28 +16,32 @@ using System.Windows.Forms;
 
 namespace IngenieriaSoftware
 {
-    public partial class FormBitacora_MB29: Form, IObserverIdioma
+    public partial class FormBitacora_MB29: Form, IObserverIdioma, IObserverSesion_MB29
     {
         public FormBitacora_MB29()
         {
             InitializeComponent();
             Gestoridioma_MB29.Instancia.Agregar_MB29(this);
             actualizar_MB29(Gestoridioma_MB29.Instancia.IdiomaActual);
+            SessionManager_MB29.Instancia_MB29.AgregarObserverSesion(this);
         }
 
-        private void EstaLogueado_MB29()
+        //Cuando el SessionManager notifica, el form se cierra solo
+        public void SesionCerrada_MB29()
         {
-            if (!SessionManager_MB29.Instancia_MB29.HaySesion())
-            {
+            if (this.InvokeRequired)
+                this.Invoke(new Action(() => this.Close()));
+            else
                 this.Close();
-                return;
-            }
-            else if (SessionManager_MB29.Instancia_MB29.UsuarioActual_MB29.IdRol_MB29 == 2)
-            {
-                this.Close();
-                return;
-            }
         }
+
+        protected override void OnFormClosed(FormClosedEventArgs e)
+        {
+            //Se desregistra si el usuario cierra el form manualmente
+            SessionManager_MB29.Instancia_MB29.EliminarObserverSesion(this);
+            base.OnFormClosed(e);
+        }
+
         private void textBox8_TextChanged(object sender, EventArgs e)
         {
 
@@ -90,7 +94,6 @@ namespace IngenieriaSoftware
 
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
-            EstaLogueado_MB29();
             NombreTxt.Clear();
             ApellidoTxt.Clear();
             CBModulo.SelectedIndex = 0;
@@ -107,7 +110,6 @@ namespace IngenieriaSoftware
 
         private void btnAplicar_Click(object sender, EventArgs e)
         {
-            EstaLogueado_MB29();
             var resultado = BitacoraBLL_MB29.instancia.CargarBitacora_MB29();
 
             if (!string.IsNullOrWhiteSpace(NombreTxt.Text))
@@ -210,7 +212,6 @@ namespace IngenieriaSoftware
 
         private void btnImprimir_Click(object sender, EventArgs e)
         {
-            EstaLogueado_MB29();
             ExportarPDF();
         }
 
@@ -231,14 +232,6 @@ namespace IngenieriaSoftware
             btnImprimir.Text = g.Traducir("bitacora_btn_imprimir");
             button4.Text = g.Traducir("bitacora_btn_salir");
         }
-
-        // Override:
-        protected override void OnFormClosed(FormClosedEventArgs e)
-        {
-            Gestoridioma_MB29.Instancia.Eliminar_MB29(this);
-            base.OnFormClosed(e);
-        }
-
 
         private void CBModulo_SelectedIndexChanged(object sender, EventArgs e)
         {

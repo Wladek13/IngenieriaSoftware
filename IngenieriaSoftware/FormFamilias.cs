@@ -12,7 +12,7 @@ using Servicio_MB29;
 
 namespace IngenieriaSoftware
 {
-    public partial class FormGESTIONPERFIL : Form
+    public partial class FormGESTIONPERFIL : Form, IObserverSesion_MB29
     {
         private readonly FamiliaBLL_MB29 familiaBLL = new FamiliaBLL_MB29();
         private readonly PermisoBLL_MB29 permisoBLL = new PermisoBLL_MB29();
@@ -21,25 +21,27 @@ namespace IngenieriaSoftware
             InitializeComponent();
             CargarFamilias();
             CargarPermisos();
+            SessionManager_MB29.Instancia_MB29.AgregarObserverSesion(this);
         }
 
-        private void EstaLogueado_MB29()
+        //Cuando el SessionManager notifica, el form se cierra solo
+        public void SesionCerrada_MB29()
         {
-            if (!SessionManager_MB29.Instancia_MB29.HaySesion())
-            {
+            if (this.InvokeRequired)
+                this.Invoke(new Action(() => this.Close()));
+            else
                 this.Close();
-                return;
-            }
-            else if (SessionManager_MB29.Instancia_MB29.UsuarioActual_MB29.IdRol_MB29 == 2)
-            {
-                this.Close();
-                return;
-            }
+        }
+
+        protected override void OnFormClosed(FormClosedEventArgs e)
+        {
+            //Se desregistra si el usuario cierra el form manualmente
+            SessionManager_MB29.Instancia_MB29.EliminarObserverSesion(this);
+            base.OnFormClosed(e);
         }
 
         private void btnCrear_Click(object sender, EventArgs e)
         {
-            EstaLogueado_MB29();
             if (string.IsNullOrWhiteSpace(txtFamilia.Text))
             {
                 MessageBox.Show("Ingrese un nombre.");
@@ -76,9 +78,18 @@ namespace IngenieriaSoftware
             LBPermisos.DisplayMember = "Nombre";
         }
 
+        private void CargarFamiliasPermisos()
+        {
+            if (LBFamilias.SelectedItem == null) return;
+            var seleccionado = (Familia_MB29)LBFamilias.SelectedItem;
+            var permisos = familiaBLL.PermisosFamilia(seleccionado);
+            LBPermisosFamilia.DataSource = null;
+            LBPermisosFamilia.DataSource = permisos;
+            LBPermisosFamilia.DisplayMember = "Nombre";
+        }
+
         private void btnEliminar_Click(object sender, EventArgs e)
         {
-            EstaLogueado_MB29();
             if (LBFamilias.SelectedItem == null)
             {
                 MessageBox.Show("Seleccione una familia.");
@@ -100,7 +111,6 @@ namespace IngenieriaSoftware
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            EstaLogueado_MB29();
             if (LBFamilias.SelectedItem == null || LBPermisos.SelectedItem == null)
             {
                 MessageBox.Show("Seleccione una familia y un permiso.");
@@ -122,31 +132,34 @@ namespace IngenieriaSoftware
 
         private void btnSalir_Click(object sender, EventArgs e)
         {
-            EstaLogueado_MB29();
             this.Close();
         }
 
         private void btnElimPerm_Click(object sender, EventArgs e)
         {
-            EstaLogueado_MB29();
-            if (LBFamilias.SelectedItem == null || LBPermisos.SelectedItem == null)
-        {
-            MessageBox.Show("Seleccione una familia y un permiso.");
-            return;
+            if (LBFamilias.SelectedItem == null || LBPermisosFamilia.SelectedItem == null)
+            {
+                MessageBox.Show("Seleccione una familia y un permiso de esa familia.");
+                return;
+            }
+
+            try
+            {
+                var familia = (Familia_MB29)LBFamilias.SelectedItem;
+                var permiso = (Permiso_MB29)LBPermisosFamilia.SelectedItem;
+                familiaBLL.EliminarPermiso(familia, permiso);
+                CargarFamiliasPermisos(); //Recargar LBPermisosFamilia
+                MessageBox.Show("Permiso eliminado.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al eliminar permiso: " + ex.Message);
+            }
         }
 
-        try
+        private void LBFamilias_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var familia    = (Familia_MB29)LBFamilias.SelectedItem;
-            var componente = (ComponentePermiso_MB29)LBPermisos.SelectedItem;
-            familiaBLL.EliminarPermiso(familia, componente);
-            CargarFamilias();  // refresca para reflejar la eliminación
-            MessageBox.Show("Permiso eliminado.");
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show("Error al eliminar permiso: " + ex.Message);
-        }
+            CargarFamiliasPermisos();
         }
     }
 }

@@ -26,15 +26,12 @@ namespace BLL
             return usadaPorFamilia || usadaPorRol;
         }
 
-        public void EliminarPermiso(Familia_MB29 familia, ComponentePermiso_MB29 componente)
+        public void EliminarPermiso(Familia_MB29 familia, Permiso_MB29 permiso)
         {
-            if (!familia.Hijos.Contains(componente))
-                throw new Exception("El componente no existe en esta familia.");
-
-            familia.Hijos.Remove(componente);
-
-            if (componente is Permiso_MB29 permiso)
-                familiaDAL.EliminarPermiso(familia, permiso);
+            familiaDAL.EliminarPermiso(familia, permiso);
+            //Actualizo los hijos en memoria
+            var hijo = familia.Hijos.OfType<Permiso_MB29>().FirstOrDefault(p => p.Id == permiso.Id);
+            if (hijo != null) familia.Hijos.Remove(hijo);
         }
 
         public List<Familia_MB29> ObtenerFamilias()
@@ -49,6 +46,13 @@ namespace BLL
 
             familiaDAL.Guardar(familia);
 
+        }
+
+        public List<Permiso_MB29> PermisosFamilia(Familia_MB29 familia)
+        {
+            List<Permiso_MB29> permisos = new List<Permiso_MB29>();
+            permisos = familiaDAL.PermisosFamilia(familia);
+            return permisos;
         }
 
         public void Eliminar(Familia_MB29 familia)

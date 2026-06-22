@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-   public class FamiliaDAL_MB29
+    public class FamiliaDAL_MB29
     {
         public List<Familia_MB29> ObtenerTodas()
         {
@@ -44,6 +44,38 @@ namespace DAL
             return familias;
         }
 
+        public List<Permiso_MB29> PermisosFamilia(Familia_MB29 familia)
+        {
+            var permisos = new List<Permiso_MB29>();
+            var conectar = new ConexionDB_MB29();
+            var conexion = conectar.Conectar_MB29();
+
+            //JOIN con Permiso para traer el Nombre también
+            string query = @"SELECT p.IdPermiso, p.Nombre 
+                     FROM FamiliaPermiso fp
+                     INNER JOIN Permiso p ON fp.IdPermiso = p.IdPermiso
+                     WHERE fp.IdFamilia = @IdFamilia";
+
+            using (SqlCommand cmd = new SqlCommand(query, conexion))
+            {
+                cmd.Parameters.AddWithValue("@IdFamilia", familia.IdFamilia);
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        permisos.Add(new Permiso_MB29
+                        {
+                            Id = Convert.ToInt32(reader["IdPermiso"]),
+                            Nombre = reader["Nombre"].ToString()
+                        });
+                    }
+                }
+            }
+
+            conectar.Desconectar_MB29();
+            return permisos;
+        }
+
         private void CargarHijos(
             List<Familia_MB29> familias,
             Dictionary<int, Familia_MB29> todas,
@@ -51,15 +83,15 @@ namespace DAL
             SqlConnection conexion)
         {
             // Permisos directos de cada familia
-            var conectar2 = new ConexionDB_MB29();
-            var conn2 = conectar2.Conectar_MB29();
+            var conectar = new ConexionDB_MB29();
+            var conn = conectar.Conectar_MB29();
 
             string queryPermisos = @"
                 SELECT fp.IdFamilia, p.IdPermiso, p.Nombre
                 FROM FamiliaPermiso fp
                 INNER JOIN Permiso p ON fp.IdPermiso = p.IdPermiso";
 
-            using (SqlCommand cmd = new SqlCommand(queryPermisos, conn2))
+            using (SqlCommand cmd = new SqlCommand(queryPermisos, conn))
             using (SqlDataReader reader = cmd.ExecuteReader())
             {
                 while (reader.Read())
@@ -81,7 +113,7 @@ namespace DAL
                 SELECT IdFamiliaPadre, IdFamiliaHija
                 FROM FamiliaFamilia";
 
-            using (SqlCommand cmd = new SqlCommand(querySubfamilias, conn2))
+            using (SqlCommand cmd = new SqlCommand(querySubfamilias, conn))
             using (SqlDataReader reader = cmd.ExecuteReader())
             {
                 while (reader.Read())
@@ -96,7 +128,7 @@ namespace DAL
                 }
             }
 
-            conectar2.Desconectar_MB29();
+            conectar.Desconectar_MB29();
         }
 
         public void Guardar(Familia_MB29 familia)

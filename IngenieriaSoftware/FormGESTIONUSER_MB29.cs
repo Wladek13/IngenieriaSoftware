@@ -17,7 +17,7 @@ using System.Xml.Linq;
 
 namespace IngenieriaSoftware
 {
-    public partial class FormGESTIONUSER_MB29: Form, IObserverIdioma
+    public partial class FormGESTIONUSER_MB29: Form, IObserverIdioma, IObserverSesion_MB29
     {
         public FormGESTIONUSER_MB29()
         {
@@ -40,20 +40,23 @@ namespace IngenieriaSoftware
             Gestoridioma_MB29.Instancia.Agregar_MB29(this);
             actualizar_MB29(Gestoridioma_MB29.Instancia.IdiomaActual);
 
+            SessionManager_MB29.Instancia_MB29.AgregarObserverSesion(this);
         }
 
-        private void EstaLogueado_MB29()
+        //Cuando el SessionManager notifica, el form se cierra solo
+        public void SesionCerrada_MB29()
         {
-            if (!SessionManager_MB29.Instancia_MB29.HaySesion())
-            {
+            if (this.InvokeRequired)
+                this.Invoke(new Action(() => this.Close()));
+            else
                 this.Close();
-                return;
-            }
-            else if (SessionManager_MB29.Instancia_MB29.UsuarioActual_MB29.IdRol_MB29 == 2)
-            {
-                this.Close();
-                return;
-            }
+        }
+
+        protected override void OnFormClosed(FormClosedEventArgs e)
+        {
+            //Se desregistra si el usuario cierra el form manualmente
+            SessionManager_MB29.Instancia_MB29.EliminarObserverSesion(this);
+            base.OnFormClosed(e);
         }
 
         //modo: 0=ninguno, 1=agregar, 2=deshabilitar, 3=modificar, 4=desbloquear
@@ -61,13 +64,11 @@ namespace IngenieriaSoftware
 
         private void BtnSalir_Click(object sender, EventArgs e)
         {
-            EstaLogueado_MB29();
             this.Close();
         }
 
         private void BtnAgregar_Click(object sender, EventArgs e)
         {
-            EstaLogueado_MB29();
             //Agregar usuario
             _modo = 1;
 
@@ -87,7 +88,6 @@ namespace IngenieriaSoftware
 
         private void BtnDeshabilitar_Click(object sender, EventArgs e)
         {
-            EstaLogueado_MB29();
             //Deshabilitar usuario
             _modo = 2;
 
@@ -112,7 +112,6 @@ namespace IngenieriaSoftware
 
         private void BtnModificar_Click(object sender, EventArgs e)
         {
-            EstaLogueado_MB29();
             //Modificar usuario
             _modo = 3;
 
@@ -126,7 +125,6 @@ namespace IngenieriaSoftware
 
         private void BtnDesbloquear_Click(object sender, EventArgs e)
         {
-            EstaLogueado_MB29();
             //Desbloquear usuario
             _modo = 4;
 
@@ -147,7 +145,6 @@ namespace IngenieriaSoftware
 
         private void BtnAplicar_Click(object sender, EventArgs e)
         {
-            EstaLogueado_MB29();
             switch (_modo)
             {
                 case 1: //Agregar usuario
@@ -363,12 +360,6 @@ namespace IngenieriaSoftware
             RBTodos.Text = g.Traducir("gestion_rb_todos");
         }
 
-        // Override:
-        protected override void OnFormClosed(FormClosedEventArgs e)
-        {
-            Gestoridioma_MB29.Instancia.Eliminar_MB29(this);
-            base.OnFormClosed(e);
-        }
         private void ActivosRB_CheckedChanged(object sender, EventArgs e)
         {
             FiltrarUsuarios_MB29();

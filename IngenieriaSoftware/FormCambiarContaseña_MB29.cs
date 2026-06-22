@@ -13,31 +13,34 @@ using UI_MB29;
 
 namespace IngenieriaSoftware
 {
-    public partial class FormCambiarContaseña_MB29 : Form, IObserverIdioma
+    public partial class FormCambiarContaseña_MB29 : Form, IObserverIdioma, IObserverSesion_MB29
     {
         public FormCambiarContaseña_MB29()
         {
             InitializeComponent();
             Gestoridioma_MB29.Instancia.Agregar_MB29(this);
             actualizar_MB29(Gestoridioma_MB29.Instancia.IdiomaActual);
+            SessionManager_MB29.Instancia_MB29.AgregarObserverSesion(this);
         }
 
-        private void EstaLogueado_MB29()
+        //Cuando el SessionManager notifica, el form se cierra solo
+        public void SesionCerrada_MB29()
         {
-            if (!SessionManager_MB29.Instancia_MB29.HaySesion())
-            {
+            if (this.InvokeRequired)
+                this.Invoke(new Action(() => this.Close()));
+            else
                 this.Close();
-                return;
-            }
-            else if (SessionManager_MB29.Instancia_MB29.UsuarioActual_MB29.IdRol_MB29 == 2)
-            {
-                this.Close();
-                return;
-            }
         }
+
+        protected override void OnFormClosed(FormClosedEventArgs e)
+        {
+            //Se desregistra si el usuario cierra el form manualmente
+            SessionManager_MB29.Instancia_MB29.EliminarObserverSesion(this);
+            base.OnFormClosed(e);
+        }
+
         private void btnAplicar_Click(object sender, EventArgs e)
         {
-            EstaLogueado_MB29();
             //Verificar que ningún campo esté vacío
             if (string.IsNullOrWhiteSpace(txtNombre.Text) ||
                 string.IsNullOrWhiteSpace(txtContraActual.Text) ||
@@ -111,13 +114,6 @@ namespace IngenieriaSoftware
             label2.Text = g.Traducir("cambiar_lbl_contra_nueva");
             label3.Text = g.Traducir("cambiar_lbl_repetir");
             btnAplicar.Text = g.Traducir("cambiar_btn_aplicar");
-        }
-
-        // Override:
-        protected override void OnFormClosed(FormClosedEventArgs e)
-        {
-            Gestoridioma_MB29.Instancia.Eliminar_MB29(this);
-            base.OnFormClosed(e);
         }
     }
 }

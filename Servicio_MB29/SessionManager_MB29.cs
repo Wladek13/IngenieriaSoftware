@@ -33,15 +33,32 @@ namespace Servicio_MB29
         public bool IniciarSesion(UsuarioServicio_MB29 usuario)
         {
             if (UsuarioActual_MB29 != null)
-                return false; // ya hay alguien logueado
+                return false; //Ya hay alguien logueado
 
             UsuarioActual_MB29 = usuario;
             return true;
         }
 
+        private readonly List<IObserverSesion_MB29> _observersSesion = new List<IObserverSesion_MB29>();
+
+        public void AgregarObserverSesion(IObserverSesion_MB29 observer)
+        {
+            if (!_observersSesion.Contains(observer))
+                _observersSesion.Add(observer);
+        }
+
+        public void EliminarObserverSesion(IObserverSesion_MB29 observer)
+        {
+            _observersSesion.Remove(observer);
+        }
+
         public void CerrarSesion()
         {
             UsuarioActual_MB29 = null;
+            // Notifica a todos los forms registrados
+            foreach (var obs in new List<IObserverSesion_MB29>(_observersSesion))
+                obs.SesionCerrada_MB29();
+            _observersSesion.Clear(); // los forms ya se cerraron, limpiamos la lista
         }
     }
 }

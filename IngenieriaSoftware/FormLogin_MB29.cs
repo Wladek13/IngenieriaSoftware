@@ -94,14 +94,14 @@ namespace UI_MB29
                 MessageBox.Show("Bienvenido. Como es tu primer ingreso, debés cambiar tu contraseña.");              
                 FormCambiarContaseña_MB29 fcc = new FormCambiarContaseña_MB29();
                 fcc.Show();
-                this.Hide();
+                this.Close();
             }
             else
             {
                 MessageBox.Show($"Bienvenido de nuevo {UsuarioAutenticado.Usuario_MB29}!");
                 FormPrincipal_MB29 FP = new FormPrincipal_MB29();
                 FP.Show();
-                this.Hide();
+                this.Close();
             }
         }
 
