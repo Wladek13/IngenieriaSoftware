@@ -8,6 +8,9 @@
   "menu_cambiar_contrasena": "Change password",
   "menu_cambiar_idioma": "Change language",
   "menu_iniciar_sesion": "Log in",
+  "menu_ayuda": "help",
+  "menu_gestion_roles": "role management",
+  "menu_gestion_familias": "family management",
 
   "login_titulo": "Login",
   "login_usuario": "Username",
@@ -50,5 +53,29 @@
   "cambiar_lbl_contra_actual": "Current password",
   "cambiar_lbl_contra_nueva": "New password",
   "cambiar_lbl_repetir": "Repeat password",
-  "cambiar_btn_aplicar": "Apply"
+  "cambiar_btn_aplicar": "Apply",
+
+
+  "nombre_familia": "family name",
+  "crear": "create",
+  "eliminar": "delete",
+  "permisos": "permissions",
+  "familias": "family",
+  "eliminar_permiso": "remove permissions",
+  "agregar_permiso": "add permissions",
+  "permisos_de_la_familia": "family permissions",
+
+
+
+  "eliminar_familia": "remove family",
+
+  "agregar_familia": "add family",
+  "salir": "exit",
+  "permisosrol_selec": "permissions in selected role",
+  "permisos_del_rol": "role permissions",
+  "familias_del_rol": "role families",
+
+
+  "roles": "roles"
+
 }

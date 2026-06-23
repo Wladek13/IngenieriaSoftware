@@ -25,6 +25,7 @@ namespace IngenieriaSoftware
             CargarFamilias_MB29();
             CargarPermisos_MB29();
             SessionManager_MB29.Instancia_MB29.AgregarObserverSesion_MB29(this);
+            actualizar_MB29(Gestoridioma_MB29.Instancia_MB29.IdiomaActual_MB29);
         }
 
         public void SesionCerrada_MB29()
@@ -256,6 +257,36 @@ namespace IngenieriaSoftware
             {
                 MessageBox.Show("Error al eliminar permiso: " + ex.Message);
             }
+        }
+
+
+        public void actualizar_MB29(string idioma)
+        {
+            var g = Gestoridioma_MB29.Instancia_MB29;
+            label1.Text = g.Traducir_MB29("roles");
+            label2.Text = g.Traducir_MB29("familias");
+            label3.Text = g.Traducir_MB29("permisos");
+            label4.Text = g.Traducir_MB29("familias_del_rol");
+            label5.Text = g.Traducir_MB29("permisos_del_rol");
+            btnCrear.Text = g.Traducir_MB29("crear");
+            btnEliminar.Text = g.Traducir_MB29("eliminar");
+            btnAgregarFam.Text = g.Traducir_MB29("agregar_familia");
+            btnAgregarPerm.Text = g.Traducir_MB29("agregar_permiso");
+            btnEliminarFamR.Text = g.Traducir_MB29("eliminar_familia");
+            btnEliminarPermR.Text = g.Traducir_MB29("eliminar_permiso");
+            label6.Text = g.Traducir_MB29("permisosrol_selec");
+            btnSalir.Text = g.Traducir_MB29("salir");
+
+
+
+
+
+
+        }
+
+        private void FormRoles_MB29_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

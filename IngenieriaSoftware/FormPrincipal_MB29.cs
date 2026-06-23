@@ -108,6 +108,9 @@ namespace IngenieriaSoftware
             cambairIdiomaToolStripMenuItem.Text = g.Traducir_MB29("menu_cambiar_idioma");
             cerrarSesionToolStripMenuItem1.Text = g.Traducir_MB29("menu_cerrar_sesion");
             iniciarSesionToolStripMenuItem.Text = g.Traducir_MB29("menu_iniciar_sesion");
+            ayudaToolStripMenuItem.Text = g.Traducir_MB29("menu_ayuda");
+            gestionRolesToolStripMenuItem.Text = g.Traducir_MB29("menu_gestion_roles");
+            gestionFamiliasToolStripMenuItem.Text = g.Traducir_MB29("menu_gestion_familias");
         }
 
         private void españolToolStripMenuItem_Click(object sender, EventArgs e)
@@ -138,6 +141,11 @@ namespace IngenieriaSoftware
         {
             FormRoles_MB29 formRoles = new FormRoles_MB29();  
             formRoles.Show();
+
+        }
+
+        private void FormPrincipal_MB29_Load(object sender, EventArgs e)
+        {
 
         }
     }

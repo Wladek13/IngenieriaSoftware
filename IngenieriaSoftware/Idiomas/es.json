@@ -8,6 +8,9 @@
   "menu_cambiar_contrasena": "Cambiar contraseña",
   "menu_cambiar_idioma": "Cambiar idioma",
   "menu_iniciar_sesion": "Iniciar sesion",
+  "menu_ayuda": "ayuda",
+  "menu_gestion_roles": "gestion roles",
+  "menu_gestion_familias": "gestion familias",
 
   "login_titulo": "Iniciar Sesion",
   "login_usuario": "Usuario",
@@ -50,5 +53,15 @@
   "cambiar_lbl_contra_actual": "Contraseña actual",
   "cambiar_lbl_contra_nueva": "Contraseña nueva",
   "cambiar_lbl_repetir": "Repetir contraseña",
-  "cambiar_btn_aplicar": "Aplicar"
+  "cambiar_btn_aplicar": "Aplicar",
+
+
+
+  "nombre_familia": "nombre familia",
+  "crear": "crear",
+  "eliminar": "eliminar",
+  "permisos": "permisos",
+  "permisos_famiila": "permisos familia",
+  "eliminar_permiso": "eliminar permisos",
+  "agregar_permiso": "agregar permisos"
 }

@@ -32,8 +32,9 @@
             this.administradorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gestionDeUsuariosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gestionDePerfilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gestionFamiliasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gestionRolesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bitacoraDeEventosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cerrarSesionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.usuarioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cambiarContraseñaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cerrarSesionToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -45,8 +46,6 @@
             this.rF1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rF2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ayudaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.gestionFamiliasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.gestionRolesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -71,8 +70,7 @@
             this.administradorToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.gestionDeUsuariosToolStripMenuItem,
             this.gestionDePerfilesToolStripMenuItem,
-            this.bitacoraDeEventosToolStripMenuItem,
-            this.cerrarSesionToolStripMenuItem});
+            this.bitacoraDeEventosToolStripMenuItem});
             this.administradorToolStripMenuItem.Name = "administradorToolStripMenuItem";
             this.administradorToolStripMenuItem.Size = new System.Drawing.Size(118, 24);
             this.administradorToolStripMenuItem.Text = "Administrador";
@@ -80,7 +78,7 @@
             // gestionDeUsuariosToolStripMenuItem
             // 
             this.gestionDeUsuariosToolStripMenuItem.Name = "gestionDeUsuariosToolStripMenuItem";
-            this.gestionDeUsuariosToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.gestionDeUsuariosToolStripMenuItem.Size = new System.Drawing.Size(223, 26);
             this.gestionDeUsuariosToolStripMenuItem.Text = "Gestion de usuarios";
             this.gestionDeUsuariosToolStripMenuItem.Click += new System.EventHandler(this.gestionDeUsuariosToolStripMenuItem_Click);
             // 
@@ -90,22 +88,29 @@
             this.gestionFamiliasToolStripMenuItem,
             this.gestionRolesToolStripMenuItem});
             this.gestionDePerfilesToolStripMenuItem.Name = "gestionDePerfilesToolStripMenuItem";
-            this.gestionDePerfilesToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.gestionDePerfilesToolStripMenuItem.Size = new System.Drawing.Size(223, 26);
             this.gestionDePerfilesToolStripMenuItem.Text = "Gestion de perfiles";
+            // 
+            // gestionFamiliasToolStripMenuItem
+            // 
+            this.gestionFamiliasToolStripMenuItem.Name = "gestionFamiliasToolStripMenuItem";
+            this.gestionFamiliasToolStripMenuItem.Size = new System.Drawing.Size(198, 26);
+            this.gestionFamiliasToolStripMenuItem.Text = "Gestion familias";
+            this.gestionFamiliasToolStripMenuItem.Click += new System.EventHandler(this.gestionFamiliasToolStripMenuItem_Click);
+            // 
+            // gestionRolesToolStripMenuItem
+            // 
+            this.gestionRolesToolStripMenuItem.Name = "gestionRolesToolStripMenuItem";
+            this.gestionRolesToolStripMenuItem.Size = new System.Drawing.Size(198, 26);
+            this.gestionRolesToolStripMenuItem.Text = "Gestion Roles";
+            this.gestionRolesToolStripMenuItem.Click += new System.EventHandler(this.gestionRolesToolStripMenuItem_Click);
             // 
             // bitacoraDeEventosToolStripMenuItem
             // 
             this.bitacoraDeEventosToolStripMenuItem.Name = "bitacoraDeEventosToolStripMenuItem";
-            this.bitacoraDeEventosToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.bitacoraDeEventosToolStripMenuItem.Size = new System.Drawing.Size(223, 26);
             this.bitacoraDeEventosToolStripMenuItem.Text = "Bitacora de eventos";
             this.bitacoraDeEventosToolStripMenuItem.Click += new System.EventHandler(this.bitacoraDeEventosToolStripMenuItem_Click);
-            // 
-            // cerrarSesionToolStripMenuItem
-            // 
-            this.cerrarSesionToolStripMenuItem.Name = "cerrarSesionToolStripMenuItem";
-            this.cerrarSesionToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.cerrarSesionToolStripMenuItem.Text = "Cerrar sesion";
-            this.cerrarSesionToolStripMenuItem.Click += new System.EventHandler(this.cerrarSesionToolStripMenuItem1_Click);
             // 
             // usuarioToolStripMenuItem
             // 
@@ -188,20 +193,6 @@
             this.ayudaToolStripMenuItem.Size = new System.Drawing.Size(65, 24);
             this.ayudaToolStripMenuItem.Text = "Ayuda";
             // 
-            // gestionFamiliasToolStripMenuItem
-            // 
-            this.gestionFamiliasToolStripMenuItem.Name = "gestionFamiliasToolStripMenuItem";
-            this.gestionFamiliasToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.gestionFamiliasToolStripMenuItem.Text = "Gestion familias";
-            this.gestionFamiliasToolStripMenuItem.Click += new System.EventHandler(this.gestionFamiliasToolStripMenuItem_Click);
-            // 
-            // gestionRolesToolStripMenuItem
-            // 
-            this.gestionRolesToolStripMenuItem.Name = "gestionRolesToolStripMenuItem";
-            this.gestionRolesToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.gestionRolesToolStripMenuItem.Text = "Gestion Roles";
-            this.gestionRolesToolStripMenuItem.Click += new System.EventHandler(this.gestionRolesToolStripMenuItem_Click);
-            // 
             // FormPrincipal_MB29
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -213,6 +204,7 @@
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "FormPrincipal_MB29";
             this.Text = "FormPrincipal_MB29";
+            this.Load += new System.EventHandler(this.FormPrincipal_MB29_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -232,7 +224,6 @@
         private System.Windows.Forms.ToolStripMenuItem gestionDeUsuariosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem gestionDePerfilesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem bitacoraDeEventosToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem cerrarSesionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem rF1ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem rF2ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ayudaToolStripMenuItem;

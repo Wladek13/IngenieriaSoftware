@@ -22,6 +22,7 @@ namespace IngenieriaSoftware
             CargarFamilias_MB29();
             CargarPermisos_MB29();
             SessionManager_MB29.Instancia_MB29.AgregarObserverSesion_MB29(this);
+            actualizar_MB29(Gestoridioma_MB29.Instancia_MB29.IdiomaActual_MB29);
         }
 
         //Cuando el SessionManager notifica, el form se cierra solo
@@ -168,9 +169,31 @@ namespace IngenieriaSoftware
             }
         }
 
+
+        public void actualizar_MB29(string idioma)
+        {
+            var g = Gestoridioma_MB29.Instancia_MB29;
+            label3.Text = g.Traducir_MB29("nombre_familia");
+            btnCrear.Text = g.Traducir_MB29("crear");
+            btnEliminar.Text = g.Traducir_MB29("eliminar");
+            label1.Text = g.Traducir_MB29("permisos");
+            label2.Text = g.Traducir_MB29("familias");
+            btnElimPerm.Text = g.Traducir_MB29("eliminar_permiso");
+            btnAgregar.Text = g.Traducir_MB29("agregar_permiso");
+            label4.Text = g.Traducir_MB29("permisos_de_la_familia");
+            btnSalir.Text = g.Traducir_MB29("salir");
+
+
+        }
+
         private void LBFamilias_SelectedIndexChanged(object sender, EventArgs e)
         {
             CargarFamiliasPermisos_MB29();
+        }
+
+        private void FormGESTIONPERFIL_MB29_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
