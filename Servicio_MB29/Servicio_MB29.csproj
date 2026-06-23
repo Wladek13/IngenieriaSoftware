@@ -51,7 +51,7 @@
     <Compile Include="Familia_MB29.cs" />
     <Compile Include="Gestoridioma_MB29.cs" />
     <Compile Include="IInicioSesion_MB29.cs" />
-    <Compile Include="IObserverIdioma.cs" />
+    <Compile Include="IObserverIdioma_MB29.cs" />
     <Compile Include="IObserverSesion_MB29.cs" />
     <Compile Include="ISujetoComponente.cs" />
     <Compile Include="Permiso_MB29.cs" />

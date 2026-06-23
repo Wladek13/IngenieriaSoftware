@@ -13,7 +13,7 @@ using UI_MB29;
 
 namespace IngenieriaSoftware
 {
-    public partial class FormPrincipal_MB29 : Form, IObserverIdioma, IObserverSesion_MB29
+    public partial class FormPrincipal_MB29 : Form, IObserverIdioma_MB29, IObserverSesion_MB29
     {
         public FormPrincipal_MB29()
         {
@@ -37,13 +37,12 @@ namespace IngenieriaSoftware
                 rF2ToolStripMenuItem.Visible = false;
                 ayudaToolStripMenuItem.Enabled = true;
             }
-            // Registrar como observer y aplicar idioma actual
-            Gestoridioma_MB29.Instancia.Agregar_MB29(this);
-            actualizar_MB29(Gestoridioma_MB29.Instancia.IdiomaActual);
-            SessionManager_MB29.Instancia_MB29.AgregarObserverSesion(this);
+            //Registrar como observer y aplicar idioma actual
+            Gestoridioma_MB29.Instancia_MB29.Agregar_MB29(this);
+            actualizar_MB29(Gestoridioma_MB29.Instancia_MB29.IdiomaActual_MB29);
+            SessionManager_MB29.Instancia_MB29.AgregarObserverSesion_MB29(this);
         }
 
-        //Cuando el SessionManager notifica, el form se cierra solo
         public void SesionCerrada_MB29()
         {
             if (this.InvokeRequired)
@@ -54,11 +53,10 @@ namespace IngenieriaSoftware
 
         protected override void OnFormClosed(FormClosedEventArgs e)
         {
-            Gestoridioma_MB29.Instancia.Eliminar_MB29(this);
-            SessionManager_MB29.Instancia_MB29.EliminarObserverSesion(this);
+            Gestoridioma_MB29.Instancia_MB29.Eliminar_MB29(this);
+            SessionManager_MB29.Instancia_MB29.EliminarObserverSesion_MB29(this);
             base.OnFormClosed(e);
 
-            // Si no hay otros forms abiertos, termina el programa
             if (Application.OpenForms.Count == 0)
                 Application.Exit();
         }
@@ -98,47 +96,47 @@ namespace IngenieriaSoftware
         }
         public void actualizar_MB29(string idioma)
         {
-            var g = Gestoridioma_MB29.Instancia;
-            this.Text = g.Traducir("menu_administrador"); // título del form
-            administradorToolStripMenuItem.Text = g.Traducir("menu_administrador");
-            gestionDeUsuariosToolStripMenuItem.Text = g.Traducir("menu_gestion_usuarios");
-            gestionDePerfilesToolStripMenuItem.Text = g.Traducir("menu_gestion_perfiles");
-            bitacoraDeEventosToolStripMenuItem.Text = g.Traducir("menu_bitacora");
-            cerrarSesionToolStripMenuItem.Text = g.Traducir("menu_cerrar_sesion");
-            usuarioToolStripMenuItem.Text = g.Traducir("menu_usuario");
-            cambiarContraseñaToolStripMenuItem.Text = g.Traducir("menu_cambiar_contrasena");
-            cambairIdiomaToolStripMenuItem.Text = g.Traducir("menu_cambiar_idioma");
-            cerrarSesionToolStripMenuItem1.Text = g.Traducir("menu_cerrar_sesion");
-            iniciarSesionToolStripMenuItem.Text = g.Traducir("menu_iniciar_sesion");
+            var g = Gestoridioma_MB29.Instancia_MB29;
+            this.Text = g.Traducir_MB29("menu_administrador");
+            administradorToolStripMenuItem.Text = g.Traducir_MB29("menu_administrador");
+            gestionDeUsuariosToolStripMenuItem.Text = g.Traducir_MB29("menu_gestion_usuarios");
+            gestionDePerfilesToolStripMenuItem.Text = g.Traducir_MB29("menu_gestion_perfiles");
+            bitacoraDeEventosToolStripMenuItem.Text = g.Traducir_MB29("menu_bitacora");
+            cerrarSesionToolStripMenuItem.Text = g.Traducir_MB29("menu_cerrar_sesion");
+            usuarioToolStripMenuItem.Text = g.Traducir_MB29("menu_usuario");
+            cambiarContraseñaToolStripMenuItem.Text = g.Traducir_MB29("menu_cambiar_contrasena");
+            cambairIdiomaToolStripMenuItem.Text = g.Traducir_MB29("menu_cambiar_idioma");
+            cerrarSesionToolStripMenuItem1.Text = g.Traducir_MB29("menu_cerrar_sesion");
+            iniciarSesionToolStripMenuItem.Text = g.Traducir_MB29("menu_iniciar_sesion");
         }
 
         private void españolToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Gestoridioma_MB29.Instancia.CambiarIdioma("ES");
+            Gestoridioma_MB29.Instancia_MB29.CambiarIdioma_MB29("ES");
             UsuarioBLL_MB29.Instancia.GuardarIdioma_MB29(SessionManager_MB29.Instancia_MB29.UsuarioActual_MB29);
         }
 
         private void inglesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Gestoridioma_MB29.Instancia.CambiarIdioma("EN");
+            Gestoridioma_MB29.Instancia_MB29.CambiarIdioma_MB29("EN");
             UsuarioBLL_MB29.Instancia.GuardarIdioma_MB29(SessionManager_MB29.Instancia_MB29.UsuarioActual_MB29);          
         }
 
         private void portuguesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Gestoridioma_MB29.Instancia.CambiarIdioma("PT");
+            Gestoridioma_MB29.Instancia_MB29.CambiarIdioma_MB29("PT");
             UsuarioBLL_MB29.Instancia.GuardarIdioma_MB29(SessionManager_MB29.Instancia_MB29.UsuarioActual_MB29);
         }
 
         private void gestionFamiliasToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FormGESTIONPERFIL FPER = new FormGESTIONPERFIL();
+            FormGESTIONPERFIL_MB29 FPER = new FormGESTIONPERFIL_MB29();
             FPER.Show();
         }
 
         private void gestionRolesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FormRoles formRoles = new FormRoles();  
+            FormRoles_MB29 formRoles = new FormRoles_MB29();  
             formRoles.Show();
 
         }

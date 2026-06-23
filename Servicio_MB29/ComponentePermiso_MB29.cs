@@ -10,6 +10,6 @@ namespace Servicio_MB29
     {
         public string Nombre { get; set; }
 
-        public abstract HashSet<int> ObtenerPermisos();
+        public abstract HashSet<int> ObtenerPermisos_MB29();
     }
 }

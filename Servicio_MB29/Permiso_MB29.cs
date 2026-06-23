@@ -8,11 +8,11 @@ namespace Servicio_MB29
 {
     public class Permiso_MB29 : ComponentePermiso_MB29
     {
-        public int Id { get; set; }
+        public int Id_MB29 { get; set; }
 
-        public override HashSet<int> ObtenerPermisos()
+        public override HashSet<int> ObtenerPermisos_MB29()
         {
-            return new HashSet<int> { Id };
+            return new HashSet<int> { Id_MB29 };
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace IngenieriaSoftware
 {
-    partial class FormGESTIONPERFIL
+    partial class FormGESTIONPERFIL_MB29
     {
         /// <summary>
         /// Required designer variable.
@@ -46,43 +46,43 @@
             // LBFamilias
             // 
             this.LBFamilias.FormattingEnabled = true;
-            this.LBFamilias.Location = new System.Drawing.Point(55, 51);
+            this.LBFamilias.Location = new System.Drawing.Point(12, 25);
             this.LBFamilias.Name = "LBFamilias";
-            this.LBFamilias.Size = new System.Drawing.Size(257, 121);
+            this.LBFamilias.Size = new System.Drawing.Size(299, 121);
             this.LBFamilias.TabIndex = 0;
             this.LBFamilias.SelectedIndexChanged += new System.EventHandler(this.LBFamilias_SelectedIndexChanged);
             // 
             // LBPermisos
             // 
             this.LBPermisos.FormattingEnabled = true;
-            this.LBPermisos.Location = new System.Drawing.Point(341, 51);
+            this.LBPermisos.Location = new System.Drawing.Point(330, 25);
             this.LBPermisos.Name = "LBPermisos";
-            this.LBPermisos.Size = new System.Drawing.Size(215, 290);
+            this.LBPermisos.Size = new System.Drawing.Size(257, 290);
             this.LBPermisos.TabIndex = 1;
             // 
             // btnCrear
             // 
-            this.btnCrear.Location = new System.Drawing.Point(12, 396);
+            this.btnCrear.Location = new System.Drawing.Point(155, 188);
             this.btnCrear.Name = "btnCrear";
             this.btnCrear.Size = new System.Drawing.Size(75, 42);
             this.btnCrear.TabIndex = 3;
-            this.btnCrear.Text = "Crear";
+            this.btnCrear.Text = "Crear Familia";
             this.btnCrear.UseVisualStyleBackColor = true;
             this.btnCrear.Click += new System.EventHandler(this.btnCrear_Click);
             // 
             // btnEliminar
             // 
-            this.btnEliminar.Location = new System.Drawing.Point(283, 396);
+            this.btnEliminar.Location = new System.Drawing.Point(236, 188);
             this.btnEliminar.Name = "btnEliminar";
             this.btnEliminar.Size = new System.Drawing.Size(75, 42);
             this.btnEliminar.TabIndex = 4;
-            this.btnEliminar.Text = "Eliminar";
+            this.btnEliminar.Text = "Eliminar Familia";
             this.btnEliminar.UseVisualStyleBackColor = true;
             this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
             // 
             // btnSalir
             // 
-            this.btnSalir.Location = new System.Drawing.Point(375, 396);
+            this.btnSalir.Location = new System.Drawing.Point(512, 418);
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(75, 42);
             this.btnSalir.TabIndex = 5;
@@ -93,7 +93,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(345, 35);
+            this.label1.Location = new System.Drawing.Point(327, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(49, 13);
             this.label1.TabIndex = 6;
@@ -102,7 +102,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(55, 35);
+            this.label2.Location = new System.Drawing.Point(12, 9);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(44, 13);
             this.label2.TabIndex = 7;
@@ -110,7 +110,7 @@
             // 
             // txtFamilia
             // 
-            this.txtFamilia.Location = new System.Drawing.Point(101, 370);
+            this.txtFamilia.Location = new System.Drawing.Point(89, 162);
             this.txtFamilia.Name = "txtFamilia";
             this.txtFamilia.Size = new System.Drawing.Size(222, 20);
             this.txtFamilia.TabIndex = 8;
@@ -118,7 +118,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(21, 373);
+            this.label3.Location = new System.Drawing.Point(9, 165);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(74, 13);
             this.label3.TabIndex = 9;
@@ -126,17 +126,17 @@
             // 
             // btnAgregar
             // 
-            this.btnAgregar.Location = new System.Drawing.Point(101, 396);
+            this.btnAgregar.Location = new System.Drawing.Point(486, 321);
             this.btnAgregar.Name = "btnAgregar";
-            this.btnAgregar.Size = new System.Drawing.Size(75, 42);
+            this.btnAgregar.Size = new System.Drawing.Size(101, 42);
             this.btnAgregar.TabIndex = 10;
-            this.btnAgregar.Text = "Agregar";
+            this.btnAgregar.Text = "Agregar Permiso/Familia";
             this.btnAgregar.UseVisualStyleBackColor = true;
             this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
             // 
             // btnElimPerm
             // 
-            this.btnElimPerm.Location = new System.Drawing.Point(192, 396);
+            this.btnElimPerm.Location = new System.Drawing.Point(236, 418);
             this.btnElimPerm.Name = "btnElimPerm";
             this.btnElimPerm.Size = new System.Drawing.Size(75, 42);
             this.btnElimPerm.TabIndex = 11;
@@ -147,15 +147,15 @@
             // LBPermisosFamilia
             // 
             this.LBPermisosFamilia.FormattingEnabled = true;
-            this.LBPermisosFamilia.Location = new System.Drawing.Point(55, 200);
+            this.LBPermisosFamilia.Location = new System.Drawing.Point(12, 265);
             this.LBPermisosFamilia.Name = "LBPermisosFamilia";
-            this.LBPermisosFamilia.Size = new System.Drawing.Size(257, 147);
+            this.LBPermisosFamilia.Size = new System.Drawing.Size(299, 147);
             this.LBPermisosFamilia.TabIndex = 12;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(55, 184);
+            this.label4.Location = new System.Drawing.Point(12, 249);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(147, 13);
             this.label4.TabIndex = 13;
@@ -165,7 +165,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(599, 450);
+            this.ClientSize = new System.Drawing.Size(599, 470);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.LBPermisosFamilia);
             this.Controls.Add(this.btnElimPerm);

@@ -12,9 +12,9 @@ namespace BLL
     {
         private readonly PermisoDAL_MB29 permisoDAL = new PermisoDAL_MB29();
 
-        public List<Permiso_MB29> ObtenerPermisos()
+        public List<Permiso_MB29> ObtenerPermisos_MB29()
         {
-            return permisoDAL.ObtenerTodos();
+            return permisoDAL.ObtenerTodosPermisos_MB29();
         }
     }
 }

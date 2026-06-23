@@ -13,17 +13,16 @@ using UI_MB29;
 
 namespace IngenieriaSoftware
 {
-    public partial class FormCambiarContaseña_MB29 : Form, IObserverIdioma, IObserverSesion_MB29
+    public partial class FormCambiarContaseña_MB29 : Form, IObserverIdioma_MB29, IObserverSesion_MB29
     {
         public FormCambiarContaseña_MB29()
         {
             InitializeComponent();
-            Gestoridioma_MB29.Instancia.Agregar_MB29(this);
-            actualizar_MB29(Gestoridioma_MB29.Instancia.IdiomaActual);
-            SessionManager_MB29.Instancia_MB29.AgregarObserverSesion(this);
+            Gestoridioma_MB29.Instancia_MB29.Agregar_MB29(this);
+            actualizar_MB29(Gestoridioma_MB29.Instancia_MB29.IdiomaActual_MB29);
+            SessionManager_MB29.Instancia_MB29.AgregarObserverSesion_MB29(this);
         }
 
-        //Cuando el SessionManager notifica, el form se cierra solo
         public void SesionCerrada_MB29()
         {
             if (this.InvokeRequired)
@@ -34,8 +33,7 @@ namespace IngenieriaSoftware
 
         protected override void OnFormClosed(FormClosedEventArgs e)
         {
-            //Se desregistra si el usuario cierra el form manualmente
-            SessionManager_MB29.Instancia_MB29.EliminarObserverSesion(this);
+            SessionManager_MB29.Instancia_MB29.EliminarObserverSesion_MB29(this);
             base.OnFormClosed(e);
         }
 
@@ -91,7 +89,7 @@ namespace IngenieriaSoftware
             if (usuarioActual != null && usuarioActual.PrimerLogin_MB29)
             {
                 UsuarioBLL_MB29.Instancia.MarcarPrimerLoginUsado_MB29(usuarioActual);
-                SessionManager_MB29.Instancia_MB29.CerrarSesion();
+                SessionManager_MB29.Instancia_MB29.CerrarSesion_MB29();
 
                 FormLogin_MB29 login2 = new FormLogin_MB29();
                 login2.Show();
@@ -99,7 +97,7 @@ namespace IngenieriaSoftware
                 return;
             }
 
-            SessionManager_MB29.Instancia_MB29.CerrarSesion();
+            SessionManager_MB29.Instancia_MB29.CerrarSesion_MB29();
 
             FormLogin_MB29 login = new FormLogin_MB29();
             login.Show();
@@ -107,13 +105,13 @@ namespace IngenieriaSoftware
         }
         public void actualizar_MB29(string idioma)
         {
-            var g = Gestoridioma_MB29.Instancia;
-            this.Text = g.Traducir("cambiar_titulo");
-            label4.Text = g.Traducir("cambiar_lbl_nombre");
-            label1.Text = g.Traducir("cambiar_lbl_contra_actual");
-            label2.Text = g.Traducir("cambiar_lbl_contra_nueva");
-            label3.Text = g.Traducir("cambiar_lbl_repetir");
-            btnAplicar.Text = g.Traducir("cambiar_btn_aplicar");
+            var g = Gestoridioma_MB29.Instancia_MB29;
+            this.Text = g.Traducir_MB29("cambiar_titulo");
+            label4.Text = g.Traducir_MB29("cambiar_lbl_nombre");
+            label1.Text = g.Traducir_MB29("cambiar_lbl_contra_actual");
+            label2.Text = g.Traducir_MB29("cambiar_lbl_contra_nueva");
+            label3.Text = g.Traducir_MB29("cambiar_lbl_repetir");
+            btnAplicar.Text = g.Traducir_MB29("cambiar_btn_aplicar");
         }
     }
 }

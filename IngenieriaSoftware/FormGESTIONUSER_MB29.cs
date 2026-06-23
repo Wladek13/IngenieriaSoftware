@@ -17,7 +17,7 @@ using System.Xml.Linq;
 
 namespace IngenieriaSoftware
 {
-    public partial class FormGESTIONUSER_MB29: Form, IObserverIdioma, IObserverSesion_MB29
+    public partial class FormGESTIONUSER_MB29: Form, IObserverIdioma_MB29, IObserverSesion_MB29
     {
         public FormGESTIONUSER_MB29()
         {
@@ -37,13 +37,12 @@ namespace IngenieriaSoftware
             DNITxt.Enabled = false;
             EmailTxt.Enabled = false;
             RolCB.Enabled = false;
-            Gestoridioma_MB29.Instancia.Agregar_MB29(this);
-            actualizar_MB29(Gestoridioma_MB29.Instancia.IdiomaActual);
+            Gestoridioma_MB29.Instancia_MB29.Agregar_MB29(this);
+            actualizar_MB29(Gestoridioma_MB29.Instancia_MB29.IdiomaActual_MB29);
 
-            SessionManager_MB29.Instancia_MB29.AgregarObserverSesion(this);
+            SessionManager_MB29.Instancia_MB29.AgregarObserverSesion_MB29(this);
         }
 
-        //Cuando el SessionManager notifica, el form se cierra solo
         public void SesionCerrada_MB29()
         {
             if (this.InvokeRequired)
@@ -54,8 +53,7 @@ namespace IngenieriaSoftware
 
         protected override void OnFormClosed(FormClosedEventArgs e)
         {
-            //Se desregistra si el usuario cierra el form manualmente
-            SessionManager_MB29.Instancia_MB29.EliminarObserverSesion(this);
+            SessionManager_MB29.Instancia_MB29.EliminarObserverSesion_MB29(this);
             base.OnFormClosed(e);
         }
 
@@ -88,6 +86,12 @@ namespace IngenieriaSoftware
 
         private void BtnDeshabilitar_Click(object sender, EventArgs e)
         {
+            if (DGVUsuarios.CurrentRow == null)
+            {
+                MessageBox.Show("Seleccione un usuario.");
+                return;
+            }
+
             //Deshabilitar usuario
             _modo = 2;
 
@@ -125,6 +129,12 @@ namespace IngenieriaSoftware
 
         private void BtnDesbloquear_Click(object sender, EventArgs e)
         {
+            if (DGVUsuarios.CurrentRow == null)
+            {
+                MessageBox.Show("Seleccione un usuario.");
+                return;
+            }
+
             //Desbloquear usuario
             _modo = 4;
 
@@ -290,7 +300,7 @@ namespace IngenieriaSoftware
         {
             DGVUsuarios.DataSource = null;
             List<UsuarioServicio_MB29> usuarios = UsuarioBLL_MB29.Instancia.ObtenerUsuarios_MB29();
-            DGVUsuarios.DataSource = usuarios; // genera columnas automáticamente
+            DGVUsuarios.DataSource = usuarios;
 
             DGVUsuarios.Columns["IdPersona_MB29"].DisplayIndex = 0;
             DGVUsuarios.Columns["Nombre_MB29"].DisplayIndex = 1;
@@ -316,8 +326,8 @@ namespace IngenieriaSoftware
         {
             var roles = new List<Rol_MB29>
             {
-                new Rol_MB29 { IdRol = 1, Nombre = "Administrador" },
-                new Rol_MB29 { IdRol = 2, Nombre = "Usuario" }
+                new Rol_MB29 { IdRol_MB29 = 1, Nombre = "Administrador" },
+                new Rol_MB29 { IdRol_MB29 = 2, Nombre = "Usuario" }
             };
 
             RolCB.DataSource = roles;
@@ -342,22 +352,22 @@ namespace IngenieriaSoftware
         }
         public void actualizar_MB29(string idioma)
         {
-            var g = Gestoridioma_MB29.Instancia;
-            this.Text = g.Traducir("gestion_titulo");
-            label1.Text = g.Traducir("gestion_lbl_dni");
-            label2.Text = g.Traducir("gestion_lbl_nombre");
-            label3.Text = g.Traducir("gestion_lbl_apellido");
-            label4.Text = g.Traducir("gestion_lbl_email");
-            label5.Text = g.Traducir("gestion_lbl_rol");
-            BtnAgregar.Text = g.Traducir("gestion_btn_agregar");
-            BtnDeshabilitar.Text = g.Traducir("gestion_btn_deshabilitar");
-            BtnModificar.Text = g.Traducir("gestion_btn_modificar");
-            BtnDesbloquear.Text = g.Traducir("gestion_btn_desbloquear");
-            BtnAplicar.Text = g.Traducir("gestion_btn_aplicar");
-            BtnSalir.Text = g.Traducir("gestion_btn_salir");
-            ActivosRB.Text = g.Traducir("gestion_rb_activos");
-            BloqueadosRB.Text = g.Traducir("gestion_rb_bloqueados");
-            RBTodos.Text = g.Traducir("gestion_rb_todos");
+            var g = Gestoridioma_MB29.Instancia_MB29;
+            this.Text = g.Traducir_MB29("gestion_titulo");
+            label1.Text = g.Traducir_MB29("gestion_lbl_dni");
+            label2.Text = g.Traducir_MB29("gestion_lbl_nombre");
+            label3.Text = g.Traducir_MB29("gestion_lbl_apellido");
+            label4.Text = g.Traducir_MB29("gestion_lbl_email");
+            label5.Text = g.Traducir_MB29("gestion_lbl_rol");
+            BtnAgregar.Text = g.Traducir_MB29("gestion_btn_agregar");
+            BtnDeshabilitar.Text = g.Traducir_MB29("gestion_btn_deshabilitar");
+            BtnModificar.Text = g.Traducir_MB29("gestion_btn_modificar");
+            BtnDesbloquear.Text = g.Traducir_MB29("gestion_btn_desbloquear");
+            BtnAplicar.Text = g.Traducir_MB29("gestion_btn_aplicar");
+            BtnSalir.Text = g.Traducir_MB29("gestion_btn_salir");
+            ActivosRB.Text = g.Traducir_MB29("gestion_rb_activos");
+            BloqueadosRB.Text = g.Traducir_MB29("gestion_rb_bloqueados");
+            RBTodos.Text = g.Traducir_MB29("gestion_rb_todos");
         }
 
         private void ActivosRB_CheckedChanged(object sender, EventArgs e)

@@ -11,7 +11,7 @@ namespace DAL
 {
     public class FamiliaDAL_MB29
     {
-        public List<Familia_MB29> ObtenerTodas()
+        public List<Familia_MB29> ObtenerTodasFamilias_MB29()
         {
             var familias = new List<Familia_MB29>();
             var conectar = new ConexionDB_MB29();
@@ -26,7 +26,7 @@ namespace DAL
                 {
                     familias.Add(new Familia_MB29
                     {
-                        IdFamilia = Convert.ToInt32(reader["IdFamilia"]),
+                        IdFamilia_MB29 = Convert.ToInt32(reader["IdFamilia"]),
                         Nombre = reader["Nombre"].ToString()
                     });
                 }
@@ -37,14 +37,14 @@ namespace DAL
             // Cargar hijos (permisos directos y subfamilias)
             var permisoDAL = new PermisoDAL_MB29();
             var todos = new Dictionary<int, Familia_MB29>();
-            foreach (var f in familias) todos[f.IdFamilia] = f;
+            foreach (var f in familias) todos[f.IdFamilia_MB29] = f;
 
-            CargarHijos(familias, todos, permisoDAL, conexion);
+            CargarHijos_MB29(familias, todos, permisoDAL, conexion);
 
             return familias;
         }
 
-        public List<Permiso_MB29> PermisosFamilia(Familia_MB29 familia)
+        public List<Permiso_MB29> PermisosFamilia_MB29(Familia_MB29 familia)
         {
             var permisos = new List<Permiso_MB29>();
             var conectar = new ConexionDB_MB29();
@@ -58,14 +58,14 @@ namespace DAL
 
             using (SqlCommand cmd = new SqlCommand(query, conexion))
             {
-                cmd.Parameters.AddWithValue("@IdFamilia", familia.IdFamilia);
+                cmd.Parameters.AddWithValue("@IdFamilia", familia.IdFamilia_MB29);
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
                     while (reader.Read())
                     {
                         permisos.Add(new Permiso_MB29
                         {
-                            Id = Convert.ToInt32(reader["IdPermiso"]),
+                            Id_MB29 = Convert.ToInt32(reader["IdPermiso"]),
                             Nombre = reader["Nombre"].ToString()
                         });
                     }
@@ -76,7 +76,7 @@ namespace DAL
             return permisos;
         }
 
-        private void CargarHijos(
+        private void CargarHijos_MB29(
             List<Familia_MB29> familias,
             Dictionary<int, Familia_MB29> todas,
             PermisoDAL_MB29 permisoDAL,
@@ -99,9 +99,9 @@ namespace DAL
                     int idFamilia = Convert.ToInt32(reader["IdFamilia"]);
                     if (todas.TryGetValue(idFamilia, out var familia))
                     {
-                        familia.Hijos.Add(new Permiso_MB29
+                        familia.Hijos_MB29.Add(new Permiso_MB29
                         {
-                            Id = Convert.ToInt32(reader["IdPermiso"]),
+                            Id_MB29 = Convert.ToInt32(reader["IdPermiso"]),
                             Nombre = reader["Nombre"].ToString()
                         });
                     }
@@ -123,7 +123,7 @@ namespace DAL
                     if (todas.TryGetValue(idPadre, out var padre) &&
                         todas.TryGetValue(idHija, out var hija))
                     {
-                        padre.Hijos.Add(hija);
+                        padre.Hijos_MB29.Add(hija);
                     }
                 }
             }
@@ -131,7 +131,7 @@ namespace DAL
             conectar.Desconectar_MB29();
         }
 
-        public void Guardar(Familia_MB29 familia)
+        public void GuardarFamilia_MB29(Familia_MB29 familia)
         {
             var conectar = new ConexionDB_MB29();
             var conexion = conectar.Conectar_MB29();
@@ -143,13 +143,13 @@ namespace DAL
             using (SqlCommand cmd = new SqlCommand(query, conexion))
             {
                 cmd.Parameters.AddWithValue("@Nombre", familia.Nombre);
-                familia.IdFamilia = Convert.ToInt32(cmd.ExecuteScalar());
+                familia.IdFamilia_MB29 = Convert.ToInt32(cmd.ExecuteScalar());
             }
 
             conectar.Desconectar_MB29();
         }
 
-        public void Eliminar(Familia_MB29 familia)
+        public void EliminarFamilia_MB29(Familia_MB29 familia)
         {
             var conectar = new ConexionDB_MB29();
             var conexion = conectar.Conectar_MB29();
@@ -158,7 +158,7 @@ namespace DAL
             using (SqlCommand cmd = new SqlCommand(
                 "DELETE FROM FamiliaPermiso WHERE IdFamilia = @Id", conexion))
             {
-                cmd.Parameters.AddWithValue("@Id", familia.IdFamilia);
+                cmd.Parameters.AddWithValue("@Id", familia.IdFamilia_MB29);
                 cmd.ExecuteNonQuery();
             }
 
@@ -166,21 +166,21 @@ namespace DAL
                 "DELETE FROM FamiliaFamilia WHERE IdFamiliaPadre = @Id OR IdFamiliaHija = @Id",
                 conexion))
             {
-                cmd.Parameters.AddWithValue("@Id", familia.IdFamilia);
+                cmd.Parameters.AddWithValue("@Id", familia.IdFamilia_MB29);
                 cmd.ExecuteNonQuery();
             }
 
             using (SqlCommand cmd = new SqlCommand(
                 "DELETE FROM Familia WHERE IdFamilia = @Id", conexion))
             {
-                cmd.Parameters.AddWithValue("@Id", familia.IdFamilia);
+                cmd.Parameters.AddWithValue("@Id", familia.IdFamilia_MB29);
                 cmd.ExecuteNonQuery();
             }
 
             conectar.Desconectar_MB29();
         }
 
-        public void AgregarPermiso(Familia_MB29 familia, Permiso_MB29 permiso)
+        public void AgregarPermiso_MB29(Familia_MB29 familia, Permiso_MB29 permiso)
         {
             var conectar = new ConexionDB_MB29();
             var conexion = conectar.Conectar_MB29();
@@ -189,15 +189,15 @@ namespace DAL
 
             using (SqlCommand cmd = new SqlCommand(query, conexion))
             {
-                cmd.Parameters.AddWithValue("@IdFamilia", familia.IdFamilia);
-                cmd.Parameters.AddWithValue("@IdPermiso", permiso.Id);
+                cmd.Parameters.AddWithValue("@IdFamilia", familia.IdFamilia_MB29);
+                cmd.Parameters.AddWithValue("@IdPermiso", permiso.Id_MB29);
                 cmd.ExecuteNonQuery();
             }
 
             conectar.Desconectar_MB29();
         }
 
-        public void EliminarPermiso(Familia_MB29 familia, Permiso_MB29 permiso)
+        public void EliminarPermiso_MB29(Familia_MB29 familia, Permiso_MB29 permiso)
         {
             var conectar = new ConexionDB_MB29();
             var conexion = conectar.Conectar_MB29();
@@ -206,15 +206,15 @@ namespace DAL
 
             using (SqlCommand cmd = new SqlCommand(query, conexion))
             {
-                cmd.Parameters.AddWithValue("@IdFamilia", familia.IdFamilia);
-                cmd.Parameters.AddWithValue("@IdPermiso", permiso.Id);
+                cmd.Parameters.AddWithValue("@IdFamilia", familia.IdFamilia_MB29);
+                cmd.Parameters.AddWithValue("@IdPermiso", permiso.Id_MB29);
                 cmd.ExecuteNonQuery();
             }
 
             conectar.Desconectar_MB29();
         }
 
-        public List<Rol_MB29> ObtenerRolesQueUsanFamilia(int idFamilia)
+        public List<Rol_MB29> ObtenerRolesQueUsanFamilia_MB29(int idFamilia)
         {
             var roles = new List<Rol_MB29>();
             var conectar = new ConexionDB_MB29();
@@ -233,7 +233,7 @@ namespace DAL
                     {
                         roles.Add(new Rol_MB29
                         {
-                            IdRol = Convert.ToInt32(reader["IdRol"]),
+                            IdRol_MB29 = Convert.ToInt32(reader["IdRol"]),
                             Nombre = reader["Nombre"].ToString()
                         });
                     }
@@ -242,6 +242,23 @@ namespace DAL
 
             conectar.Desconectar_MB29();
             return roles;
+        }
+
+        public void AgregarSubfamilia_MB29(Familia_MB29 padre, Familia_MB29 hija)
+        {
+            var conectar = new ConexionDB_MB29();
+            var conexion = conectar.Conectar_MB29();
+
+            string query = "INSERT INTO FamiliaFamilia (IdFamiliaPadre, IdFamiliaHija) VALUES (@Padre, @Hija)";
+
+            using (SqlCommand cmd = new SqlCommand(query, conexion))
+            {
+                cmd.Parameters.AddWithValue("@Padre", padre.IdFamilia_MB29);
+                cmd.Parameters.AddWithValue("@Hija", hija.IdFamilia_MB29);
+                cmd.ExecuteNonQuery();
+            }
+
+            conectar.Desconectar_MB29();
         }
     }
 }

@@ -12,37 +12,54 @@ namespace BLL
     {
         private readonly RolDAL_MB29 rolDAL = new RolDAL_MB29();
 
-        public List<Rol_MB29> ObtenerRoles()
+        public List<Rol_MB29> ObtenerRoles_MB29()
         {
-            return rolDAL.ObtenerTodos();
+            return rolDAL.ObtenerTodosRoles_MB29();
         }
 
-        public void GuardarRol(Rol_MB29 rol)
+        public void GuardarRol_MB29(Rol_MB29 rol)
         {
             if (string.IsNullOrWhiteSpace(rol.Nombre))
                 throw new Exception("El nombre del rol no puede estar vacío.");
 
-            rolDAL.Guardar(rol);
+            rolDAL.GuardarRol_MB29(rol);
         }
 
-        public void Eliminar(Rol_MB29 rol)
+        public void EliminarRol_MB29(Rol_MB29 rol)
         {
-            if (rolDAL.EstaEnUso(rol))
+            if (rolDAL.EstaEnUso_MB29(rol))
                 throw new Exception("El rol está asignado a uno o más usuarios y no puede eliminarse.");
 
-            rolDAL.Eliminar(rol);
+            rolDAL.EliminarRol_MB29(rol);
         }
 
-        public void AgregarComponente(Rol_MB29 rol, ComponentePermiso_MB29 componente)
+        public void AgregarComponente_MB29(Rol_MB29 rol, ComponentePermiso_MB29 componente)
         {
-            // Valida permisos repetidos usando el composite
-            rol.Agregar(componente);
+            //Valida permisos repetidos usando composite
+            rol.AgregarComponenteARol_MB29(componente);
 
-            // Persiste según tipo
             if (componente is Familia_MB29 familia)
-                rolDAL.AgregarFamilia(rol, familia);
+                rolDAL.AgregarFamiliaARol_MB29(rol, familia);
             else if (componente is Permiso_MB29 permiso)
-                rolDAL.AgregarPermiso(rol, permiso);
+                rolDAL.AgregarPermisoARol_MB29(rol, permiso);
+        }
+
+        public void EliminarFamilia_MB29(Rol_MB29 rol, Familia_MB29 familia)
+        {
+            rolDAL.EliminarFamiliaDeRol_MB29(rol, familia);
+            //Actualiza en memoria sin recargar todo
+            var enMemoria = rol.Componentes_MB29.OfType<Familia_MB29>()
+                               .FirstOrDefault(f => f.IdFamilia_MB29 == familia.IdFamilia_MB29);
+            if (enMemoria != null) rol.Componentes_MB29.Remove(enMemoria);
+        }
+
+        public void EliminarPermiso_MB29(Rol_MB29 rol, Permiso_MB29 permiso)
+        {
+            rolDAL.EliminarPermisoDeRol_MB29(rol, permiso);
+            //Actualiza en memoria sin recargar todo
+            var enMemoria = rol.Componentes_MB29.OfType<Permiso_MB29>()
+                               .FirstOrDefault(p => p.Id_MB29 == permiso.Id_MB29);
+            if (enMemoria != null) rol.Componentes_MB29.Remove(enMemoria);
         }
     }
 }

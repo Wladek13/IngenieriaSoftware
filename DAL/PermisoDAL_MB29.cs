@@ -11,7 +11,7 @@ namespace DAL
 {
   public  class PermisoDAL_MB29
     {
-        public List<Permiso_MB29> ObtenerTodos()
+        public List<Permiso_MB29> ObtenerTodosPermisos_MB29()
         {
             var permisos = new List<Permiso_MB29>();
             var conectar = new ConexionDB_MB29();
@@ -26,7 +26,7 @@ namespace DAL
                 {
                     permisos.Add(new Permiso_MB29
                     {
-                        Id = Convert.ToInt32(reader["IdPermiso"]),
+                        Id_MB29 = Convert.ToInt32(reader["IdPermiso"]),
                         Nombre = reader["Nombre"].ToString()
                     });
                 }

@@ -16,17 +16,16 @@ using System.Windows.Forms;
 
 namespace IngenieriaSoftware
 {
-    public partial class FormBitacora_MB29: Form, IObserverIdioma, IObserverSesion_MB29
+    public partial class FormBitacora_MB29: Form, IObserverIdioma_MB29, IObserverSesion_MB29
     {
         public FormBitacora_MB29()
         {
             InitializeComponent();
-            Gestoridioma_MB29.Instancia.Agregar_MB29(this);
-            actualizar_MB29(Gestoridioma_MB29.Instancia.IdiomaActual);
-            SessionManager_MB29.Instancia_MB29.AgregarObserverSesion(this);
+            Gestoridioma_MB29.Instancia_MB29.Agregar_MB29(this);
+            actualizar_MB29(Gestoridioma_MB29.Instancia_MB29.IdiomaActual_MB29);
+            SessionManager_MB29.Instancia_MB29.AgregarObserverSesion_MB29(this);
         }
 
-        //Cuando el SessionManager notifica, el form se cierra solo
         public void SesionCerrada_MB29()
         {
             if (this.InvokeRequired)
@@ -37,8 +36,7 @@ namespace IngenieriaSoftware
 
         protected override void OnFormClosed(FormClosedEventArgs e)
         {
-            //Se desregistra si el usuario cierra el form manualmente
-            SessionManager_MB29.Instancia_MB29.EliminarObserverSesion(this);
+            SessionManager_MB29.Instancia_MB29.EliminarObserverSesion_MB29(this);
             base.OnFormClosed(e);
         }
 
@@ -50,7 +48,7 @@ namespace IngenieriaSoftware
         private void button4_Click(object sender, EventArgs e)
         {
            
-            this.Hide();
+            this.Close();
         }
 
         private void FormBitacora_MB29_Load(object sender, EventArgs e)
@@ -81,15 +79,15 @@ namespace IngenieriaSoftware
             if (dataGridView1.SelectedRows.Count == 0) return;
 
             DataGridViewRow fila = dataGridView1.SelectedRows[0];
-            var usuario = fila.Cells["Usuario_MB29"].Value.ToString();
-            var user = UsuarioBLL_MB29.Instancia.ObtenerUsuarioPorNombre_MB29(usuario);
+            var usuarioLogin = fila.Cells["usuario_MB29"].Value?.ToString();
+            var user = UsuarioBLL_MB29.Instancia.ObtenerUsuarioPorNombre_MB29(usuarioLogin);
 
-            NombreTxt.Text = user.Nombre_MB29;
-            ApellidoTxt.Text = user.Apellido_MB29;
-            CBModulo.SelectedItem = fila.Cells["Modulo_MB29"].Value.ToString();
-            LoginTxt.Text = fila.Cells["Usuario_MB29"].Value.ToString();
-            CBAccion.SelectedItem = fila.Cells["Accion_MB29"].Value.ToString();
-            CriticidadTxt.Text = fila.Cells["Criticidad_MB29"].Value.ToString();    
+            NombreTxt.Text = user?.Nombre_MB29 ?? "(usuario eliminado)";
+            ApellidoTxt.Text = user?.Apellido_MB29 ?? "";
+            CBModulo.SelectedItem = fila.Cells["modulo_MB29"].Value?.ToString();
+            LoginTxt.Text = usuarioLogin;
+            CBAccion.SelectedItem = fila.Cells["accion_MB29"].Value?.ToString();
+            CriticidadTxt.Text = fila.Cells["Criticidad_MB29"].Value?.ToString();
         }
 
         private void btnLimpiar_Click(object sender, EventArgs e)
@@ -147,7 +145,7 @@ namespace IngenieriaSoftware
             dataGridView1.DataSource = resultado;
         }
 
-        private void ExportarPDF()
+        private void ExportarPDF_MB29()
         {
             string carpeta = Path.Combine(Application.StartupPath, "pdf");
             if (!Directory.Exists(carpeta))
@@ -172,7 +170,7 @@ namespace IngenieriaSoftware
             tabla.SpacingBefore = 12f;
             tabla.SpacingAfter = 12f;
 
-            // encabezados
+            //encabezados
             foreach (DataGridViewColumn columna in dataGridView1.Columns)
             {
                 if (columna.Visible)
@@ -181,7 +179,7 @@ namespace IngenieriaSoftware
                 }
             }
 
-            // filas
+            //filas
             foreach (DataGridViewRow fila in dataGridView1.Rows)
             {
                 if (!fila.IsNewRow)
@@ -212,25 +210,25 @@ namespace IngenieriaSoftware
 
         private void btnImprimir_Click(object sender, EventArgs e)
         {
-            ExportarPDF();
+            ExportarPDF_MB29();
         }
 
         public void actualizar_MB29(string idioma)
         {
-            var g = Gestoridioma_MB29.Instancia;
-            this.Text = g.Traducir("bitacora_titulo");
-            label1.Text = g.Traducir("bitacora_lbl_nombre");
-            label2.Text = g.Traducir("bitacora_lbl_apellido");
-            label3.Text = g.Traducir("bitacora_lbl_login");
-            label4.Text = g.Traducir("bitacora_lbl_fecha_inicio");
-            label5.Text = g.Traducir("bitacora_lbl_fecha_salida");
-            label6.Text = g.Traducir("bitacora_lbl_modulo");
-            label8.Text = g.Traducir("bitacora_lbl_criticidad");
-            label9.Text = g.Traducir("bitacora_lbl_accion");
-            btnAplicar.Text = g.Traducir("bitacora_btn_aplicar");
-            btnLimpiar.Text = g.Traducir("bitacora_btn_limpiar");
-            btnImprimir.Text = g.Traducir("bitacora_btn_imprimir");
-            button4.Text = g.Traducir("bitacora_btn_salir");
+            var g = Gestoridioma_MB29.Instancia_MB29;
+            this.Text = g.Traducir_MB29("bitacora_titulo");
+            label1.Text = g.Traducir_MB29("bitacora_lbl_nombre");
+            label2.Text = g.Traducir_MB29("bitacora_lbl_apellido");
+            label3.Text = g.Traducir_MB29("bitacora_lbl_login");
+            label4.Text = g.Traducir_MB29("bitacora_lbl_fecha_inicio");
+            label5.Text = g.Traducir_MB29("bitacora_lbl_fecha_salida");
+            label6.Text = g.Traducir_MB29("bitacora_lbl_modulo");
+            label8.Text = g.Traducir_MB29("bitacora_lbl_criticidad");
+            label9.Text = g.Traducir_MB29("bitacora_lbl_accion");
+            btnAplicar.Text = g.Traducir_MB29("bitacora_btn_aplicar");
+            btnLimpiar.Text = g.Traducir_MB29("bitacora_btn_limpiar");
+            btnImprimir.Text = g.Traducir_MB29("bitacora_btn_imprimir");
+            button4.Text = g.Traducir_MB29("bitacora_btn_salir");
         }
 
         private void CBModulo_SelectedIndexChanged(object sender, EventArgs e)

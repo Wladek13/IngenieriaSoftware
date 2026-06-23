@@ -69,7 +69,7 @@ namespace BLL_MB29
                     Recargar_MB29();
                 }
 
-                SessionManager_MB29.Instancia_MB29.IniciarSesion(user);
+                SessionManager_MB29.Instancia_MB29.IniciarSesion_MB29(user);
 
                 BitacoraBLL_MB29.instancia.Registrar_MB29(
                     SessionManager_MB29.Instancia_MB29.UsuarioActual_MB29.Usuario_MB29,
@@ -278,7 +278,7 @@ namespace BLL_MB29
 
         public void CerrarSesion_MB29(UsuarioServicio_MB29 usuario)
         {
-            SessionManager_MB29.Instancia_MB29.CerrarSesion();
+            SessionManager_MB29.Instancia_MB29.CerrarSesion_MB29();
 
             BitacoraBLL_MB29.instancia.Registrar_MB29(
                 usuario.Usuario_MB29,

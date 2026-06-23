@@ -59,11 +59,11 @@
     <Compile Include="FormBitacora_MB29.Designer.cs">
       <DependentUpon>FormBitacora_MB29.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormFamilias.cs">
+    <Compile Include="FormFamilias_MB29.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormFamilias.Designer.cs">
-      <DependentUpon>FormFamilias.cs</DependentUpon>
+    <Compile Include="FormFamilias_MB29.Designer.cs">
+      <DependentUpon>FormFamilias_MB29.cs</DependentUpon>
     </Compile>
     <Compile Include="FormGESTIONUSER_MB29.cs">
       <SubType>Form</SubType>
@@ -89,19 +89,19 @@
     <Compile Include="FormCambiarContaseña_MB29.Designer.cs">
       <DependentUpon>FormCambiarContaseña_MB29.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormRoles.cs">
+    <Compile Include="FormRoles_MB29.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormRoles.Designer.cs">
-      <DependentUpon>FormRoles.cs</DependentUpon>
+    <Compile Include="FormRoles_MB29.Designer.cs">
+      <DependentUpon>FormRoles_MB29.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FormBitacora_MB29.resx">
       <DependentUpon>FormBitacora_MB29.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormFamilias.resx">
-      <DependentUpon>FormFamilias.cs</DependentUpon>
+    <EmbeddedResource Include="FormFamilias_MB29.resx">
+      <DependentUpon>FormFamilias_MB29.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormGESTIONUSER_MB29.resx">
       <DependentUpon>FormGESTIONUSER_MB29.cs</DependentUpon>
@@ -115,8 +115,8 @@
     <EmbeddedResource Include="FormCambiarContaseña_MB29.resx">
       <DependentUpon>FormCambiarContaseña_MB29.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormRoles.resx">
-      <DependentUpon>FormRoles.cs</DependentUpon>
+    <EmbeddedResource Include="FormRoles_MB29.resx">
+      <DependentUpon>FormRoles_MB29.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

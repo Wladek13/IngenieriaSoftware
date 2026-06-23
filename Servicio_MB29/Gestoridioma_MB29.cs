@@ -10,50 +10,50 @@ namespace Servicio_MB29
 {
     public class Gestoridioma_MB29 : ISujetoComponente
     {
-        private static Gestoridioma_MB29 _instancia;
-        public static Gestoridioma_MB29 Instancia
+        private static Gestoridioma_MB29 _instancia_MB29;
+        public static Gestoridioma_MB29 Instancia_MB29
         {
             get
             {
-                if (_instancia == null)
-                    _instancia = new Gestoridioma_MB29();
-                return _instancia;
+                if (_instancia_MB29 == null)
+                    _instancia_MB29 = new Gestoridioma_MB29();
+                return _instancia_MB29;
             }
         }
 
         private Gestoridioma_MB29()
         {
-            IdiomaActual = "ES";
-            CargarJson(IdiomaActual);
+            IdiomaActual_MB29 = "ES";
+            CargarJson_MB29(IdiomaActual_MB29);
         }
 
-        public string IdiomaActual { get; private set; }
+        public string IdiomaActual_MB29 { get; private set; }
 
-        private Dictionary<string, string> _traducciones;
-        private readonly List<IObserverIdioma> _observers = new List<IObserverIdioma>();
+        private Dictionary<string, string> _traducciones_MB29;
+        private readonly List<IObserverIdioma_MB29> _observers_MB29 = new List<IObserverIdioma_MB29>();
 
        
-        public void Agregar_MB29(IObserverIdioma observer)
+        public void Agregar_MB29(IObserverIdioma_MB29 observer)
         {
-            if (!_observers.Contains(observer))
-                _observers.Add(observer);
+            if (!_observers_MB29.Contains(observer))
+                _observers_MB29.Add(observer);
         }
 
-        public void Eliminar_MB29(IObserverIdioma observer)
+        public void Eliminar_MB29(IObserverIdioma_MB29 observer)
         {
-            _observers.Remove(observer);
+            _observers_MB29.Remove(observer);
         }
 
         public void Notificar_MB29()
         {
-            foreach (var obs in new List<IObserverIdioma>(_observers))
-                obs.actualizar_MB29(IdiomaActual); 
+            foreach (var obs in new List<IObserverIdioma_MB29>(_observers_MB29))
+                obs.actualizar_MB29(IdiomaActual_MB29); 
         }
 
-        public void CambiarIdioma(string idioma)
+        public void CambiarIdioma_MB29(string idioma)
         {
-            IdiomaActual = idioma;
-            CargarJson(idioma);
+            IdiomaActual_MB29 = idioma;
+            CargarJson_MB29(idioma);
 
             var usuario = SessionManager_MB29.Instancia_MB29.UsuarioActual_MB29;
             if (usuario != null)
@@ -62,23 +62,23 @@ namespace Servicio_MB29
             Notificar_MB29();
         }
 
-        public void AplicarIdiomaUsuario()
+        public void AplicarIdiomaUsuario_MB29()
         {
             var usuario = SessionManager_MB29.Instancia_MB29.UsuarioActual_MB29;
-            IdiomaActual = usuario.UltimoIdioma_MB29;
-            CargarJson(IdiomaActual);
+            IdiomaActual_MB29 = usuario.UltimoIdioma_MB29;
+            CargarJson_MB29(IdiomaActual_MB29);
             Notificar_MB29();
         }
 
-        public string Traducir(string clave)
+        public string Traducir_MB29(string clave)
         {
-            if (_traducciones != null && _traducciones.ContainsKey(clave))
-                return _traducciones[clave];
+            if (_traducciones_MB29 != null && _traducciones_MB29.ContainsKey(clave))
+                return _traducciones_MB29[clave];
             return clave; // si no encuentra la clave, devuelve la clave misma
         }
 
        
-        private void CargarJson(string idioma)
+        private void CargarJson_MB29(string idioma)
         {
             try
             {
@@ -86,12 +86,12 @@ namespace Servicio_MB29
                 if (File.Exists(ruta))
                 {
                     string json = File.ReadAllText(ruta);
-                    _traducciones = JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
+                    _traducciones_MB29 = JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
                 }
             }
             catch (Exception)
             {
-                _traducciones = new Dictionary<string, string>();
+                _traducciones_MB29 = new Dictionary<string, string>();
             }
         }
     }

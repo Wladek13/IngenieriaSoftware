@@ -12,16 +12,16 @@ using Servicio_MB29;
 
 namespace IngenieriaSoftware
 {
-    public partial class FormGESTIONPERFIL : Form, IObserverSesion_MB29
+    public partial class FormGESTIONPERFIL_MB29 : Form, IObserverSesion_MB29
     {
-        private readonly FamiliaBLL_MB29 familiaBLL = new FamiliaBLL_MB29();
-        private readonly PermisoBLL_MB29 permisoBLL = new PermisoBLL_MB29();
-        public FormGESTIONPERFIL()
+        private readonly FamiliaBLL_MB29 familiaBLL_MB29 = new FamiliaBLL_MB29();
+        private readonly PermisoBLL_MB29 permisoBLL_MB29 = new PermisoBLL_MB29();
+        public FormGESTIONPERFIL_MB29()
         {
             InitializeComponent();
-            CargarFamilias();
-            CargarPermisos();
-            SessionManager_MB29.Instancia_MB29.AgregarObserverSesion(this);
+            CargarFamilias_MB29();
+            CargarPermisos_MB29();
+            SessionManager_MB29.Instancia_MB29.AgregarObserverSesion_MB29(this);
         }
 
         //Cuando el SessionManager notifica, el form se cierra solo
@@ -36,7 +36,7 @@ namespace IngenieriaSoftware
         protected override void OnFormClosed(FormClosedEventArgs e)
         {
             //Se desregistra si el usuario cierra el form manualmente
-            SessionManager_MB29.Instancia_MB29.EliminarObserverSesion(this);
+            SessionManager_MB29.Instancia_MB29.EliminarObserverSesion_MB29(this);
             base.OnFormClosed(e);
         }
 
@@ -51,9 +51,10 @@ namespace IngenieriaSoftware
             try
             {
                 var familia = new Familia_MB29 { Nombre = txtFamilia.Text.Trim() };
-                familiaBLL.GuardarFamilia(familia);
+                familiaBLL_MB29.GuardarFamilia_MB29(familia);
                 txtFamilia.Clear();
-                CargarFamilias();
+                CargarFamilias_MB29();
+                CargarPermisos_MB29();
                 MessageBox.Show("Familia creada correctamente.");
             }
             catch (Exception ex)
@@ -62,27 +63,36 @@ namespace IngenieriaSoftware
             }
         }
 
-        private void CargarFamilias()
+        private void CargarFamilias_MB29()
         {
-            var familias = new FamiliaBLL_MB29().ObtenerFamilias();
+            var familias = new FamiliaBLL_MB29().ObtenerFamilias_MB29();
             LBFamilias.DataSource = null;
             LBFamilias.DataSource = familias;
             LBFamilias.DisplayMember = "Nombre";
         }
 
-        private void CargarPermisos()
+        private void CargarPermisos_MB29()
         {
-            var permisos = new PermisoBLL_MB29().ObtenerPermisos();
+            //Permisos sueltos
+            var permisos = permisoBLL_MB29.ObtenerPermisos_MB29().Cast<ComponentePermiso_MB29>();
+
+            //Familias que tengan un permiso
+            var familias = familiaBLL_MB29.ObtenerFamilias_MB29()
+                                     .Where(f => f.ObtenerPermisos_MB29().Count > 0)
+                                     .Cast<ComponentePermiso_MB29>();
+
+            var todo = permisos.Concat(familias).ToList();
+
             LBPermisos.DataSource = null;
-            LBPermisos.DataSource = permisos;
+            LBPermisos.DataSource = todo;
             LBPermisos.DisplayMember = "Nombre";
         }
 
-        private void CargarFamiliasPermisos()
+        private void CargarFamiliasPermisos_MB29()
         {
             if (LBFamilias.SelectedItem == null) return;
             var seleccionado = (Familia_MB29)LBFamilias.SelectedItem;
-            var permisos = familiaBLL.PermisosFamilia(seleccionado);
+            var permisos = familiaBLL_MB29.PermisosFamilia_MB29(seleccionado);
             LBPermisosFamilia.DataSource = null;
             LBPermisosFamilia.DataSource = permisos;
             LBPermisosFamilia.DisplayMember = "Nombre";
@@ -99,8 +109,8 @@ namespace IngenieriaSoftware
             try
             {
                 var familia = (Familia_MB29)LBFamilias.SelectedItem;
-                familiaBLL.Eliminar(familia);
-                CargarFamilias();
+                familiaBLL_MB29.EliminarFamilia_MB29(familia);
+                CargarFamilias_MB29();
                 MessageBox.Show("Familia eliminada.");
             }
             catch (Exception ex)
@@ -121,8 +131,9 @@ namespace IngenieriaSoftware
             {
                 var familia = (Familia_MB29)LBFamilias.SelectedItem;
                 var componente = (ComponentePermiso_MB29)LBPermisos.SelectedItem;
-                familiaBLL.AgregarComponente(familia, componente);
+                familiaBLL_MB29.AgregarComponente_MB29(familia, componente);
                 MessageBox.Show("Permiso agregado correctamente.");
+                CargarFamiliasPermisos_MB29();
             }
             catch (Exception ex)
             {
@@ -147,8 +158,8 @@ namespace IngenieriaSoftware
             {
                 var familia = (Familia_MB29)LBFamilias.SelectedItem;
                 var permiso = (Permiso_MB29)LBPermisosFamilia.SelectedItem;
-                familiaBLL.EliminarPermiso(familia, permiso);
-                CargarFamiliasPermisos(); //Recargar LBPermisosFamilia
+                familiaBLL_MB29.EliminarPermiso_MB29(familia, permiso);
+                CargarFamiliasPermisos_MB29();
                 MessageBox.Show("Permiso eliminado.");
             }
             catch (Exception ex)
@@ -159,7 +170,7 @@ namespace IngenieriaSoftware
 
         private void LBFamilias_SelectedIndexChanged(object sender, EventArgs e)
         {
-            CargarFamiliasPermisos();
+            CargarFamiliasPermisos_MB29();
         }
     }
 }

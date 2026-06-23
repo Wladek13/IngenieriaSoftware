@@ -1,6 +1,6 @@
 ﻿namespace IngenieriaSoftware
 {
-    partial class FormRoles
+    partial class FormRoles_MB29
     {
         /// <summary>
         /// Required designer variable.
@@ -41,6 +41,12 @@
             this.txtRol = new System.Windows.Forms.TextBox();
             this.btnAgregarFam = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.LBFamiliasRol = new System.Windows.Forms.ListBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.LBPermisosRol = new System.Windows.Forms.ListBox();
+            this.btnEliminarFamR = new System.Windows.Forms.Button();
+            this.btnEliminarPermR = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label2
@@ -63,7 +69,7 @@
             // 
             // btnSalir
             // 
-            this.btnSalir.Location = new System.Drawing.Point(496, 417);
+            this.btnSalir.Location = new System.Drawing.Point(499, 457);
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(75, 23);
             this.btnSalir.TabIndex = 13;
@@ -73,7 +79,7 @@
             // 
             // btnEliminar
             // 
-            this.btnEliminar.Location = new System.Drawing.Point(112, 417);
+            this.btnEliminar.Location = new System.Drawing.Point(125, 199);
             this.btnEliminar.Name = "btnEliminar";
             this.btnEliminar.Size = new System.Drawing.Size(75, 23);
             this.btnEliminar.TabIndex = 12;
@@ -83,7 +89,7 @@
             // 
             // btnCrear
             // 
-            this.btnCrear.Location = new System.Drawing.Point(31, 417);
+            this.btnCrear.Location = new System.Drawing.Point(44, 199);
             this.btnCrear.Name = "btnCrear";
             this.btnCrear.Size = new System.Drawing.Size(75, 23);
             this.btnCrear.TabIndex = 11;
@@ -93,11 +99,11 @@
             // 
             // btnAgregarPerm
             // 
-            this.btnAgregarPerm.Location = new System.Drawing.Point(429, 381);
+            this.btnAgregarPerm.Location = new System.Drawing.Point(411, 381);
             this.btnAgregarPerm.Name = "btnAgregarPerm";
-            this.btnAgregarPerm.Size = new System.Drawing.Size(126, 23);
+            this.btnAgregarPerm.Size = new System.Drawing.Size(144, 23);
             this.btnAgregarPerm.TabIndex = 10;
-            this.btnAgregarPerm.Text = "Agregar permiso";
+            this.btnAgregarPerm.Text = "Agregar Permiso al Rol";
             this.btnAgregarPerm.UseVisualStyleBackColor = true;
             this.btnAgregarPerm.Click += new System.EventHandler(this.btnAgregarPerm_Click);
             // 
@@ -122,8 +128,9 @@
             this.LBRoles.FormattingEnabled = true;
             this.LBRoles.Location = new System.Drawing.Point(37, 41);
             this.LBRoles.Name = "LBRoles";
-            this.LBRoles.Size = new System.Drawing.Size(215, 303);
+            this.LBRoles.Size = new System.Drawing.Size(215, 108);
             this.LBRoles.TabIndex = 16;
+            this.LBRoles.SelectedIndexChanged += new System.EventHandler(this.LBRoles_SelectedIndexChanged);
             // 
             // label3
             // 
@@ -136,7 +143,7 @@
             // 
             // txtRol
             // 
-            this.txtRol.Location = new System.Drawing.Point(91, 381);
+            this.txtRol.Location = new System.Drawing.Point(104, 163);
             this.txtRol.Margin = new System.Windows.Forms.Padding(2);
             this.txtRol.Name = "txtRol";
             this.txtRol.Size = new System.Drawing.Size(170, 20);
@@ -144,28 +151,88 @@
             // 
             // btnAgregarFam
             // 
-            this.btnAgregarFam.Location = new System.Drawing.Point(429, 116);
+            this.btnAgregarFam.Location = new System.Drawing.Point(411, 116);
             this.btnAgregarFam.Name = "btnAgregarFam";
-            this.btnAgregarFam.Size = new System.Drawing.Size(126, 23);
+            this.btnAgregarFam.Size = new System.Drawing.Size(144, 23);
             this.btnAgregarFam.TabIndex = 19;
-            this.btnAgregarFam.Text = "Agregar Familia";
+            this.btnAgregarFam.Text = "Agregar Familia al Rol";
             this.btnAgregarFam.UseVisualStyleBackColor = true;
             this.btnAgregarFam.Click += new System.EventHandler(this.btnAgregarFam_Click);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(28, 384);
+            this.label4.Location = new System.Drawing.Point(41, 166);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(58, 13);
             this.label4.TabIndex = 20;
             this.label4.Text = "Nuevo Rol";
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(40, 239);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(139, 13);
+            this.label5.TabIndex = 22;
+            this.label5.Text = "Familias en rol seleccionado";
+            // 
+            // LBFamiliasRol
+            // 
+            this.LBFamiliasRol.FormattingEnabled = true;
+            this.LBFamiliasRol.Location = new System.Drawing.Point(40, 255);
+            this.LBFamiliasRol.Name = "LBFamiliasRol";
+            this.LBFamiliasRol.Size = new System.Drawing.Size(212, 69);
+            this.LBFamiliasRol.TabIndex = 21;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(40, 367);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(144, 13);
+            this.label6.TabIndex = 24;
+            this.label6.Text = "Permisos en rol seleccionado";
+            // 
+            // LBPermisosRol
+            // 
+            this.LBPermisosRol.FormattingEnabled = true;
+            this.LBPermisosRol.Location = new System.Drawing.Point(40, 383);
+            this.LBPermisosRol.Name = "LBPermisosRol";
+            this.LBPermisosRol.Size = new System.Drawing.Size(212, 69);
+            this.LBPermisosRol.TabIndex = 23;
+            // 
+            // btnEliminarFamR
+            // 
+            this.btnEliminarFamR.Location = new System.Drawing.Point(125, 330);
+            this.btnEliminarFamR.Name = "btnEliminarFamR";
+            this.btnEliminarFamR.Size = new System.Drawing.Size(149, 23);
+            this.btnEliminarFamR.TabIndex = 25;
+            this.btnEliminarFamR.Text = "Eliminar Familia del Rol";
+            this.btnEliminarFamR.UseVisualStyleBackColor = true;
+            this.btnEliminarFamR.Click += new System.EventHandler(this.btnEliminarFamR_Click);
+            // 
+            // btnEliminarPermR
+            // 
+            this.btnEliminarPermR.Location = new System.Drawing.Point(125, 458);
+            this.btnEliminarPermR.Name = "btnEliminarPermR";
+            this.btnEliminarPermR.Size = new System.Drawing.Size(149, 23);
+            this.btnEliminarPermR.TabIndex = 26;
+            this.btnEliminarPermR.Text = "Eliminar Permiso del Rol";
+            this.btnEliminarPermR.UseVisualStyleBackColor = true;
+            this.btnEliminarPermR.Click += new System.EventHandler(this.btnEliminarPermR_Click);
+            // 
             // FormRoles
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(596, 450);
+            this.ClientSize = new System.Drawing.Size(596, 498);
+            this.Controls.Add(this.btnEliminarPermR);
+            this.Controls.Add(this.btnEliminarFamR);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.LBPermisosRol);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.LBFamiliasRol);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.btnAgregarFam);
             this.Controls.Add(this.txtRol);
@@ -201,5 +268,11 @@
         private System.Windows.Forms.TextBox txtRol;
         private System.Windows.Forms.Button btnAgregarFam;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ListBox LBFamiliasRol;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ListBox LBPermisosRol;
+        private System.Windows.Forms.Button btnEliminarFamR;
+        private System.Windows.Forms.Button btnEliminarPermR;
     }
 }

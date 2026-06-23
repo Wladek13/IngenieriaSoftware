@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Servicio_MB29
 {
-    public interface IObserverIdioma
+    public interface IObserverIdioma_MB29
     {
         void actualizar_MB29(string idioma);
     }
