@@ -98,9 +98,17 @@ namespace IngenieriaSoftware
                 return;
             }
 
+            string nombre = txtRol.Text.Trim();
+
+            if (rolBLL.ExisteRol_MB29(nombre))
+            {
+                MessageBox.Show("Ya existe un rol con ese nombre.");
+                return;
+            }
+
             try
             {
-                var rol = new Rol_MB29 { Nombre = txtRol.Text.Trim() };
+                var rol = new Rol_MB29 { Nombre = nombre };
                 rolBLL.GuardarRol_MB29(rol);
                 txtRol.Clear();
                 CargarRoles_MB29();

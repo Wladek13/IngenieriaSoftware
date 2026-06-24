@@ -71,5 +71,11 @@ namespace BLL
 
             new BLL.DigitoVerificadorBLL_MB29().GuardarDVRol_MB29();
         }
+
+        public bool ExisteRol_MB29(string nombre)
+        {
+            return ObtenerRoles_MB29()
+                .Any(f => f.Nombre.Equals(nombre, StringComparison.OrdinalIgnoreCase));
+        }
     }
 }

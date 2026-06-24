@@ -96,6 +96,11 @@ namespace BLL
             new BLL.DigitoVerificadorBLL_MB29().GuardarDVFamilia_MB29();
         }
 
+        public bool ExisteFamilia_MB29(string nombre)
+        {
+            return ObtenerFamilias_MB29()
+                .Any(f => f.Nombre.Equals(nombre, StringComparison.OrdinalIgnoreCase));
+        }
 
         private bool ContieneComponente_MB29(Familia_MB29 familia, ComponentePermiso_MB29 buscado)
         {

@@ -59,9 +59,17 @@ namespace IngenieriaSoftware
                 return;
             }
 
+            string nombre = txtFamilia.Text.Trim();
+
+            if (familiaBLL_MB29.ExisteFamilia_MB29(nombre))
+            {
+                MessageBox.Show("Ya existe una familia con ese nombre.");
+                return;
+            }
+
             try
             {
-                var familia = new Familia_MB29 { Nombre = txtFamilia.Text.Trim() };
+                var familia = new Familia_MB29 { Nombre = nombre };
                 familiaBLL_MB29.GuardarFamilia_MB29(familia);
                 txtFamilia.Clear();
                 CargarFamilias_MB29();
