@@ -33,6 +33,8 @@ namespace BLL
             //Actualizo los hijos en memoria
             var hijo = familia.Hijos_MB29.OfType<Permiso_MB29>().FirstOrDefault(p => p.Id_MB29 == permiso.Id_MB29);
             if (hijo != null) familia.Hijos_MB29.Remove(hijo);
+
+            new BLL.DigitoVerificadorBLL_MB29().GuardarDVFamilia_MB29();
         }
 
         public List<Familia_MB29> ObtenerFamilias_MB29()
@@ -47,6 +49,7 @@ namespace BLL
 
             familiaDAL.GuardarFamilia_MB29(familia);
 
+            new BLL.DigitoVerificadorBLL_MB29().GuardarDVFamilia_MB29();
         }
 
         public List<Permiso_MB29> PermisosFamilia_MB29(Familia_MB29 familia)
@@ -76,7 +79,9 @@ namespace BLL
                 throw new Exception("La familia está asignada a uno o más roles.");
 
             familiaDAL.EliminarFamilia_MB29(familia);
+            new BLL.DigitoVerificadorBLL_MB29().GuardarDVFamilia_MB29();
         }
+
         public void AgregarComponente_MB29(Familia_MB29 familia, ComponentePermiso_MB29 componente)
         {
             familia.AgregarComponente_MB29(componente);
@@ -87,6 +92,8 @@ namespace BLL
                 familiaDAL.AgregarSubfamilia_MB29(familia, subfamilia);
             else
                 throw new Exception("Tipo de componente no reconocido.");
+
+            new BLL.DigitoVerificadorBLL_MB29().GuardarDVFamilia_MB29();
         }
 
 

@@ -12,13 +12,24 @@ using Servicio_MB29;
 
 namespace IngenieriaSoftware
 {
-    public partial class FormGESTIONPERFIL_MB29 : Form, IObserverSesion_MB29
+    public partial class FormGESTIONPERFIL_MB29 : Form, IObserverSesion_MB29, IObserverIdioma_MB29
     {
         private readonly FamiliaBLL_MB29 familiaBLL_MB29 = new FamiliaBLL_MB29();
         private readonly PermisoBLL_MB29 permisoBLL_MB29 = new PermisoBLL_MB29();
         public FormGESTIONPERFIL_MB29()
         {
             InitializeComponent();
+
+            Gestoridioma_MB29.Instancia_MB29.Agregar_MB29(this);
+            actualizar_MB29(Gestoridioma_MB29.Instancia_MB29.IdiomaActual_MB29);
+
+            if (!SessionManager_MB29.Instancia_MB29.UsuarioActual_MB29.Rol_MB29.TienePermiso_MB29(Permisos_MB29.GestionPerfiles))
+            {
+                MessageBox.Show("No tiene permiso para acceder a esta sección.");
+                this.Load += (s, e) => this.Close();
+                return;
+            }
+
             CargarFamilias_MB29();
             CargarPermisos_MB29();
             SessionManager_MB29.Instancia_MB29.AgregarObserverSesion_MB29(this);
@@ -171,6 +182,20 @@ namespace IngenieriaSoftware
         private void LBFamilias_SelectedIndexChanged(object sender, EventArgs e)
         {
             CargarFamiliasPermisos_MB29();
+        }
+
+        public void actualizar_MB29(string idioma)
+        {
+            var g = Gestoridioma_MB29.Instancia_MB29;
+            label1.Text = g.Traducir_MB29("familias_lbl_permisos_disponibles");
+            label2.Text = g.Traducir_MB29("familias_lbl_familias");
+            label3.Text = g.Traducir_MB29("familias_lbl_nueva_familia");
+            label4.Text = g.Traducir_MB29("familias_lbl_permisos_familia");
+            btnCrear.Text = g.Traducir_MB29("familias_btn_crear");
+            btnEliminar.Text = g.Traducir_MB29("familias_btn_eliminar");
+            btnAgregar.Text = g.Traducir_MB29("familias_btn_agregar");
+            btnElimPerm.Text = g.Traducir_MB29("familias_btn_eliminar_permiso");
+            btnSalir.Text = g.Traducir_MB29("familias_btn_salir");
         }
     }
 }

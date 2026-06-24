@@ -1,6 +1,7 @@
-﻿using Servicio_MB29;
+﻿using BLL;
 using BLL_MB29;
 using IngenieriaSoftware;
+using Servicio_MB29;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -43,7 +44,7 @@ namespace UI_MB29
             }
 
             // Verificar si ya hay sesión activa
-            if (SessionManager_MB29.Instancia_MB29.HaySesion())
+            if (SessionManager_MB29.Instancia_MB29.HaySesion_MB29())
             {
                 MessageBox.Show("Ya hay un usuario logueado.");
                 return;

@@ -21,6 +21,14 @@ namespace IngenieriaSoftware
         public FormBitacora_MB29()
         {
             InitializeComponent();
+
+            if (!SessionManager_MB29.Instancia_MB29.UsuarioActual_MB29.Rol_MB29.TienePermiso_MB29(Permisos_MB29.Bitacora))
+            {
+                MessageBox.Show("No tiene permiso para acceder a esta sección.");
+                this.Load += (s, e) => this.Close();
+                return;
+            }
+
             Gestoridioma_MB29.Instancia_MB29.Agregar_MB29(this);
             actualizar_MB29(Gestoridioma_MB29.Instancia_MB29.IdiomaActual_MB29);
             SessionManager_MB29.Instancia_MB29.AgregarObserverSesion_MB29(this);

@@ -1,8 +1,10 @@
-﻿using System;
+﻿using BLL;
+using DAL_MB29;
+using Servicio_MB29;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Servicio_MB29;
-using DAL_MB29;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace BLL_MB29
 {
@@ -70,6 +72,20 @@ namespace BLL_MB29
                 }
 
                 SessionManager_MB29.Instancia_MB29.IniciarSesion_MB29(user);
+
+                var roles = new BLL.RolBLL_MB29().ObtenerRoles_MB29();
+                user.Rol_MB29 = roles.FirstOrDefault(r => r.IdRol_MB29 == user.IdRol_MB29);
+
+                var irregularidades = new BLL.DigitoVerificadorBLL_MB29().VerificarDVCompleto_MB29();
+                if (irregularidades.Count > 0)
+                {
+                    string detalle = string.Join("\n", irregularidades);
+                    System.Windows.Forms.MessageBox.Show(
+                        "Se detectaron modificaciones externas a los datos:\n\n" + detalle,
+                        "Alerta de integridad",
+                        System.Windows.Forms.MessageBoxButtons.OK
+                    );
+                }
 
                 BitacoraBLL_MB29.instancia.Registrar_MB29(
                     SessionManager_MB29.Instancia_MB29.UsuarioActual_MB29.Usuario_MB29,
@@ -174,6 +190,8 @@ namespace BLL_MB29
                 $"Se creó el usuario {usuario.Usuario_MB29}",
                 criticidad: 5
             );
+
+            new BLL.DigitoVerificadorBLL_MB29().GuardarDVPersona_MB29();
         }
 
         public void Desbloquear_MB29(UsuarioServicio_MB29 usuario)
@@ -204,6 +222,8 @@ namespace BLL_MB29
                     $"{usuario.Usuario_MB29}",
                     criticidad: 1
                 );
+
+            new BLL.DigitoVerificadorBLL_MB29().GuardarDVPersona_MB29();
         }
 
         public void Modificar_MB29(UsuarioServicio_MB29 usuario)
@@ -222,6 +242,8 @@ namespace BLL_MB29
               $"Se modificó el usuario {usuario.Usuario_MB29}",
                criticidad: 4
              );
+
+            new BLL.DigitoVerificadorBLL_MB29().GuardarDVPersona_MB29();
         }
 
         public void Deshabilitar_MB29(UsuarioServicio_MB29 usuario)
@@ -244,11 +266,23 @@ namespace BLL_MB29
                 $"Se deshabilitó el usuario {usuario.Usuario_MB29}",
                 criticidad: 5
             );
+
+            new BLL.DigitoVerificadorBLL_MB29().GuardarDVPersona_MB29();
         }
 
         public List<UsuarioServicio_MB29> ObtenerUsuarios_MB29()
         {
-            return _usuarios;
+            var usuarios = _repo.CargarUsuarios_MB29();
+            var roles = new RolBLL_MB29().ObtenerRoles_MB29()
+                                         .ToDictionary(r => r.IdRol_MB29);
+
+            foreach (var u in usuarios)
+            {
+                if (roles.TryGetValue(u.IdRol_MB29, out var rol))
+                    u.Rol_MB29 = rol;
+            }
+
+            return usuarios;
         }
 
         public void Recargar_MB29()
@@ -267,6 +301,8 @@ namespace BLL_MB29
                 $"El usuario {usuario.Usuario_MB29} cambió su contraseña",
                 criticidad: 1
             );
+
+            new BLL.DigitoVerificadorBLL_MB29().GuardarDVPersona_MB29();
         }
 
         public void MarcarPrimerLoginUsado_MB29(UsuarioServicio_MB29 usuario)
@@ -274,6 +310,7 @@ namespace BLL_MB29
             usuario.PrimerLogin_MB29 = false;
             _repo.MarcarPrimerLoginUsado_MB29(usuario);
             Recargar_MB29();
+            new BLL.DigitoVerificadorBLL_MB29().GuardarDVPersona_MB29();
         }
 
         public void CerrarSesion_MB29(UsuarioServicio_MB29 usuario)
@@ -287,11 +324,15 @@ namespace BLL_MB29
                 $"Usuario {usuario.Usuario_MB29} cerró sesión",
                 criticidad: 1
             );
+
+            new BLL.DigitoVerificadorBLL_MB29().GuardarDVPersona_MB29();
         }
 
         public void GuardarIdioma_MB29(UsuarioServicio_MB29 usuario)
         {
             _repo.GuardarIdioma_MB29(usuario);
+
+            new BLL.DigitoVerificadorBLL_MB29().GuardarDVPersona_MB29();
         }
     }
 }

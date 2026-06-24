@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="BitacoraServicio_MB29.cs" />
     <Compile Include="ComponentePermiso_MB29.cs" />
+    <Compile Include="DigitoVerificador_MB29.cs" />
     <Compile Include="Encriptador_MB29.cs" />
     <Compile Include="Familia_MB29.cs" />
     <Compile Include="Gestoridioma_MB29.cs" />
@@ -54,6 +55,7 @@
     <Compile Include="IObserverIdioma_MB29.cs" />
     <Compile Include="IObserverSesion_MB29.cs" />
     <Compile Include="ISujetoComponente.cs" />
+    <Compile Include="Permisos_MB29.cs" />
     <Compile Include="Permiso_MB29.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rol_MB29.cs" />

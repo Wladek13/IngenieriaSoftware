@@ -25,7 +25,7 @@ namespace Servicio_MB29
 
         public UsuarioServicio_MB29 UsuarioActual_MB29 { get; private set; }
 
-        public bool HaySesion()
+        public bool HaySesion_MB29()
         {
             return UsuarioActual_MB29 != null;
         }

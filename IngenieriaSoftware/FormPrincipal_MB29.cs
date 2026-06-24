@@ -18,25 +18,27 @@ namespace IngenieriaSoftware
         public FormPrincipal_MB29()
         {
             InitializeComponent();
-            if (SessionManager_MB29.Instancia_MB29.UsuarioActual_MB29.IdRol_MB29 == 1)
-            {
-                administradorToolStripMenuItem.Enabled = true;
-                usuarioToolStripMenuItem.Enabled = true;
-                rF1ToolStripMenuItem.Enabled = true;
-                rF2ToolStripMenuItem.Enabled = true;
-                ayudaToolStripMenuItem.Enabled = true;
-            }
-            else
-            {
-                administradorToolStripMenuItem.Enabled = false;
-                administradorToolStripMenuItem.Visible = false;
-                usuarioToolStripMenuItem.Enabled = true;
-                rF1ToolStripMenuItem.Enabled = false;
-                rF1ToolStripMenuItem.Visible = false;
-                rF2ToolStripMenuItem.Enabled = false;
-                rF2ToolStripMenuItem.Visible = false;
-                ayudaToolStripMenuItem.Enabled = true;
-            }
+            var sm = SessionManager_MB29.Instancia_MB29.UsuarioActual_MB29;
+
+            bool puedeUsuarios = sm.Rol_MB29?.TienePermiso_MB29(Permisos_MB29.GestionUsuarios) ?? false;
+            bool puedePerfiles = sm.Rol_MB29?.TienePermiso_MB29(Permisos_MB29.GestionPerfiles) ?? false;
+            bool puedeBitacora = sm.Rol_MB29?.TienePermiso_MB29(Permisos_MB29.Bitacora) ?? false;
+            bool puedeNegocio = sm.Rol_MB29?.TienePermiso_MB29(Permisos_MB29.Negocio) ?? false;
+
+            // Menú Administrador y sus hijos
+            gestionDeUsuariosToolStripMenuItem.Visible = puedeUsuarios;
+            gestionDePerfilesToolStripMenuItem.Visible = puedePerfiles;
+            bitacoraDeEventosToolStripMenuItem.Visible = puedeBitacora;
+            administradorToolStripMenuItem.Visible = puedeUsuarios || puedePerfiles || puedeBitacora;
+
+            // Negocio
+            rF1ToolStripMenuItem.Visible = puedeNegocio;
+            rF2ToolStripMenuItem.Visible = puedeNegocio;
+
+            // Usuario y Ayuda siempre visibles
+            usuarioToolStripMenuItem.Enabled = true;
+            ayudaToolStripMenuItem.Enabled = true;
+
             //Registrar como observer y aplicar idioma actual
             Gestoridioma_MB29.Instancia_MB29.Agregar_MB29(this);
             actualizar_MB29(Gestoridioma_MB29.Instancia_MB29.IdiomaActual_MB29);
@@ -97,17 +99,19 @@ namespace IngenieriaSoftware
         public void actualizar_MB29(string idioma)
         {
             var g = Gestoridioma_MB29.Instancia_MB29;
-            this.Text = g.Traducir_MB29("menu_administrador");
+            this.Text = g.Traducir_MB29("app_titulo");
             administradorToolStripMenuItem.Text = g.Traducir_MB29("menu_administrador");
             gestionDeUsuariosToolStripMenuItem.Text = g.Traducir_MB29("menu_gestion_usuarios");
             gestionDePerfilesToolStripMenuItem.Text = g.Traducir_MB29("menu_gestion_perfiles");
             bitacoraDeEventosToolStripMenuItem.Text = g.Traducir_MB29("menu_bitacora");
-            cerrarSesionToolStripMenuItem.Text = g.Traducir_MB29("menu_cerrar_sesion");
             usuarioToolStripMenuItem.Text = g.Traducir_MB29("menu_usuario");
             cambiarContraseñaToolStripMenuItem.Text = g.Traducir_MB29("menu_cambiar_contrasena");
             cambairIdiomaToolStripMenuItem.Text = g.Traducir_MB29("menu_cambiar_idioma");
             cerrarSesionToolStripMenuItem1.Text = g.Traducir_MB29("menu_cerrar_sesion");
             iniciarSesionToolStripMenuItem.Text = g.Traducir_MB29("menu_iniciar_sesion");
+            ayudaToolStripMenuItem.Text = g.Traducir_MB29("menu_ayuda");
+            gestionRolesToolStripMenuItem.Text = g.Traducir_MB29("menu_gestion_roles");
+            gestionFamiliasToolStripMenuItem.Text = g.Traducir_MB29("menu_gestion_familias");
         }
 
         private void españolToolStripMenuItem_Click(object sender, EventArgs e)

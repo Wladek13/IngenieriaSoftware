@@ -1,7 +1,8 @@
-﻿using Servicio_MB29;
+﻿using BLL;
 using BLL_MB29;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
+using Servicio_MB29;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -22,6 +23,13 @@ namespace IngenieriaSoftware
         public FormGESTIONUSER_MB29()
         {
             InitializeComponent();
+
+            if (!SessionManager_MB29.Instancia_MB29.UsuarioActual_MB29.Rol_MB29.TienePermiso_MB29(Permisos_MB29.GestionUsuarios))
+            {
+                MessageBox.Show("No tiene permiso para acceder a esta sección.");
+                this.Load += (s, e) => this.Close();
+                return;
+            }
 
             CargarDGV_MB29();
 
@@ -199,15 +207,26 @@ namespace IngenieriaSoftware
                         //Generar credenciales automáticas
                         var (usuarioGen, contraGen) = UsuarioBLL_MB29.AutogenerarCredenciales_MB29(nombre, apellido, dni);
 
-                        //Asignar prioridad segun combo box
-                        int idrol = Convert.ToInt32(RolCB.SelectedValue);
+                        //Asignar rol segun combo box
+                        var rolSeleccionado = (Rol_MB29)RolCB.SelectedItem;
+                        if (rolSeleccionado == null)
+                        {
+                            MessageBox.Show("Seleccione un rol.");
+                            return;
+                        }
+                        if (rolSeleccionado.ObtenerPermisos_MB29().Count == 0)
+                        {
+                            MessageBox.Show("No se puede asignar un rol vacío a un usuario.");
+                            return;
+                        }
+                        int idrol = rolSeleccionado.IdRol_MB29;
 
                         //Crear usuario y guardarlo
                         var nuevoUsuario = new UsuarioServicio_MB29(
-                            id: 0,               //No llega a la BD
+                            id: 0, //No llega a la BD
                             usuario: usuarioGen,
                             contra: contraGen,
-                            esHash: false,       //false porque es texto plano, la BLL lo hashea
+                            esHash: false, //false porque es texto plano, la BLL lo hashea
                             nombre: nombre,
                             apellido: apellido,
                             dni: dni,
@@ -243,12 +262,17 @@ namespace IngenieriaSoftware
                         {
                             seleccionado.Email_MB29 = EmailTxt.Text;
                         }
-                        if(RolCB.SelectedItem != null)
+                        if (RolCB.SelectedItem != null)
                         {
-                            int idrol = Convert.ToInt32(RolCB.SelectedValue);
-                            seleccionado.IdRol_MB29 = idrol;
+                            var rolSeleccionado = (Rol_MB29)RolCB.SelectedItem;
+                            if (rolSeleccionado.ObtenerPermisos_MB29().Count == 0)
+                            {
+                                MessageBox.Show("No se puede asignar un rol vacío a un usuario.");
+                                return;
+                            }
+                            seleccionado.IdRol_MB29 = rolSeleccionado.IdRol_MB29;
                         }
-                        
+
                         UsuarioBLL_MB29.Instancia.Modificar_MB29(seleccionado);
                         MessageBox.Show($"El usuario {seleccionado.Nombre_MB29} fue modificado correctamente.");
                         CargarDGV_MB29();
@@ -302,48 +326,42 @@ namespace IngenieriaSoftware
             List<UsuarioServicio_MB29> usuarios = UsuarioBLL_MB29.Instancia.ObtenerUsuarios_MB29();
             DGVUsuarios.DataSource = usuarios;
 
+            string[] columnasMostrar = new[]
+            {
+                "IdPersona_MB29", "Nombre_MB29", "Apellido_MB29",
+                "Email_MB29", "DNI_MB29", "Usuario_MB29",
+                "Rol_MB29", "Bloqueado_MB29", "Estado_MB29"
+            };
+
+            foreach (DataGridViewColumn col in DGVUsuarios.Columns)
+                col.Visible = columnasMostrar.Contains(col.Name);
+
             DGVUsuarios.Columns["IdPersona_MB29"].DisplayIndex = 0;
             DGVUsuarios.Columns["Nombre_MB29"].DisplayIndex = 1;
             DGVUsuarios.Columns["Apellido_MB29"].DisplayIndex = 2;
             DGVUsuarios.Columns["Email_MB29"].DisplayIndex = 3;
-            DGVUsuarios.Columns["Telefono_MB29"].DisplayIndex = 4;
-            DGVUsuarios.Columns["DNI_MB29"].DisplayIndex = 5;
-            DGVUsuarios.Columns["Usuario_MB29"].DisplayIndex = 6;
-            DGVUsuarios.Columns["IdRol_MB29"].DisplayIndex = 7;
-            DGVUsuarios.Columns["Bloqueado_MB29"].DisplayIndex = 8;
-            DGVUsuarios.Columns["Estado_MB29"].DisplayIndex = 9;
-            DGVUsuarios.Columns["PrimerLogin_MB29"].DisplayIndex = 10;
-
-            if (DGVUsuarios.Columns["PassHash_MB29"] != null)
-                DGVUsuarios.Columns["PassHash_MB29"].Visible = false;
-            if (DGVUsuarios.Columns["Contra_MB29"] != null)
-                DGVUsuarios.Columns["Contra_MB29"].Visible = false;
-            if (DGVUsuarios.Columns["IntentosErrados_MB29"] != null)
-                DGVUsuarios.Columns["IntentosErrados_MB29"].Visible = false;
+            DGVUsuarios.Columns["DNI_MB29"].DisplayIndex = 4;
+            DGVUsuarios.Columns["Usuario_MB29"].DisplayIndex = 5;
+            DGVUsuarios.Columns["Rol_MB29"].DisplayIndex = 6;
+            DGVUsuarios.Columns["Bloqueado_MB29"].DisplayIndex = 7;
+            DGVUsuarios.Columns["Estado_MB29"].DisplayIndex = 8;
         }
+
+
+        private readonly RolBLL_MB29 _rolBLL = new RolBLL_MB29();
 
         private void FormGESTIONUSER_MB29_Load(object sender, EventArgs e)
         {
-            var roles = new List<Rol_MB29>
-            {
-                new Rol_MB29 { IdRol_MB29 = 1, Nombre = "Administrador" },
-                new Rol_MB29 { IdRol_MB29 = 2, Nombre = "Usuario" }
-            };
+            CargarRolesCB_MB29();
+        }
 
+        private void CargarRolesCB_MB29()
+        {
+            var roles = _rolBLL.ObtenerRoles_MB29();
+            RolCB.DataSource = null;
             RolCB.DataSource = roles;
-            RolCB.DisplayMember = "NombreRol";
-            RolCB.ValueMember = "IdRol";
-
-            if (DGVUsuarios.Columns.Contains("Bloqueado"))
-                DGVUsuarios.Columns.Remove("Bloqueado");
-
-            var colBloqueado = new DataGridViewCheckBoxColumn();
-            colBloqueado.Name = "Bloqueado";
-            colBloqueado.HeaderText = "Bloqueado";
-            colBloqueado.DataPropertyName = "Bloqueado";
-            colBloqueado.ReadOnly = true;
-
-            DGVUsuarios.Columns.Add(colBloqueado);
+            RolCB.DisplayMember = "Nombre";
+            RolCB.ValueMember = "IdRol_MB29";
         }
 
         private void BloqueadosRB_CheckedChanged(object sender, EventArgs e)
@@ -378,6 +396,11 @@ namespace IngenieriaSoftware
         private void RBTodos_CheckedChanged(object sender, EventArgs e)
         {
             FiltrarUsuarios_MB29();
+        }
+
+        private void FormGESTIONUSER_MB29_Activated(object sender, EventArgs e)
+        {
+            CargarRolesCB_MB29();
         }
     }
 }

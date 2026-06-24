@@ -32,5 +32,16 @@ namespace Servicio_MB29
 
             Componentes_MB29.Add(componente);
         }
+
+        public bool TienePermiso_MB29(int idPermiso)
+        {
+            if (SessionManager_MB29.Instancia_MB29.UsuarioActual_MB29?.Rol_MB29 == null) return false;
+            return SessionManager_MB29.Instancia_MB29.UsuarioActual_MB29.Rol_MB29.ObtenerPermisos_MB29().Contains(idPermiso);
+        }
+
+        public override string ToString()
+        {
+            return Nombre ?? "";
+        }
     }
 }

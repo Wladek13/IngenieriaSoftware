@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace IngenieriaSoftware
 {
-    public partial class FormRoles_MB29 : Form, IObserverSesion_MB29
+    public partial class FormRoles_MB29 : Form, IObserverSesion_MB29, IObserverIdioma_MB29
     {
 
         private readonly RolBLL_MB29 rolBLL = new RolBLL_MB29();
@@ -21,6 +21,17 @@ namespace IngenieriaSoftware
         public FormRoles_MB29()
         {
             InitializeComponent();
+
+            Gestoridioma_MB29.Instancia_MB29.Agregar_MB29(this);
+            actualizar_MB29(Gestoridioma_MB29.Instancia_MB29.IdiomaActual_MB29);
+
+            if (!SessionManager_MB29.Instancia_MB29.UsuarioActual_MB29.Rol_MB29.TienePermiso_MB29(Permisos_MB29.GestionPerfiles))
+            {
+                MessageBox.Show("No tiene permiso para acceder a esta sección.");
+                this.Load += (s, e) => this.Close();
+                return;
+            }
+
             CargarRoles_MB29();
             CargarFamilias_MB29();
             CargarPermisos_MB29();
@@ -256,6 +267,25 @@ namespace IngenieriaSoftware
             {
                 MessageBox.Show("Error al eliminar permiso: " + ex.Message);
             }
+        }
+
+        public void actualizar_MB29(string idioma)
+        {
+            var g = Gestoridioma_MB29.Instancia_MB29;
+            this.Text = g.Traducir_MB29("roles_titulo");
+            label3.Text = g.Traducir_MB29("roles_lbl_roles");
+            label4.Text = g.Traducir_MB29("roles_lbl_nuevo_rol");
+            label2.Text = g.Traducir_MB29("roles_lbl_familias_disponibles");
+            label1.Text = g.Traducir_MB29("roles_lbl_permisos_disponibles");
+            label5.Text = g.Traducir_MB29("roles_lbl_familias_del_rol");
+            label6.Text = g.Traducir_MB29("roles_lbl_permisos_del_rol");
+            btnCrear.Text = g.Traducir_MB29("roles_btn_crear");
+            btnEliminar.Text = g.Traducir_MB29("roles_btn_eliminar");
+            btnAgregarFam.Text = g.Traducir_MB29("roles_btn_agregar_familia");
+            btnAgregarPerm.Text = g.Traducir_MB29("roles_btn_agregar_permiso");
+            btnEliminarFamR.Text = g.Traducir_MB29("roles_btn_quitar_familia");
+            btnEliminarPermR.Text = g.Traducir_MB29("roles_btn_quitar_permiso");
+            btnSalir.Text = g.Traducir_MB29("roles_btn_salir");
         }
     }
 }

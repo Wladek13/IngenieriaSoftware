@@ -14,7 +14,7 @@ namespace BLL
 
         public List<Permiso_MB29> ObtenerPermisos_MB29()
         {
-            return permisoDAL.ObtenerTodosPermisos_MB29();
+            return permisoDAL.ObtenerTodosPermisos_MB29();           
         }
     }
 }

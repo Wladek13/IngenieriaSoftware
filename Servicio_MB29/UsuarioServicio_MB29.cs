@@ -117,6 +117,13 @@ namespace Servicio_MB29
             set { _primerLogin_MB29 = value; }
         }
 
+        private Rol_MB29 _rol;
+        [DisplayName("Rol")]
+        public Rol_MB29 _Rol_MB29
+        {
+            get { return _rol; }
+            set { _rol = value; }
+        }
         private string _ultimoidioma_MB29;
         [DisplayName("IdiomaPreferido")]
         public string UltimoIdioma_MB29

@@ -309,6 +309,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "FormGESTIONUSER_MB29";
             this.Text = "Form1";
+            this.Activated += new System.EventHandler(this.FormGESTIONUSER_MB29_Activated);
             this.Load += new System.EventHandler(this.FormGESTIONUSER_MB29_Load);
             ((System.ComponentModel.ISupportInitialize)(this.DGVUsuarios)).EndInit();
             this.ResumeLayout(false);
