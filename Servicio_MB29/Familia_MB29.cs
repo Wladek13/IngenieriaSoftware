@@ -25,37 +25,28 @@ namespace Servicio_MB29
 
         public void AgregarComponente_MB29(ComponentePermiso_MB29 componente)
         {
-            if (componente == this)
+            if (componente is Familia_MB29 fComp && fComp.IdFamilia_MB29 == this.IdFamilia_MB29)
                 throw new Exception("Una familia no puede contenerse a sí misma.");
 
-            if (componente is Familia_MB29 familia &&
-                ContieneFamilia_MB29(familia, this))
-            {
+            if (componente is Familia_MB29 familia && ContieneFamilia_MB29(familia, this.IdFamilia_MB29))
                 throw new Exception("Se produciría una referencia circular.");
-            }
 
             if (ObtenerPermisos_MB29().Overlaps(componente.ObtenerPermisos_MB29()))
-            {
                 throw new Exception("Existen permisos repetidos.");
-            }
 
             Hijos_MB29.Add(componente);
         }
 
-        private bool ContieneFamilia_MB29(Familia_MB29 origen, Familia_MB29 buscada)
+        private bool ContieneFamilia_MB29(Familia_MB29 origen, int idBuscado)
         {
             foreach (var hijo in origen.Hijos_MB29)
             {
-                if (hijo == buscada)
+                if (hijo is Familia_MB29 f && f.IdFamilia_MB29 == idBuscado)
                     return true;
 
-                if (hijo is Familia_MB29 familia &&
-                    ContieneFamilia_MB29(familia, buscada))
-                {
+                if (hijo is Familia_MB29 subfamilia && ContieneFamilia_MB29(subfamilia, idBuscado))
                     return true;
-                }
             }
-
             return false;
         }
     }

@@ -44,6 +44,23 @@ namespace DAL
             return familias;
         }
 
+        public void EliminarSubfamilia_MB29(Familia_MB29 padre, Familia_MB29 hija)
+        {
+            var conectar = new ConexionDB_MB29();
+            var conexion = conectar.Conectar_MB29();
+
+            using (SqlCommand comando = new SqlCommand(
+                "DELETE FROM FamiliaFamilia WHERE IdFamiliaPadre = @Padre AND IdFamiliaHija = @Hija",
+                conexion))
+            {
+                comando.Parameters.AddWithValue("@Padre", padre.IdFamilia_MB29);
+                comando.Parameters.AddWithValue("@Hija", hija.IdFamilia_MB29);
+                comando.ExecuteNonQuery();
+            }
+
+            conectar.Desconectar_MB29();
+        }
+
         public List<Permiso_MB29> PermisosFamilia_MB29(Familia_MB29 familia)
         {
             var permisos = new List<Permiso_MB29>();

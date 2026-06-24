@@ -110,10 +110,11 @@ namespace IngenieriaSoftware
         private void CargarFamiliasPermisos_MB29()
         {
             if (LBFamilias.SelectedItem == null) return;
-            var seleccionado = (Familia_MB29)LBFamilias.SelectedItem;
-            var permisos = familiaBLL_MB29.PermisosFamilia_MB29(seleccionado);
+
+            var familia = (Familia_MB29)LBFamilias.SelectedItem;
+
             LBPermisosFamilia.DataSource = null;
-            LBPermisosFamilia.DataSource = permisos;
+            LBPermisosFamilia.DataSource = familia.Hijos_MB29.ToList();
             LBPermisosFamilia.DisplayMember = "Nombre";
         }
 
@@ -169,27 +170,33 @@ namespace IngenieriaSoftware
         {
             if (LBFamilias.SelectedItem == null || LBPermisosFamilia.SelectedItem == null)
             {
-                MessageBox.Show("Seleccione una familia y un permiso de esa familia.");
+                MessageBox.Show("Seleccione una familia y un componente de esa familia.");
                 return;
             }
 
             try
             {
                 var familia = (Familia_MB29)LBFamilias.SelectedItem;
-                var permiso = (Permiso_MB29)LBPermisosFamilia.SelectedItem;
-                familiaBLL_MB29.EliminarPermiso_MB29(familia, permiso);
+                var componente = (ComponentePermiso_MB29)LBPermisosFamilia.SelectedItem;
+
+                if (componente is Permiso_MB29 permiso)
+                    familiaBLL_MB29.EliminarPermiso_MB29(familia, permiso);
+                else if (componente is Familia_MB29 subfamilia)
+                    familiaBLL_MB29.EliminarSubfamilia_MB29(familia, subfamilia);
+
                 CargarFamiliasPermisos_MB29();
-                MessageBox.Show("Permiso eliminado.");
+                MessageBox.Show("Componente eliminado.");
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al eliminar permiso: " + ex.Message);
+                MessageBox.Show("Error al eliminar: " + ex.Message);
             }
         }
 
         private void LBFamilias_SelectedIndexChanged(object sender, EventArgs e)
         {
             CargarFamiliasPermisos_MB29();
+            CargarPermisos_MB29();
         }
 
         public void actualizar_MB29(string idioma)

@@ -55,10 +55,10 @@ namespace Servicio_MB29
         public void CerrarSesion_MB29()
         {
             UsuarioActual_MB29 = null;
-            // Notifica a todos los forms registrados
+            //Notifica a todos los forms registrados
             foreach (var obs in new List<IObserverSesion_MB29>(_observersSesion_MB29))
                 obs.SesionCerrada_MB29();
-            _observersSesion_MB29.Clear(); // los forms ya se cerraron, limpiamos la lista
+            _observersSesion_MB29.Clear();
         }
     }
 }

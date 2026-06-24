@@ -35,6 +35,30 @@ namespace BLL
             if (hijo != null) familia.Hijos_MB29.Remove(hijo);
 
             new BLL.DigitoVerificadorBLL_MB29().GuardarDVFamilia_MB29();
+            BitacoraBLL_MB29.instancia.Registrar_MB29(
+                SessionManager_MB29.Instancia_MB29.UsuarioActual_MB29.Usuario_MB29,
+               "Eliminar permiso de familia",
+               "Usuarios",
+               $"{SessionManager_MB29.Instancia_MB29.UsuarioActual_MB29.Usuario_MB29} eliminó un permiso de una familia",
+               criticidad: 4
+            );
+        }
+
+        public void EliminarSubfamilia_MB29(Familia_MB29 padre, Familia_MB29 hija)
+        {
+            familiaDAL.EliminarSubfamilia_MB29(padre, hija);
+            var enMemoria = padre.Hijos_MB29.OfType<Familia_MB29>()
+                                 .FirstOrDefault(f => f.IdFamilia_MB29 == hija.IdFamilia_MB29);
+            if (enMemoria != null) padre.Hijos_MB29.Remove(enMemoria);
+
+            new DigitoVerificadorBLL_MB29().GuardarDVFamilia_MB29();
+            BitacoraBLL_MB29.instancia.Registrar_MB29(
+                SessionManager_MB29.Instancia_MB29.UsuarioActual_MB29.Usuario_MB29,
+               "Eliminar subfamilia de familia",
+               "Usuarios",
+               $"{SessionManager_MB29.Instancia_MB29.UsuarioActual_MB29.Usuario_MB29} eliminó una subfamilia de una familia",
+               criticidad: 4
+            );
         }
 
         public List<Familia_MB29> ObtenerFamilias_MB29()
@@ -50,6 +74,13 @@ namespace BLL
             familiaDAL.GuardarFamilia_MB29(familia);
 
             new BLL.DigitoVerificadorBLL_MB29().GuardarDVFamilia_MB29();
+            BitacoraBLL_MB29.instancia.Registrar_MB29(
+                SessionManager_MB29.Instancia_MB29.UsuarioActual_MB29.Usuario_MB29,
+               "Créación de familia",
+               "Usuarios",
+               $"{SessionManager_MB29.Instancia_MB29.UsuarioActual_MB29.Usuario_MB29} creó una nueva familia",
+               criticidad: 4
+            );
         }
 
         public List<Permiso_MB29> PermisosFamilia_MB29(Familia_MB29 familia)
@@ -80,6 +111,13 @@ namespace BLL
 
             familiaDAL.EliminarFamilia_MB29(familia);
             new BLL.DigitoVerificadorBLL_MB29().GuardarDVFamilia_MB29();
+            BitacoraBLL_MB29.instancia.Registrar_MB29(
+                SessionManager_MB29.Instancia_MB29.UsuarioActual_MB29.Usuario_MB29,
+               "Eliminar una familia",
+               "Usuarios",
+               $"{SessionManager_MB29.Instancia_MB29.UsuarioActual_MB29.Usuario_MB29} eliminó una familia",
+               criticidad: 4
+            );
         }
 
         public void AgregarComponente_MB29(Familia_MB29 familia, ComponentePermiso_MB29 componente)
@@ -94,6 +132,13 @@ namespace BLL
                 throw new Exception("Tipo de componente no reconocido.");
 
             new BLL.DigitoVerificadorBLL_MB29().GuardarDVFamilia_MB29();
+            BitacoraBLL_MB29.instancia.Registrar_MB29(
+                SessionManager_MB29.Instancia_MB29.UsuarioActual_MB29.Usuario_MB29,
+               "Agregar permiso o subfamilia a familia",
+               "Usuarios",
+               $"{SessionManager_MB29.Instancia_MB29.UsuarioActual_MB29.Usuario_MB29} agregó un permiso o una subfamilia a una familia",
+               criticidad: 2
+            );
         }
 
         public bool ExisteFamilia_MB29(string nombre)
